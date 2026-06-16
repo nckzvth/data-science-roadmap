@@ -1,27 +1,28 @@
-# Phased LMS Implementation Plan
+# Roadmap Course Console Implementation Plan
 
-This project is moving from a roadmap tracker into a course workspace. The app should eventually contain original instructional lessons directly in the LMS, with external references used as support, source verification, and optional deepening.
+This project has been reset from a phase tracker into a roadmap-driven course console. The app should behave like a personal LMS with a role-topic map, module queue, course workspace, project studio, resource timing, review gates, and localStorage progress.
 
 The app must not copy full external course or textbook content. Each lesson should be original course material written for this learning path, with links to official/free external resources where they support a specific learning moment.
 
 ## Product Standard
 
-Every section must be rebuilt as a complete course slice before moving to the next section. A section is not complete if only the Course tab has been updated.
+The active app architecture is no longer the old tabbed phase tracker. Every module must connect role-roadmap topics to learn/practice/build/review steps, project evidence, required files, source timing, and a move-on gate.
 
-Each section rebuild must update:
+Each module build must include:
 
-- Course: lesson readings, examples, exercises, checks, labs, assignment gate, evidence tracking.
-- Roadmap: section outcome, prerequisites, handoff into and out of the section, competency gates.
-- Resources: section-filtered source guide with exact use instructions and skip guidance.
-- Projects: project brief, repo/file structure, required artifacts, acceptance criteria, rubric.
-- Planner: week or day sequence, workload split, checkpoint gates, move-on criteria.
-- Accuracy Notes: source audit, verification date, access/cost/staleness warnings, assumptions.
+- Roadmap map: source roadmap topics that justify the module.
+- Course console: original lesson steps with resource links at the point of use.
+- Project studio: project spec, required files, acceptance criteria, review procedure, and handoff.
+- Resource timing: only the resources needed for the active module plus full source library.
+- Review gates: lesson completion, project completion, topic coverage, and move-on criteria.
+- Evidence notes: saved locally per module.
 
 ## Implementation Progress
 
-- Section 0: implemented and deployed as the workflow setup course slice.
-- Section 1: implemented and deployed as the Python Foundations course slice.
-- Section 2: next section to rebuild.
+- Current app: Roadmap Course Console v1.
+- Old section spine: retired as the active visible architecture.
+- Active module sequence: rebuilt from the four roadmap.sh source maps listed below.
+- Next improvement target: deepen individual module lessons one module at a time without changing the new architecture back into the old tracker.
 
 ## Planning References
 
@@ -36,46 +37,59 @@ Use these roadmap.sh paths as recurring alignment checks:
 
 Implementation rule:
 
-- At the start of each section, compare the section scope against the relevant roadmap.sh role map.
+- At the start of each module, compare the module scope against the relevant roadmap.sh role map.
 - Add only the topics that support the intended project outcome.
 - Do not chase every visible roadmap.sh branch at once.
 - Use official docs, textbooks, or full course materials for actual lesson support whenever possible.
-- Record the roadmap.sh comparison in the section Accuracy Notes or Resources tab.
+- Record the roadmap.sh comparison in the Roadmap Map, Resource Timing, or Review Gates views.
+
+## Active Module Spine
+
+The course is now organized as an integrated role path:
+
+1. Workspace, Git, Shell, and Reproducibility.
+2. Data Literacy, Analytics Process, and Spreadsheet Baseline.
+3. SQL, Relational Thinking, and Metric Definitions.
+4. Python Programming for Data Work.
+5. Pandas, Wrangling, and Exploratory Data Analysis.
+6. Statistics, Experimentation, and Model Reasoning.
+7. Visualization, BI, and Stakeholder Communication.
+8. Applied Machine Learning Foundations.
+9. Data Engineering Lifecycle, Warehouses, and Transformation.
+10. Pipelines, Cloud, Containers, and Orchestration.
+11. ML Engineering and MLOps Lifecycle.
+12. Portfolio, Transfer Projects, and Interview Evidence.
 
 ## Course Content Model
 
-Each implemented section should use this model:
+Each implemented module should use this model:
 
-- `id`: stable section id.
-- `unitId`: matching course unit.
-- `phaseId`: matching roadmap phase.
-- `title`: learner-facing section title.
-- `status`: implementation status.
-- `outcome`: concrete capability gained.
-- `gate`: final evidence required before moving on.
-- `sourceAudit`: verified references with verification dates and role in the section.
+- `id`: stable module id.
+- `code`: visible module number.
+- `title`: learner-facing module title.
+- `lane`: role or competency lane.
+- `rolePaths`: Data Analyst, AI/Data Scientist, Data Engineer, and/or MLOps alignment.
+- `sourceTopics`: roadmap.sh topics that justify the module.
+- `purpose`: concrete capability gained.
+- `whyNow`: why the module is placed at this point in the course.
+- `outcomes`: visible learner outcomes.
 - `lessons`: original in-app lessons.
-- `project`: section project spec.
-- `planner`: scheduled implementation/study plan.
-- `roadmap`: prerequisites, unlocks, competency checks.
-- `accuracy`: section-specific source and risk notes.
+- `project`: module project spec.
+- `handoff`: how the module connects to the next module.
 
 Each lesson should include:
 
-- learning objective
-- original explanation
-- key terms
-- worked example
-- common mistakes
-- exact external references to use at that point
-- practice task
-- self-check questions
-- lab output
-- done criteria
+- type: Learn, Practice, Build, or Review.
+- exact external references to use at that point.
+- work steps that produce repo evidence.
+- completion checks.
+- direct handoff into the next lesson or project gate.
 
-## Section Order
+## Superseded Section Order
 
-### Section 0: Technical Workflow Setup
+The notes below describe the previous section plan and are retained only as historical context. They are not the active app architecture.
+
+### Former Section 0: Technical Workflow Setup
 
 Goal: build the learning workspace and standards every future section depends on.
 
@@ -94,7 +108,7 @@ Definition of done:
 - Required files exist in the project spec.
 - The section gate prevents moving on until repo structure and documentation standards exist.
 
-### Section 1: Python Foundations
+### Former Section 1: Python Foundations
 
 Goal: write useful Python scripts for data tasks.
 
@@ -111,7 +125,7 @@ Definition of done:
 
 - `clean_csv.py` runs from the terminal and writes cleaned data plus summary output.
 
-### Section 2: SQL For Analytics
+### Former Section 2: SQL For Analytics
 
 Goal: build analytics SQL skill around grain, joins, dates, windows, cohorts, and metrics.
 
@@ -128,7 +142,7 @@ Definition of done:
 
 - SQL query pack contains auditable questions, grains, assumptions, and sample outputs.
 
-### Section 3: Statistics And Analytical Reasoning
+### Former Section 3: Statistics And Analytical Reasoning
 
 Goal: explain what data can and cannot prove.
 
@@ -145,7 +159,7 @@ Definition of done:
 
 - A notebook separates evidence, assumptions, uncertainty, limitations, and conclusion.
 
-### Section 4: Applied Data Science Project 1A
+### Former Section 4: Applied Data Science Project 1A
 
 Goal: build the first serious analysis project.
 
@@ -162,7 +176,7 @@ Definition of done:
 
 - Project 1A has data dictionary, cleaning, EDA, model evaluation, limitations, and ethical use statement.
 
-### Section 5: Visualization And Communication
+### Former Section 5: Visualization And Communication
 
 Goal: turn analysis into a stakeholder-facing product.
 
@@ -179,7 +193,7 @@ Definition of done:
 
 - Dashboard communicates insight, caveat, and responsible action without hiding limitations.
 
-### Section 6: Data Engineering Foundation
+### Former Section 6: Data Engineering Foundation
 
 Goal: turn analysis into a reproducible pipeline.
 
@@ -196,7 +210,7 @@ Definition of done:
 
 - One documented workflow rebuilds raw, staging, marts, checks, and dashboard-ready outputs.
 
-### Section 7: ML Engineering
+### Former Section 7: ML Engineering
 
 Goal: move from notebook model to reusable model code and a service.
 
@@ -213,7 +227,7 @@ Definition of done:
 
 - Training and prediction run without a notebook, and the API returns documented responses.
 
-### Section 8: MLOps And Responsible ML
+### Former Section 8: MLOps And Responsible ML
 
 Goal: document model lifecycle thinking and responsible operation boundaries.
 
@@ -230,7 +244,7 @@ Definition of done:
 
 - Monitoring, risk, retraining, and intended/prohibited use are explicit.
 
-### Section 9: Transferability Project
+### Former Section 9: Transferability Project
 
 Goal: prove skills transfer outside People Analytics.
 
@@ -247,7 +261,7 @@ Definition of done:
 
 - Second serious project uses clean public data and demonstrates a different domain/data shape.
 
-### Section 10: Portfolio Packaging
+### Former Section 10: Portfolio Packaging
 
 Goal: make the work inspectable and career-facing.
 
@@ -266,10 +280,10 @@ Definition of done:
 
 ## Implementation Rules
 
-- Work one section at a time.
-- Do not proceed to the next section until every tab has been rebuilt for the current section.
+- Work one module at a time.
+- Do not proceed to the next module until the Roadmap Map, Course Console, Project Studio, Resource Timing, and Review Gates views are coherent for the current module.
 - Use official/free sources whenever possible.
 - Prefer durable source references over blog posts.
 - Keep the app static and GitHub Pages compatible unless explicitly changed.
 - Keep localStorage progress and migration stable.
-- Verify browser behavior locally and on GitHub Pages before declaring a section complete.
+- Verify browser behavior locally and on GitHub Pages before declaring a module complete.
