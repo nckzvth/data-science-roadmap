@@ -2108,6 +2108,7 @@ const importFile = document.querySelector("#importFile");
 const defaultState = {
   view: "roadmap",
   selectedPhaseId: "phase-0",
+  selectedProjectId: "project-1a",
   done: {},
   notes: {},
   customLinks: [],
@@ -2137,6 +2138,14 @@ function allResources() {
 
 function phaseById(id) {
   return roadmap.find((phase) => phase.id === id) || roadmap[0];
+}
+
+function projectById(id) {
+  return projects.find((project) => project.id === id) || projects[0];
+}
+
+function phasesForProject(project) {
+  return project.phaseIds.map(phaseById);
 }
 
 function checkableIdsForPhase(phase) {
@@ -2361,7 +2370,6 @@ function renderRoadmapView(phase) {
           <div class="phase-main">
             ${renderPhaseHandoff(phase)}
             ${renderPhaseBriefing(phase)}
-            ${renderProjectSpec(phase)}
             ${renderLearningPath(phase)}
             ${renderProjectGuide(phase)}
             ${renderChecks("Competency Checks", phase.outcomes, "target")}
@@ -2566,6 +2574,7 @@ function renderProjectGuide(phase) {
       </div>
       <h4>${escapeHtml(project.title)}</h4>
       <p>${escapeHtml(project.brief)}</p>
+      ${renderProjectSpec(phase)}
       <div class="instruction-grid">
         <div>
           <strong>Process</strong>
@@ -2598,10 +2607,10 @@ function renderProjectSpec(phase) {
   const spec = phase.spec;
   if (!spec) return "";
   return `
-    <section class="section-card project-spec">
+    <section class="project-spec">
       <div class="section-title">
         <h3>Project Specification</h3>
-        <span class="pill">Concrete scope</span>
+        <span class="pill">Phase ${phase.number}</span>
       </div>
       <div class="spec-grid">
         <div class="spec-main">
@@ -2887,33 +2896,66 @@ function renderResourceCard(resource) {
 }
 
 function renderProjects() {
+  const selectedProject = projectById(state.selectedProjectId);
   return `
     <section class="projects-panel">
       <div class="view-title">
-        <h2><i data-lucide="folder-kanban"></i> Project Outputs</h2>
-        <p>Use these to avoid tutorial drift.</p>
+        <h2><i data-lucide="folder-kanban"></i> Project Workspace</h2>
+        <p>Select a project to load its specs, phases, resources, and acceptance criteria.</p>
       </div>
-      <div class="projects-grid">
-        ${projects.map(renderProjectCard).join("")}
+      <div class="project-workspace">
+        <aside class="project-selector" aria-label="Projects">
+          ${projects.map(renderProjectSelector).join("")}
+        </aside>
+        <div class="project-detail">
+          ${renderProjectDetail(selectedProject)}
+        </div>
       </div>
     </section>
   `;
 }
 
-function renderProjectCard(project) {
+function renderProjectSelector(project) {
   const completed = project.tasks.filter((id) => state.done[id]).length;
   const pct = project.tasks.length ? Math.round((completed / project.tasks.length) * 100) : 0;
+  const activeClass = project.id === state.selectedProjectId ? " is-active" : "";
   return `
-    <article class="project-card">
-      <div class="section-title">
-        <h3>${escapeHtml(project.name)}</h3>
+    <button class="project-select-button${activeClass}" type="button" data-action="select-project" data-project-id="${project.id}">
+      <span>
+        <strong>${escapeHtml(project.name)}</strong>
+        <small>${escapeHtml(project.phaseIds.map((phaseId) => `Phase ${phaseById(phaseId).number}`).join(" + "))}</small>
+      </span>
+      <span class="project-select-meta">
         <span class="status-pill ${pct === 100 ? "done" : pct > 0 ? "active" : "waiting"}">${pct}%</span>
+      </span>
+    </button>
+  `;
+}
+
+function renderProjectDetail(project) {
+  const relatedPhases = phasesForProject(project);
+  const completed = project.tasks.filter((id) => state.done[id]).length;
+  const pct = project.tasks.length ? Math.round((completed / project.tasks.length) * 100) : 0;
+
+  return `
+    <article class="project-card project-detail-card">
+      <div class="project-detail-head">
+        <div>
+          <p class="eyebrow">${escapeHtml(relatedPhases.map((phase) => `Phase ${phase.number}`).join(" + "))}</p>
+          <h3>${escapeHtml(project.name)}</h3>
+        </div>
+        <span class="status-pill ${pct === 100 ? "done" : pct > 0 ? "active" : "waiting"}">${pct}% complete</span>
       </div>
       <p>${escapeHtml(project.summary)}</p>
       <div class="tag-list">
         ${project.skills.map((skill) => `<span class="pill">${escapeHtml(skill)}</span>`).join("")}
       </div>
+      ${renderProjectPhaseLinks(relatedPhases)}
+      ${renderProjectSpecsForPhases(relatedPhases)}
+      ${renderProjectResources(relatedPhases)}
+      ${renderProjectLearningBlocks(relatedPhases)}
       <div class="project-actions">
+        <strong>Deliverable Tracking</strong>
         ${project.tasks
           .map((id) => {
             const label = deliverableLabel(id);
@@ -2927,6 +2969,94 @@ function renderProjectCard(project) {
           .join("")}
       </div>
     </article>
+  `;
+}
+
+function renderProjectPhaseLinks(phases) {
+  return `
+    <div class="project-phase-links">
+      <strong>Roadmap Context</strong>
+      <div>
+        ${phases
+          .map(
+            (phase) => `
+              <button type="button" data-action="select-phase" data-phase-id="${phase.id}">
+                Phase ${phase.number}: ${escapeHtml(phase.title)}
+              </button>
+            `,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderProjectSpecsForPhases(phases) {
+  return `
+    <div class="project-spec-stack">
+      ${phases.map((phase) => renderProjectSpec(phase)).join("")}
+    </div>
+  `;
+}
+
+function renderProjectResources(phases) {
+  const resources = phases.flatMap((phase) => phase.resources.map((resource) => ({ ...resource, phase })));
+  return `
+    <section class="section-card project-resource-panel">
+      <div class="section-title">
+        <h3>Resources Used For This Project</h3>
+        <span class="pill">${resources.length}</span>
+      </div>
+      <div class="project-resource-grid">
+        ${resources
+          .map(
+            ({ phase, ...resource }) => `
+              <a href="${resource.url}" target="_blank" rel="noreferrer">
+                <span>
+                  <strong>${escapeHtml(resource.name)}</strong>
+                  <small>Phase ${phase.number} · ${escapeHtml(resource.type)} · ${escapeHtml(resource.priority)}</small>
+                </span>
+                <i data-lucide="external-link"></i>
+              </a>
+            `,
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderProjectLearningBlocks(phases) {
+  return `
+    <section class="section-card project-learning-panel">
+      <div class="section-title">
+        <h3>Learning Blocks That Feed This Project</h3>
+        <span class="pill">${phases.reduce((count, phase) => count + (phase.steps?.length || 0), 0)}</span>
+      </div>
+      <div class="project-learning-list">
+        ${phases
+          .map(
+            (phase) => `
+              <div>
+                <strong>Phase ${phase.number}: ${escapeHtml(phase.title)}</strong>
+                <ol>
+                  ${(phase.steps || [])
+                    .map(
+                      (step) => `
+                        <li>
+                          <span>${escapeHtml(step.title)}</span>
+                          <small>${escapeHtml(step.output)}</small>
+                        </li>
+                      `,
+                    )
+                    .join("")}
+                </ol>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+    </section>
   `;
 }
 
@@ -3018,6 +3148,13 @@ app.addEventListener("click", (event) => {
 
   if (action === "set-view") {
     state.view = button.dataset.view;
+    saveState();
+    render();
+  }
+
+  if (action === "select-project") {
+    state.selectedProjectId = button.dataset.projectId;
+    state.view = "projects";
     saveState();
     render();
   }

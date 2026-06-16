@@ -32,6 +32,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0) 360px),
     var(--bg);
@@ -885,6 +886,23 @@ h1 {
 .project-spec {
   display: grid;
   gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.project-detail .project-spec {
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.project-detail .project-spec .section-title,
+.project-detail .project-spec .spec-grid {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .spec-grid {
@@ -1134,10 +1152,262 @@ h1 {
   gap: 12px;
 }
 
+.project-workspace {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.34fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.project-selector {
+  position: sticky;
+  top: 102px;
+  display: grid;
+  gap: 8px;
+}
+
+.project-select-button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: start;
+  width: 100%;
+  min-height: 74px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+}
+
+.project-select-button:hover,
+.project-select-button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.project-select-button strong,
+.project-select-button small {
+  display: block;
+}
+
+.project-select-button strong {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.project-select-button small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.project-select-meta {
+  display: flex;
+  justify-content: end;
+}
+
+.project-detail {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .project-card,
 .month-card,
 .accuracy-card {
   padding: 16px;
+}
+
+.project-detail-card {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.project-detail-card > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.project-detail-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.project-detail-head h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.project-detail-card > p,
+.project-detail-card > .tag-list {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.project-phase-links,
+.project-resource-panel,
+.project-learning-panel {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.project-phase-links {
+  display: grid;
+  gap: 10px;
+}
+
+.project-phase-links > strong,
+.project-actions > strong {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-phase-links > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-phase-links button {
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--accent-2);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.project-phase-links button:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.project-spec-stack {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.project-spec-stack > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.project-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.project-resource-grid a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.project-resource-grid a:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.project-resource-grid span {
+  min-width: 0;
+}
+
+.project-resource-grid strong,
+.project-resource-grid small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-resource-grid strong {
+  font-size: 0.86rem;
+}
+
+.project-resource-grid small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.project-resource-grid svg {
+  width: 15px;
+  height: 15px;
+  color: var(--accent-2);
+  flex: 0 0 auto;
+}
+
+.project-learning-list {
+  display: grid;
+  gap: 14px;
+}
+
+.project-learning-list > div {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.project-learning-list strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.project-learning-list ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.project-learning-list li + li {
+  margin-top: 8px;
+}
+
+.project-learning-list span,
+.project-learning-list small {
+  display: block;
+}
+
+.project-learning-list span {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.project-learning-list small {
+  margin-top: 3px;
+  color: var(--muted);
+  line-height: 1.4;
 }
 
 .project-card h3,
@@ -1167,6 +1437,14 @@ h1 {
   display: grid;
   gap: 8px;
   margin-top: 12px;
+}
+
+.project-detail-card .project-actions {
+  margin-top: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
 }
 
 .link-form {
@@ -1227,12 +1505,22 @@ h1 {
   .library-grid,
   .projects-grid,
   .month-grid,
-  .accuracy-grid {
+  .accuracy-grid,
+  .project-resource-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .phase-body {
     grid-template-columns: 1fr;
+  }
+
+  .project-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .project-selector {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1258,6 +1546,11 @@ h1 {
 
   .toolbar,
   .link-form {
+    grid-template-columns: 1fr;
+  }
+
+  .project-selector,
+  .project-resource-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1296,21 +1589,23 @@ h1 {
   .library-grid,
   .projects-grid,
   .month-grid,
-  .accuracy-grid {
+  .accuracy-grid,
+  .project-resource-grid {
     grid-template-columns: 1fr;
   }
 
   .phase-nav {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    scroll-snap-type: x mandatory;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 0;
   }
 
   .phase-nav-button {
-    min-width: 260px;
-    scroll-snap-align: start;
+    min-width: 0;
   }
 
   .phase-banner {
@@ -1347,6 +1642,23 @@ h1 {
   .step-resource-link {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .project-detail-head {
+    flex-direction: column;
+  }
+
+  .project-detail-card > p,
+  .project-detail-card > .tag-list {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .project-phase-links,
+  .project-resource-panel,
+  .project-learning-panel,
+  .project-detail-card .project-actions {
+    width: 100%;
   }
 
   .resource-item {
