@@ -422,6 +422,8 @@ h1 {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+  min-width: 0;
+  max-width: 100%;
   margin: 8px 0 14px;
 }
 
@@ -458,6 +460,8 @@ h1 {
 .project-card,
 .month-card,
 .accuracy-card {
+  min-width: 0;
+  max-width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -725,6 +729,175 @@ h1 {
 .course-evidence {
   display: grid;
   gap: 0;
+}
+
+.section-workspace {
+  min-width: 0;
+}
+
+.section-lesson-stack,
+.section-plan-list {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.section-lesson {
+  scroll-margin-top: 96px;
+}
+
+.section-reading {
+  display: grid;
+  gap: 12px;
+}
+
+.section-reading section {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.section-reading h4,
+.section-reading p,
+.term-grid p,
+.file-spec-list p,
+.source-use-grid p {
+  margin: 0;
+}
+
+.section-reading h4 {
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+.section-reading p,
+.term-grid p,
+.file-spec-list p,
+.source-use-grid p {
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.section-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  min-width: 0;
+}
+
+.term-grid,
+.file-spec-list {
+  display: grid;
+  gap: 10px;
+}
+
+.term-grid div,
+.file-spec-list div {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.term-grid strong,
+.file-spec-list code {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.qa-list {
+  display: grid;
+  gap: 8px;
+}
+
+.qa-list details {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.qa-list summary {
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.qa-list p {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.lab-card {
+  border-color: rgba(21, 110, 150, 0.28);
+}
+
+.repo-tree {
+  max-width: 100%;
+  overflow: auto;
+  margin: 0;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: #10201f;
+  color: #f5fbf9;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.source-card {
+  display: grid;
+  gap: 12px;
+}
+
+.source-use-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.source-use-grid div {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.source-use-grid strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.section-plan-card {
+  display: grid;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.section-plan-card > *,
+.section-plan-card ol,
+.section-plan-card li,
+.section-plan-card p,
+.section-plan-card strong {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .phase-banner {
@@ -1775,7 +1948,8 @@ h1 {
   .projects-grid,
   .month-grid,
   .accuracy-grid,
-  .project-resource-grid {
+  .project-resource-grid,
+  .source-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1854,7 +2028,8 @@ h1 {
   }
 
   .briefing-grid,
-  .spec-grid {
+  .spec-grid,
+  .section-detail-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1877,7 +2052,8 @@ h1 {
   .projects-grid,
   .month-grid,
   .accuracy-grid,
-  .project-resource-grid {
+  .project-resource-grid,
+  .source-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1919,6 +2095,17 @@ h1 {
   .workspace-header {
     align-items: start;
     flex-direction: column;
+  }
+
+  .view-title,
+  .section-title {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .view-title p,
+  .section-title .pill {
+    max-width: 100%;
   }
 
   .step-card {

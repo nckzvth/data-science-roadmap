@@ -1,5 +1,5 @@
 const STORAGE_KEY = "dsRoadmapLmsProgress.v1";
-const APP_VERSION = "course-rebuild-v1";
+const APP_VERSION = "section0-lms-v1";
 
 const roadmap = [
   {
@@ -62,6 +62,50 @@ const roadmap = [
         tags: ["project-structure", "reproducibility"],
         why: "A logical, flexible, and reasonably standardized structure for data science projects.",
         note: "Use as a reference, not as a course to complete.",
+      },
+      {
+        id: "r-roadmap-ai-ds",
+        name: "roadmap.sh: AI and Data Scientist Roadmap",
+        url: "https://roadmap.sh/ai-data-scientist",
+        type: "Planning Reference",
+        priority: "Core",
+        phase: "phase-0",
+        tags: ["planning", "data-science", "machine-learning"],
+        why: "Role-alignment reference for programming, statistics, machine learning, data practice, and portfolio expectations.",
+        note: "Use to calibrate the overall course path, not as the primary lesson source.",
+      },
+      {
+        id: "r-roadmap-data-analyst",
+        name: "roadmap.sh: Data Analyst Roadmap",
+        url: "https://roadmap.sh/data-analyst",
+        type: "Planning Reference",
+        priority: "Core",
+        phase: "phase-0",
+        tags: ["planning", "analytics", "business-intelligence"],
+        why: "Role-alignment reference for structured data, cleaning, analysis, visualization, and stakeholder decision support.",
+        note: "Use to keep analytics and communication skills visible instead of over-indexing on modeling.",
+      },
+      {
+        id: "r-roadmap-data-engineer",
+        name: "roadmap.sh: Data Engineer Roadmap",
+        url: "https://roadmap.sh/data-engineer",
+        type: "Planning Reference",
+        priority: "Core",
+        phase: "phase-0",
+        tags: ["planning", "data-engineering", "pipelines"],
+        why: "Role-alignment reference for the pipeline, warehouse, orchestration, and data quality pillar.",
+        note: "Use to check the data engineering spine of the roadmap as later sections are implemented.",
+      },
+      {
+        id: "r-roadmap-mlops",
+        name: "roadmap.sh: MLOps Roadmap",
+        url: "https://roadmap.sh/mlops",
+        type: "Planning Reference",
+        priority: "Core",
+        phase: "phase-0",
+        tags: ["planning", "mlops", "production-thinking"],
+        why: "Role-alignment reference for model lifecycle, deployment, monitoring, and production-thinking scope.",
+        note: "Use to calibrate the MLOps section after the model-service section exists.",
       },
     ],
   },
@@ -2791,6 +2835,520 @@ const courseUnits = [
   },
 ];
 
+const sectionBuilds = {
+  "unit-00": {
+    id: "section-0",
+    unitId: "unit-00",
+    phaseId: "phase-0",
+    title: "Technical Workflow Setup",
+    status: "Implemented section draft",
+    duration: "5 focused work sessions",
+    outcome:
+      "You can create a reproducible learning repository, use Git and GitHub without treating them as magic, work from the terminal, and document every later project in a consistent way.",
+    gate:
+      "A reviewer can open your learning repository, understand the course structure, run the documented environment checks, inspect your Git history, and see where future project evidence belongs.",
+    sourceAudit: [
+      {
+        resourceId: "r-github-skills",
+        verified: "2026-06-16",
+        role: "Primary guided exercise for the GitHub branch, commit, pull request, and merge loop.",
+        useWhen: "Use during Lesson 1 after reading the in-app explanation of repository, branch, commit, pull request, and merge.",
+        focus: ["repository", "branch", "commit", "pull request", "merge", "Markdown profile file"],
+        skip: "Do not spend time on Actions, Issues, Projects, or advanced collaboration yet.",
+        note: "The official GitHub Skills page describes this exercise as an under-one-hour introduction for new GitHub users.",
+      },
+      {
+        resourceId: "r-missing-semester",
+        verified: "2026-06-16",
+        role: "Primary reference for shell, command-line environment, editor workflow, debugging, Git, packaging, and code quality.",
+        useWhen: "Use during Lessons 2 and 3 as targeted support. You are not trying to complete the whole course right now.",
+        focus: ["shell", "command-line environment", "development tools", "debugging", "version control", "code quality"],
+        skip: "Skip security, cryptography, machine introspection, and other older special topics for this section.",
+        note: "The 2026 Missing Semester syllabus includes current lectures on shell, command-line environment, development environment, debugging, Git, packaging, agentic coding, and code quality.",
+      },
+      {
+        resourceId: "r-cookiecutter",
+        verified: "2026-06-16",
+        role: "Project-structure reference for data science repositories.",
+        useWhen: "Use during Lesson 3 while designing the folder standard and README template.",
+        focus: ["directory structure", "reproducibility", "sharing work", "data/project organization"],
+        skip: "Do not install or generate a Cookiecutter project unless you already understand what each folder is for.",
+        note: "Cookiecutter Data Science describes itself as a logical, flexible, standardized structure for doing and sharing data science work. Version 2 uses the `ccds` command-line tool and requires Python 3.9+.",
+      },
+      {
+        resourceId: "r-roadmap-data-analyst",
+        verified: "2026-06-16",
+        role: "Planning reference for analytics, cleaning, visualization, and stakeholder decision-support expectations.",
+        useWhen: "Use after Section 0 to compare the course path against the analyst-facing skill spine.",
+        focus: ["data cleaning", "analysis", "visualization", "business context", "stakeholder communication"],
+        skip: "Do not treat this as a lesson sequence or project spec. The LMS lessons remain the source of what to do next.",
+        note: "The roadmap.sh Data Analyst page describes data analysis as transforming data into insights that support strategic business decisions.",
+      },
+      {
+        resourceId: "r-roadmap-ai-ds",
+        verified: "2026-06-16",
+        role: "Planning reference for the applied data science, statistics, machine learning, and portfolio direction.",
+        useWhen: "Use after Section 0 and again before Sections 3, 4, 7, and 8 to check role coverage.",
+        focus: ["programming", "statistics", "machine learning", "data practice", "portfolio"],
+        skip: "Do not use it to skip the foundations or to chase every visible topic at once.",
+        note: "The roadmap.sh AI and Data Scientist page frames data science around programming, statistics, machine learning, domain knowledge, practice with data, and portfolio work.",
+      },
+      {
+        resourceId: "r-roadmap-data-engineer",
+        verified: "2026-06-16",
+        role: "Planning reference for the data engineering pillar: pipelines, warehouses, orchestration, and quality.",
+        useWhen: "Use after Section 0 and again before Section 6 to check the data-engineering spine.",
+        focus: ["pipelines", "warehousing", "data quality", "orchestration", "engineering workflows"],
+        skip: "Do not let infrastructure breadth derail early Python, SQL, and statistics work.",
+        note: "The roadmap.sh Data Engineer page is a 2026 step-by-step guide for data engineering role planning.",
+      },
+      {
+        resourceId: "r-roadmap-mlops",
+        verified: "2026-06-16",
+        role: "Planning reference for model lifecycle, deployment, monitoring, and MLOps production-thinking scope.",
+        useWhen: "Use after Section 0 and again before Section 8, once a model service exists to operate.",
+        focus: ["model lifecycle", "deployment", "monitoring", "retraining", "production thinking"],
+        skip: "Do not begin MLOps before there is a real model artifact and service to reason about.",
+        note: "The roadmap.sh MLOps page is a 2026 step-by-step guide to learning MLOps.",
+      },
+    ],
+    roadmap: {
+      whyFirst:
+        "This section comes first because every later artifact needs a stable home, a repeatable workflow, and enough documentation that future-you or a reviewer can understand what happened.",
+      prerequisites: [
+        "A GitHub account.",
+        "A local terminal.",
+        "A code editor such as VS Code or Cursor.",
+        "Python 3 installed or ready to install during the environment check.",
+      ],
+      unlocks: [
+        "Python work can be saved as scripts instead of loose notebooks.",
+        "SQL and statistics outputs will have a consistent evidence folder.",
+        "Future projects can be reviewed through commits, READMEs, and reproducible file paths.",
+      ],
+      competencyGates: [
+        ["s0-c1", "Explain repo, branch, commit, pull request, merge, remote, and local clone without reading a definition."],
+        ["s0-c2", "Navigate the repo from the terminal and inspect current status, differences, and commit history."],
+        ["s0-c3", "Use a project README template that states problem, data, method, run instructions, outputs, limitations, and next steps."],
+        ["s0-c4", "Keep credentials, private files, temporary output, and machine-specific paths out of version control."],
+      ],
+      handoff:
+        "When this section is complete, Section 1 starts inside the `01_python/` folder. Python scripts, raw data, processed data, outputs, and notes already have expected locations.",
+    },
+    lessons: [
+      {
+        id: "s0-lesson-github",
+        progressId: "u00-l01",
+        type: "Learn",
+        title: "GitHub workflow: repository, branch, commit, pull request, merge",
+        objective: "Build a mental model for GitHub before using it as the course evidence trail.",
+        explanation: [
+          {
+            heading: "What GitHub is doing for this course",
+            body:
+              "GitHub is not just a place to upload finished files. In this course it is the audit trail for your learning. A repository stores the project, Git records changes, and GitHub makes those changes visible, reviewable, and shareable. That matters because data work is easy to fake as a collection of screenshots. A real repo shows the actual files, the order of decisions, and the documentation around those decisions.",
+          },
+          {
+            heading: "The workflow loop",
+            body:
+              "The basic loop is branch, edit, commit, pull request, merge. A branch isolates a change so the main version stays clean. A commit records a meaningful checkpoint. A pull request asks for review before the change joins the main branch. A merge accepts the change. For solo learning, the pull request is still useful because it forces you to describe what changed and why.",
+          },
+          {
+            heading: "What a good commit represents",
+            body:
+              "A commit should be a coherent unit of work, not a random save. Good examples are `Add setup README template`, `Document local Python environment`, or `Create phase folder structure`. Poor examples are `stuff`, `changes`, or one huge commit containing unrelated files. This course uses commit history as evidence, so commit messages should describe intent.",
+          },
+        ],
+        terms: [
+          ["Repository", "A versioned project folder that stores files and change history."],
+          ["Branch", "A separate line of work used to make a focused change."],
+          ["Commit", "A saved checkpoint with a message describing the change."],
+          ["Pull request", "A review page that explains and compares changes before merging."],
+          ["Merge", "The act of bringing a branch into the target branch, usually `main`."],
+          ["Remote", "The GitHub-hosted copy of the repository."],
+        ],
+        workedExample: {
+          title: "Example change set for this course",
+          steps: [
+            "Create a branch named `setup/readme-template`.",
+            "Add `README.md` with the course purpose and weekly cadence.",
+            "Commit with `Add course workspace README`.",
+            "Open a pull request explaining that the README defines the learning trail.",
+            "Merge only after the files and explanation match the project standard.",
+          ],
+        },
+        commonMistakes: [
+          "Treating GitHub as cloud storage instead of version control.",
+          "Making one giant commit after days of unrelated work.",
+          "Using commit messages that do not explain intent.",
+          "Skipping pull requests because you are working alone.",
+          "Committing secrets, private data, local paths, or generated junk files.",
+        ],
+        references: [
+          {
+            resourceId: "r-github-skills",
+            instruction:
+              "Complete the GitHub Skills exercise here. Focus on the branch, commit, pull request, and merge loop. Stop after the merged pull request.",
+          },
+          {
+            resourceId: "r-missing-semester",
+            instruction:
+              "Use the Version Control and Git lecture as backup only if Git concepts still feel unclear after the GitHub exercise.",
+          },
+        ],
+        practice: [
+          "Write a five-line explanation of repo, branch, commit, pull request, and merge in `00_setup/git_workflow_notes.md`.",
+          "Create a branch for the README template.",
+          "Commit only the README/template files for this lesson.",
+          "Open a pull request with a summary and a checklist.",
+        ],
+        checks: [
+          ["What is the difference between a branch and a commit?", "A branch is a line of work; a commit is a recorded checkpoint on that line."],
+          ["Why use a pull request when working alone?", "It forces a written review of what changed, why it changed, and whether it is ready to become part of main."],
+          ["What should not be committed?", "Secrets, credentials, private data, machine-specific paths, large temporary output, and generated junk."],
+        ],
+        lab: {
+          title: "Create the first reviewable course change",
+          steps: [
+            "Create or open the course repository.",
+            "Create `00_setup/git_workflow_notes.md`.",
+            "Create a branch named `setup/git-workflow-notes`.",
+            "Commit the file with a clear message.",
+            "Open and merge a pull request.",
+          ],
+          evidence: ["Merged pull request URL or screenshot", "`00_setup/git_workflow_notes.md`", "Commit hash for the workflow notes change"],
+          doneWhen: ["The pull request explains what changed and the merged file is visible on `main`."],
+        },
+      },
+      {
+        id: "s0-lesson-terminal",
+        progressId: "u00-l02",
+        type: "Practice",
+        title: "Terminal workflow: navigate, inspect, edit, run, recover",
+        objective: "Use the terminal for routine project work without guessing where files live.",
+        explanation: [
+          {
+            heading: "Why the terminal matters",
+            body:
+              "The terminal is the control surface for reproducible data work. Notebooks are useful later, but they hide too much when used as the only workspace. A terminal makes file paths, commands, scripts, environments, and outputs explicit. If you cannot navigate the repo, inspect a diff, and run a script from the terminal, later projects become fragile.",
+          },
+          {
+            heading: "The minimum command set",
+            body:
+              "You need a small set of commands deeply, not a huge list shallowly. `pwd` shows where you are. `ls` shows what is there. `cd` moves between folders. `mkdir` creates folders. `touch` creates files. `mv` moves or renames. `cp` copies. `rm` deletes and must be used carefully. `cat`, `less`, or your editor inspect files. `git status`, `git diff`, and `git log` inspect version history.",
+          },
+          {
+            heading: "Recovery mindset",
+            body:
+              "The terminal becomes safer when you inspect before acting. Use `pwd` before creating or deleting. Use `ls` before moving files. Use `git status` before committing. Use `git diff` before deciding that a change is ready. Recovery is mostly about slowing down and checking state before destructive commands.",
+          },
+        ],
+        terms: [
+          ["Working directory", "The folder your terminal command is currently operating in."],
+          ["Relative path", "A path interpreted from the current working directory."],
+          ["Absolute path", "A full path from the filesystem root."],
+          ["Standard output", "Text a command prints to the terminal."],
+          ["Diff", "A comparison showing what changed between file states."],
+        ],
+        workedExample: {
+          title: "Inspect before commit",
+          steps: [
+            "Run `pwd` to confirm you are inside the repo.",
+            "Run `git status` to see changed files.",
+            "Run `git diff` to inspect the actual changes.",
+            "Stage only the intended files.",
+            "Commit with a message that describes the artifact created.",
+          ],
+        },
+        commonMistakes: [
+          "Running commands from the wrong folder.",
+          "Copying terminal commands without knowing what path they affect.",
+          "Using `rm` before confirming the current directory.",
+          "Committing without reading `git diff`.",
+          "Only knowing how to do file operations through a GUI.",
+        ],
+        references: [
+          {
+            resourceId: "r-missing-semester",
+            instruction:
+              "Use the 2026 shell, command-line environment, development tools, and debugging lectures as targeted references. Write notes only for commands you actually use.",
+          },
+        ],
+        practice: [
+          "Create folders `00_setup` through `10_portfolio` from the terminal.",
+          "Create `00_setup/terminal_command_log.md`.",
+          "Record each command you used and one sentence explaining what it did.",
+          "Run `git status`, `git diff`, and `git log --oneline` and record what each command answers.",
+        ],
+        checks: [
+          ["What does `pwd` protect you from?", "Running a command in the wrong folder."],
+          ["Why inspect `git diff` before committing?", "It shows the actual file changes and catches accidental edits or sensitive content."],
+          ["Why is `rm` risky?", "It deletes files and can remove the wrong target if the path or working directory is wrong."],
+        ],
+        lab: {
+          title: "Build the phase folder skeleton",
+          steps: [
+            "From the repo root, create folders `00_setup` through `10_portfolio`.",
+            "Inside `00_setup`, create `terminal_command_log.md`.",
+            "Record the command, purpose, and observed result for each setup command.",
+            "Commit the folder skeleton and command log.",
+          ],
+          evidence: ["`00_setup/terminal_command_log.md`", "Folders `00_setup` through `10_portfolio`", "Commit hash for the folder skeleton"],
+          doneWhen: ["You can recreate the folder skeleton from your own notes without using a GUI."],
+        },
+      },
+      {
+        id: "s0-lesson-structure",
+        progressId: "u00-l03",
+        type: "Build",
+        title: "Project structure and documentation standard",
+        objective: "Create the file structure and documentation templates that every later course project will use.",
+        explanation: [
+          {
+            heading: "Structure is part of the work",
+            body:
+              "A data project is more than a notebook. It has raw data, processed data, source code, reports, environment notes, outputs, and explanations. When those pieces are scattered, the project becomes hard to review and hard to resume. A predictable structure reduces friction and makes your work inspectable.",
+          },
+          {
+            heading: "Use structure as a thinking tool",
+            body:
+              "Folder names are not decoration. They express boundaries. Raw data should not be overwritten. Processed data should be reproducible. Source code should not be hidden inside a notebook. Reports should state limitations. Documentation should explain how to run the work. This section defines those boundaries before the first Python project begins.",
+          },
+          {
+            heading: "Template, not bureaucracy",
+            body:
+              "The README template exists to force useful thinking: What is the problem? What data is used? What method is used? How does someone run it? What files are produced? What are the limitations? What comes next? If a README cannot answer those questions, the project is not ready for review.",
+          },
+        ],
+        terms: [
+          ["Raw data", "Original data copied into the project without manual modification."],
+          ["Processed data", "Data produced by documented scripts or notebooks."],
+          ["Source code", "Reusable scripts or modules that perform project work."],
+          ["Artifact", "A file produced as evidence: report, output, model, dashboard, notebook, or README."],
+          ["Reproducibility note", "Instructions that help another person recreate the environment or output."],
+        ],
+        workedExample: {
+          title: "Minimum project README sections",
+          steps: [
+            "Problem: one paragraph describing the question.",
+            "Data: source, files, fields, and access notes.",
+            "Method: approach and major assumptions.",
+            "How to run: exact commands or notebook order.",
+            "Outputs: where results are written.",
+            "Limitations: what the work cannot prove.",
+            "Next steps: what would improve the project.",
+          ],
+        },
+        commonMistakes: [
+          "Putting everything in one notebook with no run instructions.",
+          "Editing raw data manually and losing the original.",
+          "Using vague folder names like `misc`, `new`, or `final_final`.",
+          "Writing README text after the project is finished instead of using it to guide the project.",
+          "Committing environment-specific files that will not work on another machine.",
+        ],
+        references: [
+          {
+            resourceId: "r-cookiecutter",
+            instruction:
+              "Use the directory structure page as a reference. Adapt the ideas to this course rather than installing the template blindly.",
+          },
+          {
+            resourceId: "r-missing-semester",
+            instruction:
+              "Use packaging/shipping and code quality topics only as light support for reproducibility and naming decisions.",
+          },
+        ],
+        practice: [
+          "Create `00_setup/project_readme_template.md`.",
+          "Create `00_setup/environment_checklist.md`.",
+          "Add a short README inside each course folder explaining what evidence belongs there.",
+          "Add a root `.gitignore` if the repo does not already have one.",
+        ],
+        checks: [
+          ["Why keep raw and processed data separate?", "So the original data remains recoverable and processed outputs can be regenerated."],
+          ["What should a README let a reviewer do?", "Understand the purpose, data, method, run steps, outputs, limitations, and next actions."],
+          ["Why define structure before Python?", "So scripts, data, outputs, and evidence have predictable homes from the first project."],
+        ],
+        lab: {
+          title: "Define the permanent evidence standard",
+          steps: [
+            "Write the project README template.",
+            "Write the environment checklist.",
+            "Create folder READMEs for each course section.",
+            "Review the structure against the Section 0 project rubric.",
+          ],
+          evidence: ["`00_setup/project_readme_template.md`", "`00_setup/environment_checklist.md`", "Folder README files", "Final Section 0 pull request"],
+          doneWhen: ["A reviewer can understand the repo purpose, folder logic, environment assumptions, and future project evidence locations."],
+        },
+      },
+    ],
+    project: {
+      progressId: "u00-a1",
+      title: "Assignment 0: Learning Trail Repository",
+      brief:
+        "Create the permanent learning repository that will hold course notes, project evidence, source files, outputs, and portfolio artifacts for the year.",
+      repoStructure: [
+        "data-science-learning-trail/",
+        "  README.md",
+        "  .gitignore",
+        "  00_setup/",
+        "    README.md",
+        "    git_workflow_notes.md",
+        "    terminal_command_log.md",
+        "    environment_checklist.md",
+        "    project_readme_template.md",
+        "  01_python/",
+        "    README.md",
+        "  02_sql/",
+        "    README.md",
+        "  03_statistics/",
+        "    README.md",
+        "  04_data_science/",
+        "    README.md",
+        "  05_visualization/",
+        "    README.md",
+        "  06_data_engineering/",
+        "    README.md",
+        "  07_ml_engineering/",
+        "    README.md",
+        "  08_mlops/",
+        "    README.md",
+        "  09_transferability_project/",
+        "    README.md",
+        "  10_portfolio/",
+        "    README.md",
+      ],
+      requiredFiles: [
+        ["README.md", "Course purpose, target role, weekly cadence, section sequence, and evidence rule."],
+        ["00_setup/git_workflow_notes.md", "Definitions and notes from the GitHub workflow lesson."],
+        ["00_setup/terminal_command_log.md", "Commands used during setup with explanations and observed results."],
+        ["00_setup/environment_checklist.md", "Python version, editor, shell, package manager, virtual environment command, Git identity, and OS notes."],
+        ["00_setup/project_readme_template.md", "Reusable README template for all future projects."],
+        ["Section folder READMEs", "One short README per section explaining what evidence belongs there."],
+      ],
+      requirements: [
+        "Repo has a clear root README.",
+        "Folder structure matches the course sequence.",
+        "Every folder has a purpose.",
+        "Git history shows at least two focused commits.",
+        "At least one pull request is opened and merged.",
+        "Environment checklist is specific enough for another person to inspect setup assumptions.",
+        "README template includes problem, data, method, run instructions, outputs, limitations, and next steps.",
+      ],
+      reviewChecklist: [
+        "Run `git status` and confirm no accidental files are waiting to be committed.",
+        "Read `git diff` before the final commit.",
+        "Open the root README as if you were a reviewer.",
+        "Confirm no credentials, tokens, private files, or machine-only paths are committed.",
+        "Confirm each required file exists and has real content.",
+      ],
+      rubric: [
+        "Pass: a reviewer can understand the repository purpose, course structure, environment assumptions, and future evidence locations in under five minutes.",
+        "Revise: folders exist but documentation is thin, generic, or missing run/evidence standards.",
+        "Fail: the repository is just a file dump, contains private/sensitive content, or has no inspectable Git workflow evidence.",
+      ],
+    },
+    planner: [
+      {
+        id: "s0-plan-1",
+        title: "Session 1: GitHub workflow",
+        duration: "60-90 minutes",
+        focus: "Learn branch, commit, pull request, and merge.",
+        tasks: [
+          "Read Lesson 1 in the Course tab.",
+          "Complete GitHub Skills: Introduction to GitHub.",
+          "Write `00_setup/git_workflow_notes.md`.",
+          "Open and merge one pull request.",
+        ],
+        evidence: "Merged PR plus workflow notes.",
+        gate: "You can explain the GitHub loop without reading the app.",
+      },
+      {
+        id: "s0-plan-2",
+        title: "Session 2: Terminal navigation",
+        duration: "60-90 minutes",
+        focus: "Use terminal commands to create and inspect the repo structure.",
+        tasks: [
+          "Read Lesson 2 in the Course tab.",
+          "Use terminal commands to create the section folders.",
+          "Write `00_setup/terminal_command_log.md`.",
+          "Commit the folder skeleton.",
+        ],
+        evidence: "Command log plus folder skeleton commit.",
+        gate: "You can navigate the repo and inspect changes from the terminal.",
+      },
+      {
+        id: "s0-plan-3",
+        title: "Session 3: Documentation standard",
+        duration: "90-120 minutes",
+        focus: "Define the README and environment standard.",
+        tasks: [
+          "Read Lesson 3 in the Course tab.",
+          "Create `environment_checklist.md`.",
+          "Create `project_readme_template.md`.",
+          "Add one README to each section folder.",
+        ],
+        evidence: "Environment checklist, template, and folder READMEs.",
+        gate: "A future project has obvious places for data, code, reports, outputs, and notes.",
+      },
+      {
+        id: "s0-plan-4",
+        title: "Session 4: Section 0 project review",
+        duration: "45-75 minutes",
+        focus: "Review the repository like an outside reader.",
+        tasks: [
+          "Use the Projects tab review checklist.",
+          "Check `.gitignore` and remove accidental files.",
+          "Confirm required files have real content.",
+          "Open a final Section 0 pull request.",
+        ],
+        evidence: "Final review PR.",
+        gate: "The project rubric reaches Pass or specific revise items are written down.",
+      },
+      {
+        id: "s0-plan-5",
+        title: "Session 5: Move-on gate",
+        duration: "30-45 minutes",
+        focus: "Prepare for Python work.",
+        tasks: [
+          "Mark Section 0 lesson and project gates complete only if the evidence exists.",
+          "Write remaining blockers in Evidence Notes.",
+          "Create the first `01_python/` issue or task note.",
+        ],
+        evidence: "Completed Section 0 checklist and Python start note.",
+        gate: "Section 1 can begin without reorganizing the repo.",
+      },
+    ],
+    accuracy: [
+      {
+        title: "GitHub Skills scope",
+        body:
+          "Verified 2026-06-16 from the official GitHub repository page. The exercise is appropriate for new GitHub users and covers repositories, branches, commits, and pull requests. The app uses it only for the basic workflow loop.",
+      },
+      {
+        title: "Missing Semester scope",
+        body:
+          "Verified 2026-06-16 from the official Missing Semester site. The 2026 syllabus includes shell, command-line environment, development tools, debugging, version control, packaging, agentic coding, beyond-code topics, and code quality. Section 0 uses only the workflow-related topics.",
+      },
+      {
+        title: "Cookiecutter Data Science scope",
+        body:
+          "Verified 2026-06-16 from the official Cookiecutter Data Science site. Version 2 requires Python 3.9+ and uses the `ccds` command-line tool. Section 0 treats this as a structure reference, not a required installation.",
+      },
+      {
+        title: "Local environment variability",
+        body:
+          "Terminal commands and virtual environment commands can vary by operating system and shell. The section requires documenting the actual local commands used rather than pretending one setup works everywhere.",
+      },
+      {
+        title: "roadmap.sh planning role",
+        body:
+          "Verified 2026-06-16 from the roadmap.sh Data Analyst, AI and Data Scientist, Data Engineer, and MLOps pages. These are used as planning references for role coverage, not as the source of lesson instructions or project gates.",
+      },
+    ],
+  },
+};
+
 const monthlyPlan = [
   {
     id: "m1",
@@ -2999,6 +3557,29 @@ function courseUnitById(id) {
   return courseUnits.find((unit) => unit.id === id) || courseUnits[0];
 }
 
+function activeSectionBuild() {
+  return sectionBuilds[state.selectedCourseUnitId] || null;
+}
+
+function sectionTaskIds(section) {
+  return [
+    ...section.lessons.map((lesson) => lesson.progressId),
+    section.project.progressId,
+    ...section.roadmap.competencyGates.map(([id]) => id),
+    ...section.planner.map((item) => item.id),
+  ];
+}
+
+function sectionProgress(section) {
+  const ids = sectionTaskIds(section);
+  const done = ids.filter((id) => state.done[id]).length;
+  return {
+    done,
+    total: ids.length,
+    pct: ids.length ? Math.round((done / ids.length) * 100) : 0,
+  };
+}
+
 function courseTaskIds(unit) {
   return [...unit.lessons.map((lesson) => lesson.id), unit.assignment.id];
 }
@@ -3182,7 +3763,7 @@ function renderTabs() {
     ["roadmap", "map", "Roadmap"],
     ["resources", "library", "Resources"],
     ["projects", "folder-kanban", "Projects"],
-    ["planner", "calendar-days", "12-Month Plan"],
+    ["planner", "calendar-days", "Planner"],
     ["accuracy", "shield-check", "Accuracy Notes"],
   ];
 
@@ -3203,6 +3784,8 @@ function renderTabs() {
 }
 
 function renderMetrics() {
+  const section = activeSectionBuild();
+  if (section) return renderSectionMetrics(section);
   if (state.view === "course") return renderCourseMetrics();
 
   const overall = overallProgress();
@@ -3232,6 +3815,39 @@ function renderMetrics() {
         <div class="metric-head"><h3>Projects</h3><span class="stat-icon"><i data-lucide="folder-check"></i></span></div>
         <p class="metric-value">${projectDone}/${projects.length}</p>
         <p>Deliverable groups completed across the roadmap</p>
+      </article>
+    </section>
+  `;
+}
+
+function renderSectionMetrics(section) {
+  const progress = sectionProgress(section);
+  const lessonDone = section.lessons.filter((lesson) => state.done[lesson.progressId]).length;
+  const planDone = section.planner.filter((item) => state.done[item.id]).length;
+  const nextLesson = section.lessons.find((lesson) => !state.done[lesson.progressId]);
+  const nextPlan = section.planner.find((item) => !state.done[item.id]);
+
+  return `
+    <section class="metric-grid" aria-label="Section progress metrics">
+      <article class="metric-card">
+        <div class="metric-head"><h3>Section</h3><span class="stat-icon"><i data-lucide="route"></i></span></div>
+        <p class="metric-value">${progress.pct}%</p>
+        <p>${progress.done} of ${progress.total} Section 0 gates complete</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><h3>Lessons</h3><span class="stat-icon"><i data-lucide="book-open-check"></i></span></div>
+        <p class="metric-value">${lessonDone}/${section.lessons.length}</p>
+        <p>In-app lessons completed</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><h3>Project Gate</h3><span class="stat-icon"><i data-lucide="folder-check"></i></span></div>
+        <p class="metric-value">${state.done[section.project.progressId] ? "Done" : "Open"}</p>
+        <p>${escapeHtml(section.project.title)}</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><h3>Next</h3><span class="stat-icon"><i data-lucide="arrow-right-circle"></i></span></div>
+        <p class="metric-value">${nextLesson ? nextLesson.type : nextPlan ? "Plan" : "Gate"}</p>
+        <p>${escapeHtml(nextLesson ? nextLesson.title : nextPlan ? nextPlan.title : section.gate)}</p>
       </article>
     </section>
   `;
@@ -3271,12 +3887,528 @@ function renderCourseMetrics() {
 }
 
 function renderActiveView(selectedPhase) {
+  const section = activeSectionBuild();
+  if (section && state.view === "course") return renderSectionCourseView(section);
+  if (section && state.view === "roadmap") return renderSectionRoadmapView(section);
+  if (section && state.view === "resources") return renderSectionResources(section);
+  if (section && state.view === "projects") return renderSectionProjects(section);
+  if (section && state.view === "planner") return renderSectionPlanner(section);
+  if (section && state.view === "accuracy") return renderSectionAccuracy(section);
   if (state.view === "course") return renderCourseView();
   if (state.view === "resources") return renderResourceLibrary();
   if (state.view === "projects") return renderProjects();
   if (state.view === "planner") return renderPlanner();
   if (state.view === "accuracy") return renderAccuracy();
   return renderRoadmapView(selectedPhase);
+}
+
+function renderSectionCourseView(section) {
+  const progress = sectionProgress(section);
+  const phase = phaseById(section.phaseId);
+  return `
+    <section class="course-panel section-workspace">
+      <div class="view-title">
+        <h2><i data-lucide="graduation-cap"></i> Section Course</h2>
+        <p>${progress.done} of ${progress.total} Section 0 gates complete</p>
+      </div>
+      <article class="course-unit-detail">
+        <header class="course-unit-header">
+          <div>
+            <p class="eyebrow">${escapeHtml(section.duration)} · Phase ${escapeHtml(phase.number)}</p>
+            <h2>${escapeHtml(section.title)}</h2>
+            <p>${escapeHtml(section.outcome)}</p>
+          </div>
+          <span class="status-pill ${progress.pct === 100 ? "done" : progress.done > 0 ? "active" : "waiting"}">${progress.pct}%</span>
+        </header>
+        <section class="course-gate">
+          <strong>Section Gate</strong>
+          <p>${escapeHtml(section.gate)}</p>
+        </section>
+        ${renderSectionSequence(section)}
+        <section class="section-lesson-stack">
+          ${section.lessons.map((lesson, index) => renderSectionLesson(section, lesson, index)).join("")}
+        </section>
+        ${renderSectionAssignment(section)}
+        <section class="section-card course-evidence">
+          <div class="section-title">
+            <h3>Evidence Notes</h3>
+            <span class="pill">localStorage</span>
+          </div>
+          <textarea class="note-box" data-action="save-evidence" data-unit-id="${section.unitId}" placeholder="Paste repo links, commit hashes, blockers, review notes, or questions for this section.">${escapeHtml(
+            state.evidence[section.unitId] || "",
+          )}</textarea>
+        </section>
+      </article>
+    </section>
+  `;
+}
+
+function renderSectionSequence(section) {
+  const items = [
+    ...section.lessons.map((lesson) => ({
+      id: lesson.id,
+      label: lesson.type,
+      title: lesson.title,
+      done: Boolean(state.done[lesson.progressId]),
+    })),
+    {
+      id: `${section.id}-assignment`,
+      label: "Gate",
+      title: section.project.title,
+      done: Boolean(state.done[section.project.progressId]),
+    },
+  ];
+
+  return `
+    <nav class="course-sequence section-sequence" aria-label="Section sequence">
+      ${items
+        .map(
+          (item) => `
+            <a class="${item.done ? "is-done" : ""}" href="#${escapeHtml(item.id)}">
+              <span>${escapeHtml(item.label)}</span>
+              <strong>${escapeHtml(item.title)}</strong>
+            </a>
+          `,
+        )
+        .join("")}
+    </nav>
+  `;
+}
+
+function renderSectionLesson(section, lesson, index) {
+  return `
+    <article class="course-lesson section-lesson" id="${escapeHtml(lesson.id)}">
+      <div class="course-lesson-head">
+        <div>
+          <p class="eyebrow">${escapeHtml(lesson.type)}</p>
+          <h3>${escapeHtml(lesson.title)}</h3>
+        </div>
+        <label class="step-toggle">
+          <input type="checkbox" data-action="toggle-done" data-id="${lesson.progressId}" ${state.done[lesson.progressId] ? "checked" : ""} />
+          Done
+        </label>
+      </div>
+      <p>${escapeHtml(lesson.objective)}</p>
+      <div class="section-reading">
+        ${lesson.explanation
+          .map(
+            (block) => `
+              <section>
+                <h4>${escapeHtml(block.heading)}</h4>
+                <p>${escapeHtml(block.body)}</p>
+              </section>
+            `,
+          )
+          .join("")}
+      </div>
+      <div class="section-detail-grid">
+        <section class="section-card">
+          <div class="section-title">
+            <h3>Key Terms</h3>
+            <span class="pill">${lesson.terms.length}</span>
+          </div>
+          <div class="term-grid">
+            ${lesson.terms.map(([term, definition]) => `<div><strong>${escapeHtml(term)}</strong><p>${escapeHtml(definition)}</p></div>`).join("")}
+          </div>
+        </section>
+        <section class="section-card">
+          <div class="section-title">
+            <h3>Worked Example</h3>
+            <span class="pill">model</span>
+          </div>
+          <strong>${escapeHtml(lesson.workedExample.title)}</strong>
+          ${renderOrderedList(lesson.workedExample.steps)}
+        </section>
+      </div>
+      <div class="course-resource-directives">
+        <strong>Use These References Exactly Here</strong>
+        ${lesson.references.map(renderCourseResourceDirective).join("")}
+      </div>
+      <div class="section-detail-grid">
+        <section class="section-card">
+          <div class="section-title">
+            <h3>Practice</h3>
+            <span class="pill">do now</span>
+          </div>
+          ${renderOrderedList(lesson.practice)}
+        </section>
+        <section class="section-card">
+          <div class="section-title">
+            <h3>Common Mistakes</h3>
+            <span class="pill">avoid</span>
+          </div>
+          ${renderBulletList(lesson.commonMistakes)}
+        </section>
+      </div>
+      <section class="section-card">
+        <div class="section-title">
+          <h3>Self Check</h3>
+          <span class="pill">${lesson.checks.length}</span>
+        </div>
+        <div class="qa-list">
+          ${lesson.checks
+            .map(
+              ([question, answer]) => `
+                <details>
+                  <summary>${escapeHtml(question)}</summary>
+                  <p>${escapeHtml(answer)}</p>
+                </details>
+              `,
+            )
+            .join("")}
+        </div>
+      </section>
+      <section class="section-card lab-card">
+        <div class="section-title">
+          <h3>${escapeHtml(lesson.lab.title)}</h3>
+          <span class="pill">lab</span>
+        </div>
+        <div class="course-work-grid">
+          <div>
+            <strong>Steps</strong>
+            ${renderOrderedList(lesson.lab.steps)}
+          </div>
+          <div>
+            <strong>Evidence</strong>
+            ${renderBulletList(lesson.lab.evidence)}
+            <strong>Done When</strong>
+            ${renderBulletList(lesson.lab.doneWhen)}
+          </div>
+        </div>
+      </section>
+      ${renderSectionNextStep(section, index)}
+    </article>
+  `;
+}
+
+function renderSectionNextStep(section, index) {
+  const nextLesson = section.lessons[index + 1];
+  if (nextLesson) {
+    return `
+      <div class="course-next">
+        <span>Next</span>
+        <a href="#${escapeHtml(nextLesson.id)}">${escapeHtml(nextLesson.type)}: ${escapeHtml(nextLesson.title)}</a>
+      </div>
+    `;
+  }
+  return `
+    <div class="course-next">
+      <span>Next</span>
+      <a href="#${escapeHtml(section.id)}-assignment">Assignment Gate: ${escapeHtml(section.project.title)}</a>
+    </div>
+  `;
+}
+
+function renderSectionAssignment(section) {
+  const project = section.project;
+  return `
+    <section class="course-assignment section-assignment" id="${escapeHtml(section.id)}-assignment">
+      <div class="course-assignment-head">
+        <div>
+          <p class="eyebrow">Assignment Gate</p>
+          <h3>${escapeHtml(project.title)}</h3>
+        </div>
+        <label class="step-toggle">
+          <input type="checkbox" data-action="toggle-done" data-id="${project.progressId}" ${state.done[project.progressId] ? "checked" : ""} />
+          Complete
+        </label>
+      </div>
+      <p>${escapeHtml(project.brief)}</p>
+      <div class="section-detail-grid">
+        <section class="section-card">
+          <div class="section-title">
+            <h3>Required Files</h3>
+            <span class="pill">${project.requiredFiles.length}</span>
+          </div>
+          <div class="file-spec-list">
+            ${project.requiredFiles.map(([file, purpose]) => `<div><code>${escapeHtml(file)}</code><p>${escapeHtml(purpose)}</p></div>`).join("")}
+          </div>
+        </section>
+        <section class="section-card">
+          <div class="section-title">
+            <h3>Repo Structure</h3>
+            <span class="pill">target</span>
+          </div>
+          <pre class="repo-tree"><code>${escapeHtml(project.repoStructure.join("\n"))}</code></pre>
+        </section>
+      </div>
+      <div class="course-work-grid">
+        <div>
+          <strong>Requirements</strong>
+          ${renderBulletList(project.requirements)}
+          <strong>Review Checklist</strong>
+          ${renderBulletList(project.reviewChecklist)}
+        </div>
+        <div>
+          <strong>Rubric</strong>
+          ${renderBulletList(project.rubric)}
+        </div>
+      </div>
+      ${renderNextUnitLink(courseUnitById(section.unitId))}
+    </section>
+  `;
+}
+
+function renderSectionRoadmapView(section) {
+  const phase = phaseById(section.phaseId);
+  return `
+    <section class="phase-panel section-workspace">
+      <div class="view-title">
+        <h2><i data-lucide="map"></i> Section Roadmap</h2>
+        <p>${escapeHtml(section.title)} is the setup gate for every later section.</p>
+      </div>
+      <article class="phase-card">
+        <div class="phase-banner">
+          <div class="phase-title">
+            <i data-lucide="${phase.icon}"></i>
+            <div>
+              <p class="eyebrow">Phase ${phase.number} · ${escapeHtml(section.duration)}</p>
+              <h2>${escapeHtml(section.title)}</h2>
+              <p>${escapeHtml(section.roadmap.whyFirst)}</p>
+            </div>
+          </div>
+          <div class="phase-meta">
+            <span class="status-pill active">${escapeHtml(section.status)}</span>
+            <span class="pill">${sectionProgress(section).pct}% complete</span>
+          </div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-main">
+            <section class="flow-card">
+              <div class="flow-node is-muted">
+                <span class="flow-label">Before</span>
+                <strong>Start here</strong>
+                <p>No data science work should start until the workspace exists.</p>
+              </div>
+              <div class="flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+              <div class="flow-node is-current">
+                <span class="flow-label">Current</span>
+                <strong>${escapeHtml(section.title)}</strong>
+                <p>${escapeHtml(section.gate)}</p>
+              </div>
+              <div class="flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+              <div class="flow-node">
+                <span class="flow-label">Unlocks</span>
+                <button type="button" data-action="select-course-unit" data-unit-id="unit-01">Unit 01: Python Foundations</button>
+                <p>${escapeHtml(section.roadmap.handoff)}</p>
+              </div>
+            </section>
+            <section class="section-card">
+              <div class="section-title">
+                <h3>Competency Gates</h3>
+                <span class="pill">${section.roadmap.competencyGates.length}</span>
+              </div>
+              <div class="check-list">
+                ${section.roadmap.competencyGates
+                  .map(
+                    ([id, label]) => `
+                      <label class="check-row">
+                        <input type="checkbox" data-action="toggle-done" data-id="${id}" ${state.done[id] ? "checked" : ""} />
+                        <span><strong>${escapeHtml(label)}</strong></span>
+                      </label>
+                    `,
+                  )
+                  .join("")}
+              </div>
+            </section>
+          </div>
+          <aside class="phase-side">
+            <section class="section-card">
+              <div class="section-title"><h3>Prerequisites</h3><span class="pill">${section.roadmap.prerequisites.length}</span></div>
+              ${renderBulletList(section.roadmap.prerequisites)}
+            </section>
+            <section class="section-card">
+              <div class="section-title"><h3>What This Unlocks</h3><span class="pill">${section.roadmap.unlocks.length}</span></div>
+              ${renderBulletList(section.roadmap.unlocks)}
+            </section>
+            ${renderSectionRoleAlignment(section)}
+            <section class="warning-box">
+              <strong>Scope guard</strong>
+              ${escapeHtml(phase.caution)}
+            </section>
+          </aside>
+        </div>
+      </article>
+    </section>
+  `;
+}
+
+function renderSectionRoleAlignment(section) {
+  const sources = section.sourceAudit.filter((source) => source.resourceId.startsWith("r-roadmap"));
+  if (!sources.length) return "";
+  return `
+    <section class="section-card">
+      <div class="section-title"><h3>Role Alignment</h3><span class="pill">roadmap.sh</span></div>
+      <div class="compact-resource-list">
+        ${sources
+          .map((source) => {
+            const resource = getResource(source.resourceId);
+            return `
+              <a href="${escapeHtml(resource.url)}" target="_blank" rel="noreferrer">
+                <span>
+                  <strong>${escapeHtml(resource.name)}</strong>
+                  <small>${escapeHtml(source.role)}</small>
+                </span>
+                <i data-lucide="external-link"></i>
+              </a>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderSectionResources(section) {
+  return `
+    <section class="library-panel section-workspace">
+      <div class="view-title">
+        <h2><i data-lucide="library"></i> Section Resources</h2>
+        <p>Use these references only where the lesson tells you to use them.</p>
+      </div>
+      <div class="source-grid">
+        ${section.sourceAudit
+          .map((source) => {
+            const resource = getResource(source.resourceId);
+            return `
+              <article class="resource-card source-card">
+                <div>
+                  <p class="eyebrow">${escapeHtml(resource.type)} · ${escapeHtml(resource.priority)}</p>
+                  <h3>${escapeHtml(resource.name)}</h3>
+                </div>
+                <p>${escapeHtml(source.role)}</p>
+                <div class="source-use-grid">
+                  <div><strong>Use When</strong><p>${escapeHtml(source.useWhen)}</p></div>
+                  <div><strong>Skip For Now</strong><p>${escapeHtml(source.skip)}</p></div>
+                </div>
+                <div>
+                  <strong>Focus Topics</strong>
+                  <div class="tag-list">${source.focus.map((item) => `<span class="pill">${escapeHtml(item)}</span>`).join("")}</div>
+                </div>
+                <p>${escapeHtml(source.note)}</p>
+                <div class="card-foot">
+                  <span class="pill">Verified ${escapeHtml(source.verified)}</span>
+                  <a class="resource-link" href="${escapeHtml(resource.url)}" target="_blank" rel="noreferrer" aria-label="Open ${escapeHtml(resource.name)}">
+                    <i data-lucide="external-link"></i>
+                  </a>
+                </div>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderSectionProjects(section) {
+  const project = section.project;
+  return `
+    <section class="projects-panel section-workspace">
+      <div class="view-title">
+        <h2><i data-lucide="folder-kanban"></i> Section Project</h2>
+        <p>The project spec, file contract, and rubric for ${escapeHtml(section.title)}.</p>
+      </div>
+      <article class="project-card project-detail-card">
+        <div class="project-detail-head">
+          <div>
+            <p class="eyebrow">Assignment Gate</p>
+            <h3>${escapeHtml(project.title)}</h3>
+          </div>
+          <label class="step-toggle">
+            <input type="checkbox" data-action="toggle-done" data-id="${project.progressId}" ${state.done[project.progressId] ? "checked" : ""} />
+            Complete
+          </label>
+        </div>
+        <p>${escapeHtml(project.brief)}</p>
+        <div class="section-detail-grid">
+          <section class="section-card">
+            <div class="section-title"><h3>Required Files</h3><span class="pill">${project.requiredFiles.length}</span></div>
+            <div class="file-spec-list">
+              ${project.requiredFiles.map(([file, purpose]) => `<div><code>${escapeHtml(file)}</code><p>${escapeHtml(purpose)}</p></div>`).join("")}
+            </div>
+          </section>
+          <section class="section-card">
+            <div class="section-title"><h3>Recommended Repo Structure</h3><span class="pill">target</span></div>
+            <pre class="repo-tree"><code>${escapeHtml(project.repoStructure.join("\n"))}</code></pre>
+          </section>
+        </div>
+        <div class="section-detail-grid">
+          <section class="section-card">
+            <div class="section-title"><h3>Functional Requirements</h3><span class="pill">${project.requirements.length}</span></div>
+            ${renderBulletList(project.requirements)}
+          </section>
+          <section class="section-card">
+            <div class="section-title"><h3>Review Checklist</h3><span class="pill">${project.reviewChecklist.length}</span></div>
+            ${renderBulletList(project.reviewChecklist)}
+          </section>
+        </div>
+        <section class="section-card">
+          <div class="section-title"><h3>Rubric</h3><span class="pill">pass / revise / fail</span></div>
+          ${renderBulletList(project.rubric)}
+        </section>
+      </article>
+    </section>
+  `;
+}
+
+function renderSectionPlanner(section) {
+  return `
+    <section class="planner-panel section-workspace">
+      <div class="view-title">
+        <h2><i data-lucide="calendar-days"></i> Section Planner</h2>
+        <p>${escapeHtml(section.duration)} to complete the setup gate without turning setup into a detour.</p>
+      </div>
+      <div class="section-plan-list">
+        ${section.planner
+          .map(
+            (item) => `
+              <article class="month-card section-plan-card">
+                <div class="course-assignment-head">
+                  <div>
+                    <p class="eyebrow">${escapeHtml(item.duration)}</p>
+                    <h3>${escapeHtml(item.title)}</h3>
+                  </div>
+                  <label class="step-toggle">
+                    <input type="checkbox" data-action="toggle-done" data-id="${item.id}" ${state.done[item.id] ? "checked" : ""} />
+                    Done
+                  </label>
+                </div>
+                <p><strong>Focus:</strong> ${escapeHtml(item.focus)}</p>
+                <strong>Tasks</strong>
+                ${renderOrderedList(item.tasks)}
+                <p><strong>Evidence:</strong> ${escapeHtml(item.evidence)}</p>
+                <p><strong>Gate:</strong> ${escapeHtml(item.gate)}</p>
+              </article>
+            `,
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderSectionAccuracy(section) {
+  return `
+    <section class="accuracy-panel section-workspace">
+      <div class="view-title">
+        <h2><i data-lucide="shield-check"></i> Section Accuracy Notes</h2>
+        <p>Source and scope notes for ${escapeHtml(section.title)}.</p>
+      </div>
+      <div class="accuracy-grid">
+        ${section.accuracy
+          .map(
+            (note) => `
+              <article class="accuracy-card">
+                <h3>${escapeHtml(note.title)}</h3>
+                <p>${escapeHtml(note.body)}</p>
+              </article>
+            `,
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
 }
 
 function renderCourseView() {
