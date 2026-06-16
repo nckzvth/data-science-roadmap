@@ -2947,6 +2947,7 @@ const defaultState = {
 };
 
 let state = loadState();
+saveState();
 
 function loadState() {
   try {
@@ -2971,7 +2972,11 @@ function loadState() {
 }
 
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // Keep the app usable if browser storage is unavailable.
+  }
 }
 
 function allResources() {
