@@ -705,6 +705,688 @@ const roadmap = [
   },
 ];
 
+const phaseGuides = {
+  "phase-0": {
+    steps: [
+      {
+        id: "p0-s1",
+        title: "Create the working system before studying content",
+        time: "Day 1",
+        purpose: "Remove friction: one repo, one editor, one terminal, one place for notes and outputs.",
+        resources: ["r-github-skills"],
+        actions: [
+          "Complete GitHub Skills through the pull request merge.",
+          "Create the roadmap repo folders: 00_setup through 07_portfolio_projects.",
+          "Add a root README with your goal, weekly study cadence, and progress rules.",
+        ],
+        output: "A GitHub repo with phase folders and an initial README.",
+        doneWhen: "You can create a branch, commit a file, open a PR, merge it, and explain what changed.",
+      },
+      {
+        id: "p0-s2",
+        title: "Learn just enough shell and Git to work without getting stuck",
+        time: "2-4 days",
+        purpose: "Build daily workflow fluency, not command memorization.",
+        resources: ["r-missing-semester"],
+        actions: [
+          "Study Missing Semester lessons on shell, shell tools, editors, Git, and debugging.",
+          "Practice navigating folders, listing files, moving files, running Python, and using Git status/diff/log.",
+          "Write a short notes file with the commands you actually used.",
+        ],
+        output: "00_setup/terminal_git_notes.md with examples you ran yourself.",
+        doneWhen: "You can create folders, run commands, inspect diffs, and recover from a simple Git mistake.",
+      },
+      {
+        id: "p0-s3",
+        title: "Set project structure rules you will reuse all year",
+        time: "1-2 days",
+        purpose: "Make every later project easier to inspect, reproduce, and explain.",
+        resources: ["r-cookiecutter"],
+        actions: [
+          "Skim Cookiecutter Data Science for folder conventions.",
+          "Decide where notebooks, source code, data notes, reports, and environment files will live.",
+          "Add a README template you will copy into each project folder.",
+        ],
+        output: "A reusable project README template and environment checklist.",
+        doneWhen: "A new project folder has a clear place for data, notebooks, source code, outputs, and notes.",
+      },
+    ],
+    project: {
+      title: "Learning Trail Repository",
+      brief: "Build the repo that will hold evidence of your learning. This is not busywork; it becomes the audit trail for your portfolio.",
+      process: [
+        "Create phase folders and a notes file in each folder.",
+        "Commit at least one real artifact per phase, not screenshots of course completion.",
+        "Use README files to state what you learned, what you built, and what still confuses you.",
+        "Keep raw learning notes separate from polished portfolio writeups.",
+      ],
+      artifacts: ["Root README", "Phase folders", "Environment checklist", "Reusable project README template"],
+      acceptance: [
+        ["p0-a1", "The repo can be opened by someone else and they can understand the roadmap structure within two minutes."],
+        ["p0-a2", "Every phase folder has a purpose and a place for outputs."],
+      ],
+    },
+  },
+  "phase-1": {
+    steps: [
+      {
+        id: "p1-s1",
+        title: "Build Python syntax and control-flow fluency",
+        time: "Week 1-2",
+        purpose: "Get comfortable writing small programs before touching data science libraries.",
+        resources: ["r-mit-6100l", "r-kaggle-python"],
+        actions: [
+          "Use MIT 6.100L for the main lectures and exercises.",
+          "Use Kaggle Python only when you need quick syntax practice.",
+          "Write small scripts using variables, functions, conditionals, loops, lists, dictionaries, and file paths.",
+        ],
+        output: "01_python/python_basics_practice.py with several small functions.",
+        doneWhen: "You can write a function from a plain-English prompt without searching for every line.",
+      },
+      {
+        id: "p1-s2",
+        title: "Practice problem decomposition",
+        time: "Week 2-4",
+        purpose: "Learn to break a messy task into testable steps instead of writing one fragile notebook cell.",
+        resources: ["r-mit-6100l"],
+        actions: [
+          "Choose 3 MIT exercises that require functions and branching.",
+          "For each exercise, write the input, output, assumptions, and edge cases before coding.",
+          "Refactor repeated logic into functions.",
+        ],
+        output: "01_python/decomposition_notes.md plus working scripts.",
+        doneWhen: "Your code is split into named functions and you can explain each function's job.",
+      },
+      {
+        id: "p1-s3",
+        title: "Build the CSV cleaning script",
+        time: "Week 4-6",
+        purpose: "Turn Python basics into a realistic data task.",
+        resources: ["r-mit-6100l", "r-kaggle-python"],
+        actions: [
+          "Pick a small non-HR CSV dataset.",
+          "Write functions to load data, normalize column names, identify missing values, impute or flag them, and export a cleaned CSV.",
+          "Print summary statistics before and after cleaning.",
+        ],
+        output: "01_python/clean_csv.py, sample input, cleaned output, and README.",
+        doneWhen: "Running one command creates the cleaned file and the README explains every cleaning choice.",
+      },
+    ],
+    project: {
+      title: "CSV Cleaning Script",
+      brief: "A small command-line data cleaning project that proves you can use Python outside a tutorial.",
+      process: [
+        "Start with a domain-neutral dataset so your first project is not HR-only.",
+        "Write a plain README before polishing code: dataset source, problem, cleaning rules, how to run.",
+        "Keep cleaning choices explicit. Do not silently delete rows without documenting why.",
+        "Add example terminal commands and expected output file names.",
+      ],
+      artifacts: ["clean_csv.py", "raw sample CSV", "cleaned CSV", "README", "summary statistics output"],
+      acceptance: [
+        ["p1-a1", "The script runs from the terminal without manual notebook steps."],
+        ["p1-a2", "The README explains missing-value handling and column-name cleaning."],
+      ],
+    },
+  },
+  "phase-2": {
+    steps: [
+      {
+        id: "p2-s1",
+        title: "Learn relational foundations before analytics shortcuts",
+        time: "Week 1-2",
+        purpose: "Understand tables, keys, relationships, normalization, and constraints so joins make sense.",
+        resources: ["r-cs50-sql"],
+        actions: [
+          "Work through CS50 SQL sections on tables, types, primary keys, foreign keys, and joins.",
+          "Draw a simple schema for customers, orders, products, and events.",
+          "Write 10 queries that answer concrete questions from that schema.",
+        ],
+        output: "02_sql/schema_practice.sql and schema_notes.md.",
+        doneWhen: "You can explain why a join returns too many rows and how keys prevent that.",
+      },
+      {
+        id: "p2-s2",
+        title: "Build analytics query patterns",
+        time: "Week 2-4",
+        purpose: "Practice the SQL patterns used in real analyst and analytics-engineering work.",
+        resources: ["r-kaggle-sql", "r-postgres-windows"],
+        actions: [
+          "Complete Kaggle Intro to SQL, then the Advanced SQL lessons relevant to joins, unions, and analytic functions.",
+          "Use PostgreSQL docs to learn windows: row_number, rank, lag, lead, and rolling aggregates.",
+          "Create query templates for cohorts, rolling trends, rankings, and time-between-events.",
+        ],
+        output: "02_sql/analytics_patterns.sql.",
+        doneWhen: "You can modify a template for a new metric without rewriting the whole query.",
+      },
+      {
+        id: "p2-s3",
+        title: "Create the SQL analysis pack",
+        time: "Week 4-6",
+        purpose: "Turn SQL practice into portfolio evidence.",
+        resources: ["r-cs50-sql", "r-kaggle-sql", "r-postgres-windows"],
+        actions: [
+          "Use at least one non-HR dataset.",
+          "Write queries for MAU, retention by cohort, revenue by segment, attrition by tenure band, event gaps, rolling trends, and rank changes.",
+          "Add comments above each query explaining the business question and grain of the output.",
+        ],
+        output: "02_sql/sql_analysis_pack/ with one file per analysis theme.",
+        doneWhen: "Every query has a business question, expected grain, and a short interpretation note.",
+      },
+    ],
+    project: {
+      title: "SQL Analysis Pack",
+      brief: "A focused collection of reusable analytics queries showing that you can answer business questions directly in SQL.",
+      process: [
+        "Choose one event or transaction dataset and one workforce-style dataset later only if useful.",
+        "Write queries as readable files, not screenshots from a SQL UI.",
+        "For each query, document the input tables, output grain, filters, and limitation.",
+        "Prefer CTEs and window functions where they make the logic clearer.",
+      ],
+      artifacts: ["schema notes", "analysis SQL files", "query output samples", "README with metric definitions"],
+      acceptance: [
+        ["p2-a1", "The analysis pack includes cohort, rolling, ranking, and segmentation queries."],
+        ["p2-a2", "A reader can tell what each query measures without running it first."],
+      ],
+    },
+  },
+  "phase-3": {
+    steps: [
+      {
+        id: "p3-s1",
+        title: "Ground yourself in descriptive statistics and probability",
+        time: "Week 1-3",
+        purpose: "Build interpretation skills before modeling skills.",
+        resources: ["r-openintro", "r-statquest"],
+        actions: [
+          "Study OpenIntro chapters on data, probability, distributions, sampling, and intervals.",
+          "Use StatQuest for topics that need an intuitive explanation.",
+          "Create a notes file with examples of mean vs median, variation, sampling bias, and uncertainty.",
+        ],
+        output: "03_statistics/statistics_foundations.md.",
+        doneWhen: "You can explain why a sample estimate is uncertain and what a confidence interval means.",
+      },
+      {
+        id: "p3-s2",
+        title: "Connect inference to regression and classification",
+        time: "Week 3-6",
+        purpose: "Understand what models estimate, how they fail, and how to evaluate them.",
+        resources: ["r-islp", "r-statquest", "r-3b1b-linear-algebra"],
+        actions: [
+          "Use ISLP for regression, classification, resampling, and model evaluation.",
+          "Use 3Blue1Brown for linear algebra intuition when matrices or vectors appear.",
+          "Write short explanations of overfitting, bias/variance, train/test split, and cross-validation.",
+        ],
+        output: "03_statistics/model_reasoning_notes.md.",
+        doneWhen: "You can explain why a model with high training accuracy may still be useless.",
+      },
+      {
+        id: "p3-s3",
+        title: "Write the limitations-first analysis notebook",
+        time: "Week 6-8",
+        purpose: "Practice the habit mature analysts use: state what the data can and cannot prove.",
+        resources: ["r-openintro", "r-islp"],
+        actions: [
+          "Pick any small dataset with a clear question.",
+          "Include summary statistics, visualizations, one statistical test, and one regression model.",
+          "Write a limitations section before writing the conclusion.",
+        ],
+        output: "03_statistics/what_this_data_can_and_cannot_prove.ipynb.",
+        doneWhen: "The notebook separates evidence, assumptions, uncertainty, and conclusions.",
+      },
+    ],
+    project: {
+      title: "What This Data Can and Cannot Prove",
+      brief: "A short analysis notebook designed to show statistical judgment, not just charts.",
+      process: [
+        "Start with a question that can be partially answered from the data.",
+        "Identify the unit of analysis, sample, missingness, and likely biases.",
+        "Run one statistical test only if the assumptions are defensible.",
+        "Use one regression model to support explanation, then state its limits.",
+      ],
+      artifacts: ["notebook", "dataset note", "limitations section", "plain-English conclusion"],
+      acceptance: [
+        ["p3-a1", "The notebook includes a limitations section with at least three concrete limits."],
+        ["p3-a2", "The conclusion does not imply causation unless the design supports it."],
+      ],
+    },
+  },
+  "phase-4": {
+    steps: [
+      {
+        id: "p4-s1",
+        title: "Build the applied Python data stack",
+        time: "Week 1-3",
+        purpose: "Move from general Python into the daily data science workflow.",
+        resources: ["r-harvardx-ds-python", "r-kaggle-learn"],
+        actions: [
+          "Use HarvardX as the spine for Python data science concepts.",
+          "Use Kaggle Pandas and Data Visualization as hands-on practice labs.",
+          "Create a notebook with examples of filtering, grouping, merging, plotting, and missing-data checks.",
+        ],
+        output: "04_data_science/pandas_visualization_practice.ipynb.",
+        doneWhen: "You can go from raw CSV to grouped summary and chart without copying a full tutorial.",
+      },
+      {
+        id: "p4-s2",
+        title: "Learn baseline modeling and evaluation",
+        time: "Week 3-6",
+        purpose: "Train simple models responsibly and judge whether they are useful.",
+        resources: ["r-google-mlcc", "r-harvardx-ds-python", "r-islp"],
+        actions: [
+          "Use Google ML Crash Course for supervised learning and responsible AI basics.",
+          "Use ISLP when model evaluation or regularization needs more depth.",
+          "Practice train/test split, baseline model, cross-validation, and at least two metrics.",
+        ],
+        output: "04_data_science/modeling_practice.ipynb.",
+        doneWhen: "You can explain why the chosen metric fits the business question.",
+      },
+      {
+        id: "p4-s3",
+        title: "Build Project 1A with ethical framing from the start",
+        time: "Week 6-10",
+        purpose: "Create the People Analytics anchor project without making irresponsible claims.",
+        resources: ["r-ibm-hr-kaggle", "r-harvardx-ds-python", "r-google-mlcc"],
+        actions: [
+          "Use the IBM HR dataset or another public/synthetic HR-style dataset.",
+          "Create a data dictionary, cleaning notebook, EDA notebook, baseline model, metrics, and limitations.",
+          "Write the ethical-use statement before finalizing the model results.",
+        ],
+        output: "Project 1A folder with notebooks, README, data dictionary, metrics, and ethics note.",
+        doneWhen: "The project is framed as aggregate workforce risk analysis, not prediction for employment decisions.",
+      },
+    ],
+    project: {
+      title: "Project 1A: People Analytics EDA and Attrition Risk Analysis",
+      brief: "Your anchor project. It should show business context, technical execution, and responsible interpretation.",
+      process: [
+        "Define the stakeholder question: What aggregate patterns appear related to attrition risk?",
+        "Create a data dictionary and identify target leakage before modeling.",
+        "Clean and explore the data before building any model.",
+        "Build a baseline model, evaluate it, and compare it to a simple non-ML baseline.",
+        "Write limitations and ethical-use notes in the README and notebook.",
+      ],
+      artifacts: ["data dictionary", "cleaning notebook", "EDA notebook", "baseline model", "evaluation table", "limitations", "ethical-use statement"],
+      acceptance: [
+        ["p4-a1", "The README avoids the phrase or implication that you can predict who will quit."],
+        ["p4-a2", "The model section includes baseline comparison, metrics, and limitations."],
+      ],
+    },
+  },
+  "phase-5": {
+    steps: [
+      {
+        id: "p5-s1",
+        title: "Convert analysis questions into dashboard pages",
+        time: "Week 1",
+        purpose: "Design the dashboard around user decisions instead of dumping charts.",
+        resources: ["r-uk-gov-viz"],
+        actions: [
+          "List the stakeholder questions for Project 1A.",
+          "Map each question to one dashboard page and one primary chart or table.",
+          "Use the visualization guidance to remove chart types that could mislead.",
+        ],
+        output: "05_data_visualization/dashboard_plan.md.",
+        doneWhen: "Every dashboard page has a user question, primary metric, and limitation.",
+      },
+      {
+        id: "p5-s2",
+        title: "Build a Streamlit dashboard prototype",
+        time: "Week 2-3",
+        purpose: "Create an interactive project demo that can be reused in the portfolio.",
+        resources: ["r-streamlit"],
+        actions: [
+          "Create pages for workforce overview, attrition trends, risk factors, model results, and limitations.",
+          "Add filters only where they answer a real question.",
+          "Keep the limitations page visible and plain-spoken.",
+        ],
+        output: "05_data_visualization/streamlit_app/.",
+        doneWhen: "A user can move through the dashboard without reading your notebook.",
+      },
+      {
+        id: "p5-s3",
+        title: "Optionally translate the dashboard into a BI-style version",
+        time: "Optional",
+        purpose: "Show business dashboard literacy if your target roles value Power BI.",
+        resources: ["r-powerbi"],
+        actions: [
+          "Complete the beginner Power BI learning path if business-dashboard roles are a priority.",
+          "Recreate the same dashboard story with BI-style pages and filters.",
+          "Keep the Streamlit version as the code-first artifact.",
+        ],
+        output: "Optional Power BI notes or dashboard screenshots.",
+        doneWhen: "The BI version tells the same story with fewer distractions, not more visuals.",
+      },
+    ],
+    project: {
+      title: "Project 1A Dashboard",
+      brief: "A stakeholder-facing dashboard that turns the People Analytics analysis into a clear decision-support artifact.",
+      process: [
+        "Start with the five required pages: overview, trends, risk factors, model results, limitations.",
+        "Write the page title as a stakeholder question.",
+        "Use KPI cards only for metrics that should be monitored repeatedly.",
+        "Include model caveats near the model results, not hidden in a footnote.",
+      ],
+      artifacts: ["dashboard plan", "Streamlit app", "screenshots", "dashboard README", "limitations page"],
+      acceptance: [
+        ["p5-a1", "The dashboard has no chart that lacks a decision or interpretation purpose."],
+        ["p5-a2", "The limitations and ethical-use page is accessible from the main navigation."],
+      ],
+    },
+  },
+  "phase-6": {
+    steps: [
+      {
+        id: "p6-s1",
+        title: "Learn the pipeline shape before tools get complex",
+        time: "Week 1-3",
+        purpose: "Understand ingestion, storage, transformation, quality checks, and serving layers.",
+        resources: ["r-de-zoomcamp", "r-duckdb"],
+        actions: [
+          "Use Data Engineering Zoomcamp modules for Docker, ingestion, orchestration, warehouse, and analytics engineering.",
+          "Use DuckDB locally to avoid cloud friction while learning SQL-on-files.",
+          "Sketch raw, staging, marts, and dashboard-output layers for Project 1B.",
+        ],
+        output: "06_data_engineering/pipeline_architecture.md.",
+        doneWhen: "You can explain where raw data ends and modeled analytics tables begin.",
+      },
+      {
+        id: "p6-s2",
+        title: "Build transformations with dbt-style discipline",
+        time: "Week 4-7",
+        purpose: "Make transformations modular, tested, and documented.",
+        resources: ["r-dbt-fundamentals", "r-de-zoomcamp"],
+        actions: [
+          "Complete dbt Fundamentals or the relevant dbt module from DE Zoomcamp.",
+          "Design staging models, dimensions, and facts for workforce analytics.",
+          "Add tests for uniqueness, non-null keys, accepted values, and relationships.",
+        ],
+        output: "06_data_engineering/dbt_or_sql_models/ with model docs and tests.",
+        doneWhen: "Each modeled table has a documented grain and at least one quality check.",
+      },
+      {
+        id: "p6-s3",
+        title: "Upgrade Project 1A into Project 1B",
+        time: "Week 8-12",
+        purpose: "Turn notebooks into an end-to-end analytics pipeline.",
+        resources: ["r-de-zoomcamp", "r-duckdb", "r-bigquery-public"],
+        actions: [
+          "Write an ingestion script for raw public/synthetic HR-style data.",
+          "Store raw and cleaned outputs separately.",
+          "Build dim_employee, dim_department, dim_manager, fact_employee_month, fact_attrition, fact_engagement, fact_compensation_band, and fact_manager_span.",
+          "Use BigQuery public datasets only for warehouse practice if you want cloud reps; monitor query size.",
+        ],
+        output: "Project 1B pipeline with repeatable run instructions and dashboard-ready outputs.",
+        doneWhen: "One documented command or workflow rebuilds the analytics tables from raw data.",
+      },
+    ],
+    project: {
+      title: "Project 1B: End-to-End Workforce Analytics Pipeline",
+      brief: "A serious analytics-engineering project that proves you can move from raw data to trustworthy dashboard tables.",
+      process: [
+        "Document the architecture before implementing tools.",
+        "Separate ingestion, transformation, validation, and export steps.",
+        "Define table grain before writing SQL.",
+        "Add data quality checks and include failure examples if possible.",
+        "Connect outputs back to the Project 1A dashboard.",
+      ],
+      artifacts: ["architecture diagram", "ingestion script", "modeled tables", "tests", "data dictionary", "pipeline README"],
+      acceptance: [
+        ["p6-a1", "The pipeline can be rerun from raw data without manual notebook editing."],
+        ["p6-a2", "Every dimension and fact table has grain, keys, and quality checks documented."],
+      ],
+    },
+  },
+  "phase-7": {
+    steps: [
+      {
+        id: "p7-s1",
+        title: "Separate training code from notebook exploration",
+        time: "Week 1-3",
+        purpose: "Move toward repeatable ML engineering rather than one-off notebook work.",
+        resources: ["r-ml-zoomcamp", "r-google-mlcc-p7", "r-islp-p7"],
+        actions: [
+          "Use ML Zoomcamp modules on regression, classification, validation, and model selection.",
+          "Turn the Project 1A baseline model into a training script.",
+          "Save metrics and the model artifact in predictable locations.",
+        ],
+        output: "07_portfolio_projects/workforce_model_service/train.py.",
+        doneWhen: "Running the script trains the model and writes metrics without opening a notebook.",
+      },
+      {
+        id: "p7-s2",
+        title: "Package the model behind an API",
+        time: "Week 4-7",
+        purpose: "Show that you can serve predictions responsibly and test the interface.",
+        resources: ["r-ml-zoomcamp"],
+        actions: [
+          "Follow ML Zoomcamp's FastAPI and Docker deployment sections selectively.",
+          "Build a FastAPI endpoint that accepts aggregate-safe input examples.",
+          "Add example request and response JSON.",
+          "Containerize the service with a Dockerfile.",
+        ],
+        output: "FastAPI app, Dockerfile, example request, and service README.",
+        doneWhen: "A documented API request returns a prediction and explanation fields.",
+      },
+      {
+        id: "p7-s3",
+        title: "Write the model card before presenting results",
+        time: "Week 8-10",
+        purpose: "Make responsible use constraints explicit.",
+        resources: ["r-google-mlcc-p7", "r-islp-p7"],
+        actions: [
+          "Document training data, target, features, metrics, intended use, out-of-scope use, and risks.",
+          "State that the model supports aggregate workforce planning and exploratory analysis only.",
+          "Add an example dashboard or app section that consumes predictions with caveats.",
+        ],
+        output: "model_card.md and prediction-consuming demo.",
+        doneWhen: "The service documentation says what the model must not be used for.",
+      },
+    ],
+    project: {
+      title: "Project 1C: Attrition Risk Model Service",
+      brief: "A packaged model service that demonstrates ML engineering while keeping workforce-risk ethics explicit.",
+      process: [
+        "Promote only the baseline model if it is easier to explain and maintain.",
+        "Use scripts for training and prediction; keep notebooks for exploration only.",
+        "Add tests or example requests for valid and invalid inputs.",
+        "Document intended use and prohibited use in the README and model card.",
+      ],
+      artifacts: ["training script", "saved model", "FastAPI endpoint", "Dockerfile", "example API request", "model card"],
+      acceptance: [
+        ["p7-a1", "The model can be trained and served without manual notebook execution."],
+        ["p7-a2", "The model card clearly prohibits automated employment decisions."],
+      ],
+    },
+  },
+  "phase-8": {
+    steps: [
+      {
+        id: "p8-s1",
+        title: "Add experiment tracking and reproducibility",
+        time: "Week 1-3",
+        purpose: "Make model changes auditable instead of relying on memory.",
+        resources: ["r-mlops-zoomcamp", "r-made-with-ml"],
+        actions: [
+          "Use MLOps Zoomcamp modules on experiment tracking and model management.",
+          "Track parameters, metrics, data version notes, and model artifacts.",
+          "Create a repeatable training command with environment instructions.",
+        ],
+        output: "Experiment tracking setup and reproducibility notes.",
+        doneWhen: "You can compare two model runs and explain why one was selected.",
+      },
+      {
+        id: "p8-s2",
+        title: "Design deployment and monitoring controls",
+        time: "Week 3-6",
+        purpose: "Think through lifecycle risk before pretending a model is production-ready.",
+        resources: ["r-mlops-zoomcamp", "r-nist-ai-rmf"],
+        actions: [
+          "Study deployment and monitoring sections from MLOps Zoomcamp.",
+          "Use NIST AI RMF language to identify risks, affected stakeholders, and control points.",
+          "Write monitoring checks for data drift, prediction distribution changes, missing values, and performance review cadence.",
+        ],
+        output: "monitoring_plan.md and risk_assessment.md.",
+        doneWhen: "The monitoring plan names signals, thresholds or review triggers, and owner actions.",
+      },
+      {
+        id: "p8-s3",
+        title: "Package the MLOps layer into Project 1C",
+        time: "Week 6-8",
+        purpose: "Convert MLOps learning into portfolio evidence.",
+        resources: ["r-mlops-zoomcamp", "r-made-with-ml", "r-nist-ai-rmf"],
+        actions: [
+          "Add experiment results, selected model version, evaluation report, model card, risk assessment, and retraining plan.",
+          "Document what is implemented versus what is a design plan.",
+          "Keep the scope honest: this is production-thinking evidence, not a claim of enterprise production deployment.",
+        ],
+        output: "MLOps documentation layer in Project 1C.",
+        doneWhen: "A reviewer can see how the model would be monitored, reviewed, and retired or retrained.",
+      },
+    ],
+    project: {
+      title: "MLOps Layer for Project 1",
+      brief: "A production-thinking layer that makes your model reproducible, documented, monitored, and risk-aware.",
+      process: [
+        "Start with experiment tracking and versioning, then monitoring, then risk controls.",
+        "Tie every monitoring signal to a concrete action.",
+        "Use NIST AI RMF to write risks in professional language.",
+        "Document self-paced course status honestly; do not imply certificate completion unless earned.",
+      ],
+      artifacts: ["experiment log", "evaluation report", "monitoring plan", "model card", "risk assessment", "retraining plan"],
+      acceptance: [
+        ["p8-a1", "The selected model version and evaluation report are linked together."],
+        ["p8-a2", "The risk assessment includes people, organizational, and technical risks."],
+      ],
+    },
+  },
+  "phase-9": {
+    steps: [
+      {
+        id: "p9-s1",
+        title: "Choose the second project domain deliberately",
+        time: "Week 1",
+        purpose: "Prove transferability without chasing every modern AI topic.",
+        resources: ["r-nyc-taxi", "r-spotify-api-warning"],
+        actions: [
+          "Pick operations, product, gaming, or public-sector analytics unless you have clean music/NLP data access.",
+          "If considering music, read the Spotify API change notice and avoid restricted audio-feature dependencies.",
+          "Write a one-page project brief with question, dataset, users, and expected outputs.",
+        ],
+        output: "transferability_project_brief.md.",
+        doneWhen: "The project has clean data access and does not depend on a restricted or fragile API.",
+      },
+      {
+        id: "p9-s2",
+        title: "Use advanced AI only if it serves the project",
+        time: "Optional",
+        purpose: "Avoid derailing the core roadmap with deep learning for its own sake.",
+        resources: ["r-fastai", "r-hf-llm", "r-fsdl"],
+        actions: [
+          "Use fast.ai if the project benefits from deep learning.",
+          "Use Hugging Face if the project requires NLP or LLM workflows.",
+          "Use Full Stack Deep Learning for production-design perspective after a working prototype exists.",
+        ],
+        output: "Optional advanced-AI prototype notes.",
+        doneWhen: "The advanced method solves a real project need better than a simpler method.",
+      },
+      {
+        id: "p9-s3",
+        title: "Build the transferability project MVP",
+        time: "4-8 weeks",
+        purpose: "Show that your skills are not limited to HR data.",
+        resources: ["r-nyc-taxi"],
+        actions: [
+          "For operations, use NYC TLC data to build demand, trip, or revenue trend analysis.",
+          "Include SQL, feature engineering, a simple model or forecast, and a dashboard or written report.",
+          "Reuse the project structure and README standards from earlier phases.",
+        ],
+        output: "Second project MVP with data pipeline or analysis, model if useful, and stakeholder-facing output.",
+        doneWhen: "The project demonstrates a different domain, different data shape, and clear business interpretation.",
+      },
+    ],
+    project: {
+      title: "Transferability Project",
+      brief: "A second serious project outside People Analytics. It proves your methods transfer to another domain.",
+      process: [
+        "Pick one domain and one primary question.",
+        "Prioritize clean public data access over novelty.",
+        "Reuse your SQL, statistics, dashboarding, and pipeline skills.",
+        "Add ML only if it improves the project question.",
+      ],
+      artifacts: ["project brief", "dataset note", "analysis or pipeline", "dashboard/report", "README"],
+      acceptance: [
+        ["p9-a1", "The project does not depend on inaccessible or legally unclear data."],
+        ["p9-a2", "The README explains why this project proves transferability beyond HR."],
+      ],
+    },
+  },
+  "phase-10": {
+    steps: [
+      {
+        id: "p10-s1",
+        title: "Polish the flagship project for reviewer usability",
+        time: "Week 1-2",
+        purpose: "Make the project easy to inspect quickly.",
+        resources: ["r-cookiecutter-p10", "r-streamlit-p10"],
+        actions: [
+          "Use Cookiecutter principles to organize folders and naming.",
+          "Write a flagship README with problem, data, architecture, methods, results, limitations, and how to run.",
+          "Link to the dashboard/demo and key notebooks or scripts.",
+        ],
+        output: "Polished flagship project README and structure.",
+        doneWhen: "A reviewer can understand the project in five minutes and run it with documented steps.",
+      },
+      {
+        id: "p10-s2",
+        title: "Polish the transferability project",
+        time: "Week 2-4",
+        purpose: "Show domain range without making the portfolio feel scattered.",
+        resources: ["r-cookiecutter-p10", "r-streamlit-p10", "r-powerbi-p10"],
+        actions: [
+          "Write the transferability README using the same structure as the flagship.",
+          "Add a dashboard, report, or screenshots that make the outcome visible.",
+          "Make clear what skills transfer from the flagship project.",
+        ],
+        output: "Polished second project with README and demo/report.",
+        doneWhen: "The second project has its own business question and does not look like a tutorial clone.",
+      },
+      {
+        id: "p10-s3",
+        title: "Write career-facing summaries",
+        time: "Week 4-6",
+        purpose: "Translate technical work into hiring-facing proof.",
+        resources: ["r-cookiecutter-p10"],
+        actions: [
+          "Write resume bullets for each project using action, tool, output, and business value.",
+          "Write a short LinkedIn/project summary for each serious project.",
+          "Create a portfolio index README linking to both projects and this learning trail.",
+        ],
+        output: "Resume bullets, LinkedIn summaries, and portfolio index README.",
+        doneWhen: "The portfolio says what you can do, why it matters, and where to inspect the proof.",
+      },
+    ],
+    project: {
+      title: "Portfolio Packaging",
+      brief: "Turn the year of work into evidence that a reviewer can understand quickly.",
+      process: [
+        "Polish two serious projects, not ten weak ones.",
+        "Use consistent README structure across repos.",
+        "Include architecture diagrams where system design matters.",
+        "Make limitations and ethical considerations visible, especially for the workforce project.",
+      ],
+      artifacts: ["flagship README", "transferability README", "portfolio index", "architecture diagrams", "resume bullets", "project summaries"],
+      acceptance: [
+        ["p10-a1", "The portfolio has two serious projects with clear setup and inspection paths."],
+        ["p10-a2", "The career summary positions you beyond HR-only work."],
+      ],
+    },
+  },
+};
+
+roadmap.forEach((phase) => {
+  Object.assign(phase, phaseGuides[phase.id]);
+});
+
 const monthlyPlan = [
   {
     id: "m1",
@@ -881,8 +1563,10 @@ function phaseById(id) {
 
 function checkableIdsForPhase(phase) {
   return [
+    ...(phase.steps || []).map((step) => step.id),
     ...phase.outcomes.map(([id]) => id),
     ...phase.deliverables.map(([id]) => id),
+    ...(phase.project?.acceptance || []).map(([id]) => id),
     ...phase.resources.map((resource) => resource.id),
   ];
 }
@@ -909,6 +1593,8 @@ function overallProgress() {
 
 function nextAction() {
   const active = phaseById(state.selectedPhaseId);
+  const undoneStep = (active.steps || []).find((step) => !state.done[step.id]);
+  if (undoneStep) return undoneStep.title;
   const undoneOutcome = active.outcomes.find(([id]) => !state.done[id]);
   if (undoneOutcome) return undoneOutcome[1];
   const undoneResource = active.resources.find((resource) => !state.done[resource.id]);
@@ -1095,11 +1781,19 @@ function renderRoadmapView(phase) {
         </div>
         <div class="phase-body">
           <div class="phase-main">
-            ${renderChecks("Skill Outcomes", phase.outcomes, "target")}
-            ${renderDeliverables(phase)}
-            ${renderResourcesForPhase(phase)}
+            ${renderPhaseHandoff(phase)}
+            ${renderLearningPath(phase)}
+            ${renderProjectGuide(phase)}
+            ${renderChecks("Competency Checks", phase.outcomes, "target")}
           </div>
           <aside class="phase-side">
+            <section class="section-card">
+              <div class="section-title">
+                <h3>Use These Now</h3>
+                <span class="pill">${phase.resources.length}</span>
+              </div>
+              ${renderCompactResourceList(phase)}
+            </section>
             <section class="section-card">
               <div class="section-title">
                 <h3>Phase Notes</h3>
@@ -1124,6 +1818,173 @@ function renderRoadmapView(phase) {
           </aside>
         </div>
       </article>
+    </section>
+  `;
+}
+
+function renderPhaseHandoff(phase) {
+  const index = roadmap.findIndex((item) => item.id === phase.id);
+  const previous = index > 0 ? roadmap[index - 1] : null;
+  const next = index < roadmap.length - 1 ? roadmap[index + 1] : null;
+
+  return `
+    <section class="flow-card">
+      <div class="flow-node ${previous ? "" : "is-muted"}">
+        <span class="flow-label">Previous</span>
+        ${
+          previous
+            ? `<button type="button" data-action="select-phase" data-phase-id="${previous.id}">Phase ${previous.number}: ${escapeHtml(previous.title)}</button>
+               <p>${escapeHtml(phaseBridge(previous, phase))}</p>`
+            : `<strong>Start here</strong><p>Set up the workflow before learning content.</p>`
+        }
+      </div>
+      <div class="flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+      <div class="flow-node is-current">
+        <span class="flow-label">Current</span>
+        <strong>Phase ${phase.number}: ${escapeHtml(phase.title)}</strong>
+        <p>Work the steps in order: learn, practice, build, then review against the acceptance criteria.</p>
+      </div>
+      <div class="flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
+      <div class="flow-node ${next ? "" : "is-muted"}">
+        <span class="flow-label">Next</span>
+        ${
+          next
+            ? `<button type="button" data-action="select-phase" data-phase-id="${next.id}">Phase ${next.number}: ${escapeHtml(next.title)}</button>
+               <p>${escapeHtml(phaseBridge(phase, next))}</p>`
+            : `<strong>Portfolio complete</strong><p>Use the finished projects for applications, interviews, and iteration.</p>`
+        }
+      </div>
+    </section>
+  `;
+}
+
+function phaseBridge(fromPhase, toPhase) {
+  const bridges = {
+    "phase-0->phase-1": "Your repo, terminal, and environment become the workspace for Python practice.",
+    "phase-1->phase-2": "Python gives you scripting discipline; SQL adds database-native analysis.",
+    "phase-2->phase-3": "SQL outputs become datasets you can interpret statistically instead of only summarizing.",
+    "phase-3->phase-4": "Statistical judgment keeps the first data science project from becoming shallow modeling.",
+    "phase-4->phase-5": "The People Analytics analysis becomes a stakeholder-facing dashboard.",
+    "phase-5->phase-6": "Dashboard outputs define the analytics tables the pipeline must produce.",
+    "phase-6->phase-7": "Clean, tested analytics tables become the inputs for a packaged model service.",
+    "phase-7->phase-8": "A served model needs tracking, monitoring, documentation, and lifecycle controls.",
+    "phase-8->phase-9": "The flagship system frees you to prove transferability in a second domain.",
+    "phase-9->phase-10": "Both serious projects become portfolio evidence and career-facing summaries.",
+  };
+  return bridges[`${fromPhase.id}->${toPhase.id}`] || `${fromPhase.title} feeds directly into ${toPhase.title}.`;
+}
+
+function renderLearningPath(phase) {
+  return `
+    <section class="section-card learning-path">
+      <div class="section-title">
+        <h3>Guided Learning Path</h3>
+        <span class="pill">Follow in order</span>
+      </div>
+      <div class="step-chain">
+        ${(phase.steps || []).map((step, index) => renderLearningStep(step, index, phase.steps.length)).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderLearningStep(step, index, total) {
+  const stage = stageForStep(index, total);
+  return `
+    <article class="step-card">
+      <div class="step-marker">
+        <span>${index + 1}</span>
+        ${index < total - 1 ? `<i data-lucide="arrow-down"></i>` : ""}
+      </div>
+      <div class="step-content">
+        <div class="step-head">
+          <div>
+            <p class="eyebrow">${stage} · ${escapeHtml(step.time)}</p>
+            <h4>${escapeHtml(step.title)}</h4>
+          </div>
+          <label class="step-toggle">
+            <input type="checkbox" data-action="toggle-done" data-id="${step.id}" ${state.done[step.id] ? "checked" : ""} />
+            Done
+          </label>
+        </div>
+        <p class="step-purpose">${escapeHtml(step.purpose)}</p>
+        <div class="step-resources">
+          <strong>Use now</strong>
+          <div>${step.resources.map(renderInlineResourceLink).join("")}</div>
+        </div>
+        <div class="instruction-grid">
+          <div>
+            <strong>Do</strong>
+            <ol>${step.actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("")}</ol>
+          </div>
+          <div>
+            <strong>Produce</strong>
+            <p>${escapeHtml(step.output)}</p>
+            <strong>Move on when</strong>
+            <p>${escapeHtml(step.doneWhen)}</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function stageForStep(index, total) {
+  if (index === 0) return "Learn";
+  if (index === total - 1) return "Build / Review";
+  return "Practice";
+}
+
+function renderInlineResourceLink(resourceId) {
+  const resource = getResource(resourceId);
+  if (!resource) return "";
+  return `
+    <a class="step-resource-link" href="${resource.url}" target="_blank" rel="noreferrer">
+      <span>${escapeHtml(resource.name)}</span>
+      <i data-lucide="external-link"></i>
+    </a>
+  `;
+}
+
+function getResource(resourceId) {
+  return allResources().find((resource) => resource.id === resourceId);
+}
+
+function renderProjectGuide(phase) {
+  const project = phase.project;
+  if (!project) return "";
+  return `
+    <section class="section-card project-guide">
+      <div class="section-title">
+        <h3>Project Playbook</h3>
+        <span class="pill">Build evidence</span>
+      </div>
+      <h4>${escapeHtml(project.title)}</h4>
+      <p>${escapeHtml(project.brief)}</p>
+      <div class="instruction-grid">
+        <div>
+          <strong>Process</strong>
+          <ol>${project.process.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>
+        </div>
+        <div>
+          <strong>Artifacts</strong>
+          <ul>${project.artifacts.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+      </div>
+      <div class="acceptance-list">
+        <strong>Acceptance Criteria</strong>
+        ${project.acceptance
+          .map(
+            ([id, label]) => `
+              <label class="check-row">
+                <input type="checkbox" data-action="toggle-done" data-id="${id}" ${state.done[id] ? "checked" : ""} />
+                <span><strong>${escapeHtml(label)}</strong></span>
+              </label>
+            `,
+          )
+          .join("")}
+      </div>
+      ${renderDeliverableChecklist(phase)}
     </section>
   `;
 }
@@ -1179,6 +2040,29 @@ function renderDeliverables(phase) {
   `;
 }
 
+function renderDeliverableChecklist(phase) {
+  return `
+    <div class="deliverable-checklist">
+      <strong>Phase Deliverables</strong>
+      <div class="check-list">
+        ${phase.deliverables
+          .map(
+            ([id, title, description]) => `
+              <label class="check-row">
+                <input type="checkbox" data-action="toggle-done" data-id="${id}" ${state.done[id] ? "checked" : ""} />
+                <span>
+                  <strong>${escapeHtml(title)}</strong>
+                  <span>${escapeHtml(description)}</span>
+                </span>
+              </label>
+            `,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
 function renderResourcesForPhase(phase) {
   return `
     <section class="section-card">
@@ -1190,6 +2074,26 @@ function renderResourcesForPhase(phase) {
         ${phase.resources.map(renderResourceItem).join("")}
       </div>
     </section>
+  `;
+}
+
+function renderCompactResourceList(phase) {
+  return `
+    <div class="compact-resource-list">
+      ${phase.resources
+        .map(
+          (resource) => `
+            <a href="${resource.url}" target="_blank" rel="noreferrer">
+              <span>
+                <strong>${escapeHtml(resource.name)}</strong>
+                <small>${escapeHtml(resource.type)} · ${escapeHtml(resource.priority)}</small>
+              </span>
+              <i data-lucide="external-link"></i>
+            </a>
+          `,
+        )
+        .join("")}
+    </div>
   `;
 }
 

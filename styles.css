@@ -594,6 +594,310 @@ h1 {
   line-height: 1.45;
 }
 
+.flow-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.flow-node {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.flow-node.is-current {
+  border-color: rgba(34, 109, 104, 0.36);
+  background: var(--accent-soft);
+}
+
+.flow-node.is-muted {
+  color: var(--muted);
+}
+
+.flow-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.flow-node button {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent-2);
+  font-weight: 800;
+  text-align: left;
+}
+
+.flow-node button:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.flow-node strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.flow-node p {
+  margin: 7px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.flow-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.learning-path {
+  display: grid;
+  gap: 14px;
+}
+
+.step-chain {
+  display: grid;
+  gap: 14px;
+}
+
+.step-card {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.step-marker {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 8px;
+}
+
+.step-marker span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #203131;
+  color: #fff;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.step-marker svg {
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+}
+
+.step-content {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.step-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.step-head h4,
+.project-guide h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.28;
+}
+
+.step-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.step-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.step-purpose {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+  line-height: 1.52;
+}
+
+.step-resources {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.step-resources > strong,
+.instruction-grid strong,
+.acceptance-list > strong,
+.deliverable-checklist > strong {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.step-resources > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.step-resource-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  min-height: 32px;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--accent-2);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.step-resource-link:hover {
+  border-color: var(--accent-2);
+  background: var(--accent-soft);
+}
+
+.step-resource-link span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.step-resource-link svg,
+.compact-resource-list svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+}
+
+.instruction-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+  gap: 14px;
+}
+
+.instruction-grid ol,
+.instruction-grid ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.instruction-grid p {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+  line-height: 1.52;
+}
+
+.project-guide {
+  display: grid;
+  gap: 13px;
+}
+
+.project-guide > p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.acceptance-list,
+.deliverable-checklist {
+  display: grid;
+  gap: 9px;
+  padding-top: 2px;
+}
+
+.compact-resource-list {
+  display: grid;
+  gap: 8px;
+}
+
+.compact-resource-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.compact-resource-list a:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.compact-resource-list span {
+  min-width: 0;
+}
+
+.compact-resource-list strong,
+.compact-resource-list small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compact-resource-list strong {
+  font-size: 0.86rem;
+}
+
+.compact-resource-list small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
 .resource-list {
   display: grid;
   gap: 10px;
@@ -883,6 +1187,18 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .flow-card {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-arrow svg {
+    transform: rotate(90deg);
+  }
+
+  .instruction-grid {
+    grid-template-columns: 1fr;
+  }
+
   .link-form button {
     width: 100%;
   }
@@ -929,6 +1245,29 @@ h1 {
   .workspace-header {
     align-items: start;
     flex-direction: column;
+  }
+
+  .step-card {
+    grid-template-columns: 1fr;
+  }
+
+  .step-marker {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .step-marker svg {
+    transform: rotate(-90deg);
+  }
+
+  .step-head {
+    flex-direction: column;
+  }
+
+  .step-resource-link {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .resource-item {
