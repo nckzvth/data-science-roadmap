@@ -1383,8 +1383,586 @@ const phaseGuides = {
   },
 };
 
+const phaseSpecs = {
+  "phase-0": {
+    focus: [
+      "Git mental model: working tree, staging area, commits, branches, remotes, pull requests.",
+      "Terminal basics: pwd, ls, cd, mkdir, touch, cp, mv, rm with caution, cat, less, head, tail, find or rg.",
+      "Environment basics: Python version, virtual environments, package installs, requirements files.",
+      "Markdown documentation: README structure, headings, code blocks, links, screenshots, and run instructions.",
+      "Reproducible project layout: separating raw data, notebooks, scripts, reports, and docs.",
+    ],
+    avoid: [
+      "Custom dotfile rabbit holes.",
+      "Advanced Git workflows before you can commit, branch, merge, and inspect diffs.",
+      "Overengineering the repo before you have real project artifacts.",
+    ],
+    resourceUse: [
+      "Use GitHub Skills first because it gives immediate reps with commits, branches, and PRs.",
+      "Use Missing Semester for shell, editor, Git, debugging, and workflow topics only; skip lectures that are not immediately useful.",
+      "Use Cookiecutter as a reference for project shape, not a tutorial to complete.",
+    ],
+    repoStructure: [
+      "data-science-engineering-roadmap/",
+      "  README.md",
+      "  00_setup/",
+      "    terminal_git_notes.md",
+      "    environment_checklist.md",
+      "    project_readme_template.md",
+      "  01_python/",
+      "  02_sql/",
+      "  03_statistics/",
+      "  04_data_science/",
+      "  05_visualization/",
+      "  06_data_engineering/",
+      "  07_ml_engineering/",
+      "  08_mlops/",
+      "  09_transferability_project/",
+      "  10_portfolio/",
+    ],
+    spec: {
+      objective: "Create the durable workspace and documentation system for the full year.",
+      inputs: ["GitHub account", "local terminal", "Python 3", "VS Code or Cursor", "roadmap app"],
+      requirements: [
+        "Root README states target role, roadmap sequence, weekly cadence, and project-output rule.",
+        "Each phase folder has a README or notes file before the phase starts.",
+        "Environment checklist records Python version, editor, package manager, and how to activate a virtual environment.",
+        "Project README template includes problem, data, methods, how to run, results, limitations, and next steps.",
+      ],
+      qualityBar: [
+        "A reviewer can understand the repo purpose without reading the roadmap app.",
+        "You can reproduce the same folder setup on a new machine.",
+        "No real work data, credentials, private files, or local-only absolute paths are committed.",
+      ],
+    },
+  },
+  "phase-1": {
+    focus: [
+      "Python syntax: variables, functions, conditionals, loops, lists, dictionaries, tuples, strings.",
+      "File I/O: reading and writing CSV/text files, relative paths, basic encoding awareness.",
+      "Decomposition: turning a task into small functions with clear inputs and outputs.",
+      "Debugging: reading tracebacks, printing intermediate values, isolating failing logic.",
+      "Basic data cleaning without Pandas first: column names, missing values, type conversion, summary stats.",
+    ],
+    avoid: [
+      "Heavy algorithms, recursion, and competitive programming as prerequisites for data work.",
+      "Object-oriented design beyond understanding simple classes if MIT introduces them.",
+      "Jumping to Pandas before you can explain basic Python control flow.",
+    ],
+    resourceUse: [
+      "Use MIT 6.100L as the conceptual spine for computational thinking.",
+      "Use Kaggle Python as quick syntax reinforcement when MIT feels too abstract.",
+      "Use your own CSV script as the transfer task: every concept should improve that script.",
+    ],
+    repoStructure: [
+      "01_python/",
+      "  README.md",
+      "  notes/",
+      "    python_basics.md",
+      "    debugging_notes.md",
+      "  scripts/",
+      "    clean_csv.py",
+      "  data/",
+      "    raw/",
+      "    processed/",
+      "  outputs/",
+      "    summary_statistics.txt",
+    ],
+    spec: {
+      objective: "Build a command-line CSV cleaning script that proves basic Python fluency.",
+      inputs: ["One small domain-neutral CSV", "simple cleaning rules documented in README"],
+      requirements: [
+        "Accept an input file path and output file path or document fixed paths clearly.",
+        "Normalize column names to predictable snake_case.",
+        "Report missing values by column before cleaning.",
+        "Apply explicit missing-value handling rules: keep, flag, impute, or drop with explanation.",
+        "Write a cleaned CSV and a summary statistics output.",
+        "Keep core logic in functions, not one long procedural block.",
+      ],
+      qualityBar: [
+        "Script runs from terminal without notebook state.",
+        "README includes dataset source, cleaning assumptions, run command, and expected outputs.",
+        "Cleaning choices are documented and defensible.",
+      ],
+    },
+  },
+  "phase-2": {
+    focus: [
+      "Relational model: tables, rows, columns, primary keys, foreign keys, constraints, normalization.",
+      "Analytics SQL: SELECT, WHERE, GROUP BY, HAVING, joins, CTEs, subqueries, CASE, date logic.",
+      "Window functions: row_number, rank, dense_rank, lag, lead, running totals, rolling averages.",
+      "Metric grain: user-day, customer-month, employee-month, event-level, account-level.",
+      "Cohorts and retention: cohort definition, activity windows, numerator/denominator discipline.",
+    ],
+    avoid: [
+      "Database administration depth before analytics fluency.",
+      "Query cleverness that makes logic unreadable.",
+      "Using Pandas for analysis that should be expressed directly in SQL.",
+    ],
+    resourceUse: [
+      "Use CS50 SQL for modeling, constraints, keys, and database fundamentals.",
+      "Use Kaggle SQL for fast hands-on query practice.",
+      "Use PostgreSQL window docs when a metric requires row-relative calculations.",
+    ],
+    repoStructure: [
+      "02_sql/",
+      "  README.md",
+      "  schema/",
+      "    example_schema.sql",
+      "    schema_notes.md",
+      "  queries/",
+      "    01_monthly_active_users.sql",
+      "    02_cohort_retention.sql",
+      "    03_revenue_by_segment.sql",
+      "    04_attrition_by_tenure_band.sql",
+      "    05_time_between_events.sql",
+      "    06_rolling_trend.sql",
+      "    07_rank_change_over_time.sql",
+      "  outputs/",
+      "    sample_results/",
+    ],
+    spec: {
+      objective: "Create a reusable analytics SQL pack that demonstrates business metric reasoning.",
+      inputs: ["At least one non-HR public dataset", "Optional HR-style dataset later for attrition practice"],
+      requirements: [
+        "Every query starts with a comment naming the business question.",
+        "Every query states output grain and key assumptions.",
+        "Include at least one join-heavy query, one cohort query, one window-function query, and one date logic query.",
+        "Include sample output or screenshots only as supporting evidence; SQL files remain the source artifact.",
+        "Use CTEs to separate raw filtering, aggregation, and final presentation.",
+      ],
+      qualityBar: [
+        "A reviewer can read each query and understand what metric it produces.",
+        "No query hides denominator choices.",
+        "Cohort and retention logic is explicit enough to audit.",
+      ],
+    },
+  },
+  "phase-3": {
+    focus: [
+      "Descriptive stats: center, spread, outliers, missingness, distributions.",
+      "Probability and sampling: randomness, sampling bias, uncertainty, common distributions.",
+      "Inference: confidence intervals, hypothesis tests, p-values, practical vs statistical significance.",
+      "Regression reasoning: assumptions, residuals, confounding, interpretation, prediction vs explanation.",
+      "Model validation: train/test split, cross-validation, bias/variance, overfitting.",
+    ],
+    avoid: [
+      "Proof-heavy math that delays applied statistical judgment.",
+      "Running tests because a library makes them easy.",
+      "Writing conclusions stronger than the dataset design supports.",
+    ],
+    resourceUse: [
+      "Use OpenIntro for the statistics foundation and exercises.",
+      "Use ISLP for regression, classification, resampling, and evaluation.",
+      "Use StatQuest and 3Blue1Brown when intuition breaks down.",
+    ],
+    repoStructure: [
+      "03_statistics/",
+      "  README.md",
+      "  notes/",
+      "    inference_notes.md",
+      "    model_evaluation_notes.md",
+      "  notebooks/",
+      "    what_this_data_can_and_cannot_prove.ipynb",
+      "  reports/",
+      "    limitations_summary.md",
+    ],
+    spec: {
+      objective: "Produce a limitations-first analysis that proves statistical maturity.",
+      inputs: ["One dataset with a meaningful but bounded question"],
+      requirements: [
+        "State the unit of analysis and sample before charts.",
+        "Include missingness and distribution checks.",
+        "Use one statistical test with assumptions stated.",
+        "Use one regression model with interpretation and diagnostics appropriate for the scope.",
+        "Separate evidence, assumptions, limitations, and conclusions.",
+      ],
+      qualityBar: [
+        "The conclusion does not imply causation without design support.",
+        "Limitations are concrete, not generic disclaimers.",
+        "The notebook explains uncertainty in plain English.",
+      ],
+    },
+  },
+  "phase-4": {
+    focus: [
+      "Pandas and NumPy: selection, grouping, merging, reshaping, missing data, feature creation.",
+      "Visualization for EDA: distributions, relationships, segmentation, time trends, leakage checks.",
+      "Supervised learning: baseline models, train/test split, cross-validation, regularization.",
+      "Evaluation: classification metrics, confusion matrix, ROC/PR tradeoffs, calibration awareness.",
+      "Responsible People Analytics: aggregate patterns, ethical use, leakage, fairness concerns, prohibited uses.",
+    ],
+    avoid: [
+      "Optimizing model performance before understanding the data.",
+      "Claiming individual attrition prediction as a decision tool.",
+      "Using every feature without thinking about leakage or ethics.",
+    ],
+    resourceUse: [
+      "Use HarvardX for the applied data science flow, but do not depend on audit-only graded access.",
+      "Use Kaggle Learn for targeted Pandas, visualization, and ML practice.",
+      "Use Google ML Crash Course for evaluation and responsible AI framing.",
+      "Use ISLP when you need deeper statistical reasoning behind models.",
+    ],
+    repoStructure: [
+      "04_data_science/project_1a_people_analytics/",
+      "  README.md",
+      "  data/",
+      "    raw/",
+      "    interim/",
+      "    processed/",
+      "  notebooks/",
+      "    01_data_dictionary_and_audit.ipynb",
+      "    02_cleaning.ipynb",
+      "    03_eda.ipynb",
+      "    04_baseline_model.ipynb",
+      "  reports/",
+      "    limitations.md",
+      "    ethical_use_statement.md",
+      "    evaluation_summary.md",
+      "  src/",
+      "    features.py",
+      "    evaluate.py",
+    ],
+    spec: {
+      objective: "Build Project 1A: People Analytics EDA and Attrition Risk Analysis.",
+      inputs: ["IBM HR Analytics dataset or another public/synthetic HR-style dataset"],
+      requirements: [
+        "Create a data dictionary with field meaning, type, missingness, and whether the field could leak target information.",
+        "Perform cleaning in a separate notebook or script before EDA.",
+        "EDA must cover workforce composition, attrition distribution, tenure, compensation band, department/job role, manager or engagement proxies if available.",
+        "Build a simple baseline before any complex model.",
+        "Evaluate with metrics that fit class imbalance and business use: confusion matrix, precision/recall, ROC-AUC or PR-AUC as appropriate.",
+        "Include an ethical-use statement that forbids automated employment decisions.",
+      ],
+      qualityBar: [
+        "The project reads as aggregate workforce planning, not employee surveillance.",
+        "Model limitations are shown next to model results.",
+        "A nontechnical reader can understand what the model can and cannot support.",
+      ],
+    },
+  },
+  "phase-5": {
+    focus: [
+      "Dashboard information architecture: pages, questions, filters, hierarchy, navigation.",
+      "Chart choice: bars, lines, distributions, scatterplots, tables, and when not to chart.",
+      "KPI design: metric definition, time window, comparison period, and caveats.",
+      "Stakeholder writing: insight, evidence, implication, limitation.",
+      "Accessibility: readable labels, color restraint, clear legends, no misleading axes.",
+    ],
+    avoid: [
+      "Decorative dashboards that do not support decisions.",
+      "Too many filters, too many charts, or hidden limitations.",
+      "Putting model results in front of users without caveats.",
+    ],
+    resourceUse: [
+      "Use UK Government visualization guidance before building to shape the dashboard plan.",
+      "Use Streamlit docs while implementing the dashboard.",
+      "Use Power BI only if target roles value business BI; do not let it replace the code-first demo.",
+    ],
+    repoStructure: [
+      "05_visualization/project_1a_dashboard/",
+      "  README.md",
+      "  dashboard_plan.md",
+      "  app.py",
+      "  pages/",
+      "    1_Workforce_Overview.py",
+      "    2_Attrition_Trends.py",
+      "    3_Risk_Factors.py",
+      "    4_Model_Results.py",
+      "    5_Limitations_and_Ethics.py",
+      "  assets/",
+      "  screenshots/",
+    ],
+    spec: {
+      objective: "Create a stakeholder-facing dashboard for Project 1A.",
+      inputs: ["Processed Project 1A data", "evaluation summary", "limitations and ethics notes"],
+      requirements: [
+        "Minimum pages: workforce overview, attrition trends, risk factor exploration, model results, limitations and ethical use.",
+        "Each page has a stakeholder question at the top.",
+        "Filters are limited to fields that change interpretation meaningfully.",
+        "KPI cards include definitions and date/window assumptions.",
+        "Model results page includes threshold caveats and prohibited uses.",
+      ],
+      qualityBar: [
+        "A stakeholder can understand the main insight without opening notebooks.",
+        "No chart exists only because it looks interesting.",
+        "Limitations are visible in the dashboard, not only in the repo.",
+      ],
+    },
+  },
+  "phase-6": {
+    focus: [
+      "Data pipeline architecture: raw, staging, intermediate, marts, exports.",
+      "Ingestion: CSV/JSON/parquet, APIs, schema drift, idempotency, logging.",
+      "Warehousing: fact/dimension modeling, grain, surrogate keys, relationships.",
+      "dbt/analytics engineering: models, sources, tests, docs, lineage.",
+      "Data quality: uniqueness, not-null, accepted values, referential integrity, freshness.",
+      "Orchestration concepts: scheduling, retries, dependencies, backfills.",
+    ],
+    avoid: [
+      "Kubernetes, advanced Terraform, and cloud networking as year-one blockers.",
+      "Streaming complexity unless your project genuinely requires it.",
+      "Pipelines that cannot be rerun from raw data.",
+    ],
+    resourceUse: [
+      "Use Data Engineering Zoomcamp as the main practical spine; treat it self-paced unless cohort timing fits.",
+      "Use dbt Fundamentals specifically for transformations, tests, and docs.",
+      "Use DuckDB locally for low-friction analytical SQL.",
+      "Use BigQuery public datasets for warehouse practice only with cost awareness.",
+    ],
+    repoStructure: [
+      "06_data_engineering/project_1b_workforce_pipeline/",
+      "  README.md",
+      "  docker-compose.yml",
+      "  data/",
+      "    raw/",
+      "    processed/",
+      "  src/",
+      "    ingest.py",
+      "    validate.py",
+      "  warehouse/",
+      "    staging/",
+      "    marts/",
+      "  dbt/",
+      "    models/",
+      "      staging/",
+      "      marts/",
+      "    tests/",
+      "    docs/",
+      "  reports/",
+      "    architecture.md",
+      "    data_quality_report.md",
+    ],
+    spec: {
+      objective: "Upgrade Project 1A into Project 1B: an end-to-end workforce analytics pipeline.",
+      inputs: ["Raw public/synthetic HR-style data", "optional generated monthly snapshots"],
+      requirements: [
+        "Ingestion script loads raw data and writes immutable raw or bronze output.",
+        "Transformations create documented staging models and analytics marts.",
+        "Required tables: dim_employee, dim_department, dim_manager, fact_employee_month, fact_attrition, fact_engagement, fact_compensation_band, fact_manager_span.",
+        "Every fact table states grain and keys.",
+        "Data quality checks cover uniqueness, not-null keys, accepted values, and relationships.",
+        "A dashboard-ready export is produced for Phase 5/Project 1A dashboard integration.",
+      ],
+      qualityBar: [
+        "One documented command or workflow rebuilds outputs from raw data.",
+        "The pipeline separates raw, transformed, and presentation layers.",
+        "Quality checks fail loudly and are documented.",
+      ],
+    },
+  },
+  "phase-7": {
+    focus: [
+      "ML engineering structure: training scripts, prediction functions, artifacts, configs, and tests.",
+      "Model packaging: serialization, dependency management, input schema, output schema.",
+      "FastAPI basics: request models, response models, validation, docs endpoint.",
+      "Docker basics: Dockerfile, image build, environment variables, predictable runtime.",
+      "Responsible model serving: examples, prohibited uses, explainability fields, limitations.",
+    ],
+    avoid: [
+      "Serving a model before it has a clear intended use.",
+      "Complex deployment platforms before local Docker works.",
+      "Chasing accuracy improvements that make the model harder to explain.",
+    ],
+    resourceUse: [
+      "Use ML Zoomcamp selectively for validation, deployment, FastAPI, Docker, and service structure.",
+      "Use Google ML Crash Course and ISLP to keep model interpretation honest.",
+      "Return to Project 1A metrics before deciding what model is worth packaging.",
+    ],
+    repoStructure: [
+      "07_ml_engineering/project_1c_model_service/",
+      "  README.md",
+      "  Dockerfile",
+      "  requirements.txt",
+      "  src/",
+      "    train.py",
+      "    predict.py",
+      "    schemas.py",
+      "    app.py",
+      "  models/",
+      "    model.pkl",
+      "  tests/",
+      "    test_predict.py",
+      "  examples/",
+      "    request.json",
+      "    response.json",
+      "  docs/",
+      "    model_card.md",
+      "    ethical_limitations.md",
+    ],
+    spec: {
+      objective: "Package the attrition-risk baseline as a responsible model service.",
+      inputs: ["Clean Project 1B analytics table or Project 1A processed dataset"],
+      requirements: [
+        "Training script saves model artifact, metrics, feature list, and timestamp.",
+        "Prediction function accepts a documented input schema.",
+        "FastAPI endpoint returns prediction, score/probability if appropriate, and limitation text or explanation metadata.",
+        "Dockerfile builds and runs the API locally.",
+        "Examples include valid request, invalid request, and expected response.",
+        "Model card covers intended use, out-of-scope use, data, metrics, limitations, and ethical risks.",
+      ],
+      qualityBar: [
+        "No notebook execution is required to serve the model.",
+        "The service can be tested with a documented curl command.",
+        "The documentation explicitly forbids automated employment decisions.",
+      ],
+    },
+  },
+  "phase-8": {
+    focus: [
+      "Experiment tracking: parameters, metrics, artifacts, run comparison, selected model version.",
+      "Reproducibility: environment, data version notes, random seeds, training command.",
+      "Monitoring: data drift, prediction distribution, missingness, schema changes, performance review.",
+      "Model governance: model card, risk assessment, retraining criteria, retirement criteria.",
+      "Responsible AI controls: stakeholder harms, misuse, human review, documentation.",
+    ],
+    avoid: [
+      "Pretending a local project is enterprise production.",
+      "Adding MLOps tools without explaining the control they provide.",
+      "Monitoring dashboards that do not trigger decisions.",
+    ],
+    resourceUse: [
+      "Use MLOps Zoomcamp self-paced for experiment tracking, deployment, and monitoring concepts.",
+      "Use Made With ML for production ML engineering discipline.",
+      "Use NIST AI RMF to write risk controls in professional language.",
+    ],
+    repoStructure: [
+      "08_mlops/project_1c_mlops_layer/",
+      "  README.md",
+      "  experiments/",
+      "    experiment_log.md",
+      "    selected_model.md",
+      "  reports/",
+      "    evaluation_report.md",
+      "    monitoring_plan.md",
+      "    risk_assessment.md",
+      "    retraining_plan.md",
+      "  docs/",
+      "    model_card.md",
+      "    governance_notes.md",
+    ],
+    spec: {
+      objective: "Add production-thinking documentation and tracking around Project 1C.",
+      inputs: ["Model service from Phase 7", "evaluation results", "risk notes"],
+      requirements: [
+        "Track at least three model runs with parameters and metrics.",
+        "Select one model version and document why it was chosen.",
+        "Write an evaluation report that includes metric tradeoffs and limitations.",
+        "Write a monitoring plan with signals, review cadence, triggers, and actions.",
+        "Write a risk assessment using NIST AI RMF-style language.",
+        "Write a retraining plan and model retirement criteria.",
+      ],
+      qualityBar: [
+        "Each monitoring signal maps to an action.",
+        "The risk assessment includes people, organizational, and technical risks.",
+        "The README distinguishes implemented controls from proposed production controls.",
+      ],
+    },
+  },
+  "phase-9": {
+    focus: [
+      "Transferability: applying the same analysis/pipeline/modeling process to a non-HR domain.",
+      "Dataset selection: public, cleanly licensed, reliable, accessible, and large enough to be interesting.",
+      "Operations/product/gaming/public-sector metrics: demand, retention, funnels, sessions, cohorts, forecasting.",
+      "Advanced AI only when justified: deep learning, NLP, or LLMs should serve the project question.",
+      "Data access risk: API restrictions, terms of use, rate limits, and reproducibility.",
+    ],
+    avoid: [
+      "Choosing a project because it sounds trendy rather than because the data supports it.",
+      "Building around restricted Spotify audio features without confirmed access.",
+      "Adding LLMs or deep learning when SQL/statistics would answer the question better.",
+    ],
+    resourceUse: [
+      "Use NYC TLC data as the safest operations project default.",
+      "Use fast.ai only if deep learning is directly useful.",
+      "Use Hugging Face only for a clean NLP/LLM use case.",
+      "Use Full Stack Deep Learning later for production design patterns.",
+    ],
+    repoStructure: [
+      "09_transferability_project/",
+      "  README.md",
+      "  project_brief.md",
+      "  data/",
+      "    raw/",
+      "    processed/",
+      "  notebooks/",
+      "    01_data_audit.ipynb",
+      "    02_analysis.ipynb",
+      "    03_model_or_forecast.ipynb",
+      "  src/",
+      "  dashboard_or_report/",
+      "  reports/",
+      "    dataset_note.md",
+      "    limitations.md",
+    ],
+    spec: {
+      objective: "Build a second serious project outside People Analytics.",
+      inputs: ["Recommended default: NYC TLC trip data", "Alternative: clean public product/gaming/public-sector dataset"],
+      requirements: [
+        "Write a project brief before analysis: domain, user, question, dataset, expected output.",
+        "Include SQL or SQL-like transformations.",
+        "Include at least one statistical or modeling component only if it serves the question.",
+        "Produce a dashboard, written report, or app that communicates the answer.",
+        "Explain how this project proves transferability from the flagship project.",
+      ],
+      qualityBar: [
+        "The project has a different data shape or domain than People Analytics.",
+        "Data access is reproducible and legally clean.",
+        "The README makes the business question and outcome obvious.",
+      ],
+    },
+  },
+  "phase-10": {
+    focus: [
+      "Portfolio usability: README clarity, setup instructions, diagrams, screenshots, demos.",
+      "Technical storytelling: problem, data, method, result, limitation, business value.",
+      "Architecture communication: pipeline diagrams, table lineage, model-service diagrams.",
+      "Career packaging: resume bullets, LinkedIn summaries, project index.",
+      "Selective polish: two serious projects, not a cluttered list of unfinished exercises.",
+    ],
+    avoid: [
+      "Portfolio pages that are just tool lists.",
+      "Overstating production readiness, model reliability, or domain expertise.",
+      "Hiding limitations because you think they weaken the project.",
+    ],
+    resourceUse: [
+      "Use Cookiecutter to clean structure and naming.",
+      "Use Streamlit docs for demo polish where useful.",
+      "Use Power BI only if it strengthens the target role story.",
+    ],
+    repoStructure: [
+      "10_portfolio/",
+      "  README.md",
+      "  flagship_project_summary.md",
+      "  transferability_project_summary.md",
+      "  resume_bullets.md",
+      "  linkedin_summaries.md",
+      "  diagrams/",
+      "    workforce_platform_architecture.png",
+      "    model_service_flow.png",
+      "    transferability_project_architecture.png",
+    ],
+    spec: {
+      objective: "Package the work into reviewer-ready evidence.",
+      inputs: ["Flagship project", "transferability project", "roadmap learning trail"],
+      requirements: [
+        "Portfolio index links to both serious projects and explains why each exists.",
+        "Each project README includes problem, data, architecture, methods, results, limitations, and how to run.",
+        "Each project has at least one visual artifact: dashboard screenshot, architecture diagram, or report preview.",
+        "Resume bullets use action, technical method, output, and business value.",
+        "LinkedIn/project summaries are concise and do not overclaim.",
+      ],
+      qualityBar: [
+        "A reviewer can inspect the best work without hunting through folders.",
+        "The story positions you beyond HR-only work.",
+        "Limitations and ethics read as professional judgment, not weakness.",
+      ],
+    },
+  },
+};
+
 roadmap.forEach((phase) => {
-  Object.assign(phase, phaseGuides[phase.id]);
+  Object.assign(phase, phaseGuides[phase.id], phaseSpecs[phase.id]);
 });
 
 const monthlyPlan = [
@@ -1782,6 +2360,8 @@ function renderRoadmapView(phase) {
         <div class="phase-body">
           <div class="phase-main">
             ${renderPhaseHandoff(phase)}
+            ${renderPhaseBriefing(phase)}
+            ${renderProjectSpec(phase)}
             ${renderLearningPath(phase)}
             ${renderProjectGuide(phase)}
             ${renderChecks("Competency Checks", phase.outcomes, "target")}
@@ -1818,6 +2398,31 @@ function renderRoadmapView(phase) {
           </aside>
         </div>
       </article>
+    </section>
+  `;
+}
+
+function renderPhaseBriefing(phase) {
+  return `
+    <section class="section-card phase-briefing">
+      <div class="section-title">
+        <h3>What To Focus On</h3>
+        <span class="pill">Study targets</span>
+      </div>
+      <div class="briefing-grid">
+        <div>
+          <strong>Core Topics</strong>
+          ${renderBulletList(phase.focus || [])}
+        </div>
+        <div>
+          <strong>Use The Resources This Way</strong>
+          ${renderBulletList(phase.resourceUse || [])}
+        </div>
+        <div>
+          <strong>Do Not Overfocus On</strong>
+          ${renderBulletList(phase.avoid || [])}
+        </div>
+      </div>
     </section>
   `;
 }
@@ -1878,8 +2483,8 @@ function renderLearningPath(phase) {
   return `
     <section class="section-card learning-path">
       <div class="section-title">
-        <h3>Guided Learning Path</h3>
-        <span class="pill">Follow in order</span>
+        <h3>Learning Blocks</h3>
+        <span class="pill">Use resources in context</span>
       </div>
       <div class="step-chain">
         ${(phase.steps || []).map((step, index) => renderLearningStep(step, index, phase.steps.length)).join("")}
@@ -1987,6 +2592,48 @@ function renderProjectGuide(phase) {
       ${renderDeliverableChecklist(phase)}
     </section>
   `;
+}
+
+function renderProjectSpec(phase) {
+  const spec = phase.spec;
+  if (!spec) return "";
+  return `
+    <section class="section-card project-spec">
+      <div class="section-title">
+        <h3>Project Specification</h3>
+        <span class="pill">Concrete scope</span>
+      </div>
+      <div class="spec-grid">
+        <div class="spec-main">
+          <div class="spec-block">
+            <strong>Objective</strong>
+            <p>${escapeHtml(spec.objective)}</p>
+          </div>
+          <div class="spec-block">
+            <strong>Inputs</strong>
+            ${renderBulletList(spec.inputs || [])}
+          </div>
+          <div class="spec-block">
+            <strong>Requirements</strong>
+            ${renderBulletList(spec.requirements || [])}
+          </div>
+          <div class="spec-block">
+            <strong>Quality Bar</strong>
+            ${renderBulletList(spec.qualityBar || [])}
+          </div>
+        </div>
+        <div class="repo-structure">
+          <strong>Recommended Repo Structure</strong>
+          <pre><code>${escapeHtml((phase.repoStructure || []).join("\n"))}</code></pre>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderBulletList(items) {
+  if (!items.length) return `<p class="muted-copy">No additional guidance for this phase.</p>`;
+  return `<ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
 }
 
 function renderChecks(title, items, icon) {
