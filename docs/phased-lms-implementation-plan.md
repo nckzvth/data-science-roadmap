@@ -17,6 +17,12 @@ Each section rebuild must update:
 - Planner: week or day sequence, workload split, checkpoint gates, move-on criteria.
 - Accuracy Notes: source audit, verification date, access/cost/staleness warnings, assumptions.
 
+## Implementation Progress
+
+- Section 0: implemented and deployed as the workflow setup course slice.
+- Section 1: implemented and deployed as the Python Foundations course slice.
+- Section 2: next section to rebuild.
+
 ## Planning References
 
 roadmap.sh should be used as a planning and role-calibration layer, not as the primary lesson source. The in-app LMS remains the source of instructions, lesson sequence, project specs, and gates.

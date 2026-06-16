@@ -1,5 +1,5 @@
 const STORAGE_KEY = "dsRoadmapLmsProgress.v1";
-const APP_VERSION = "section0-lms-v1";
+const APP_VERSION = "section1-lms-v1";
 
 const roadmap = [
   {
@@ -153,6 +153,72 @@ const roadmap = [
         tags: ["python", "practice"],
         why: "Short syntax refresher and hands-on notebook practice for data science Python.",
         note: "Use it as reinforcement, not as the whole foundation.",
+      },
+      {
+        id: "r-python-tutorial",
+        name: "Python Docs: The Python Tutorial",
+        url: "https://docs.python.org/3/tutorial/",
+        type: "Reference",
+        priority: "Core",
+        phase: "phase-1",
+        tags: ["python", "syntax", "standard-library"],
+        why: "Official Python reference for syntax, control flow, functions, data structures, files, errors, modules, and virtual environments.",
+        note: "Use as a durable reference while the in-app lessons define what to study now.",
+      },
+      {
+        id: "r-python-csv",
+        name: "Python Docs: csv",
+        url: "https://docs.python.org/3/library/csv.html",
+        type: "Reference",
+        priority: "Core",
+        phase: "phase-1",
+        tags: ["python", "csv", "files"],
+        why: "Official standard-library reference for reading and writing CSV files.",
+        note: "Use for the CSV cleaning script before bringing in Pandas.",
+      },
+      {
+        id: "r-python-argparse",
+        name: "Python Docs: argparse",
+        url: "https://docs.python.org/3/library/argparse.html",
+        type: "Reference",
+        priority: "Core",
+        phase: "phase-1",
+        tags: ["python", "cli", "scripts"],
+        why: "Official standard-library reference for building command-line interfaces.",
+        note: "Use for `--input`, `--output`, and `--report` options in the final script.",
+      },
+      {
+        id: "r-python-pathlib",
+        name: "Python Docs: pathlib",
+        url: "https://docs.python.org/3/library/pathlib.html",
+        type: "Reference",
+        priority: "Support",
+        phase: "phase-1",
+        tags: ["python", "paths", "files"],
+        why: "Official standard-library reference for object-oriented filesystem paths.",
+        note: "Use to avoid brittle string-only path handling.",
+      },
+      {
+        id: "r-python-unittest",
+        name: "Python Docs: unittest",
+        url: "https://docs.python.org/3/library/unittest.html",
+        type: "Reference",
+        priority: "Support",
+        phase: "phase-1",
+        tags: ["python", "testing", "quality"],
+        why: "Official standard-library testing framework for simple function checks.",
+        note: "Use lightly for a few cleaning helper tests; do not turn this section into a testing framework detour.",
+      },
+      {
+        id: "r-palmer-penguins-csv",
+        name: "Palmer Penguins CSV",
+        url: "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv",
+        type: "Dataset",
+        priority: "Core",
+        phase: "phase-1",
+        tags: ["csv", "dataset", "cleaning"],
+        why: "Small public CSV with mixed numeric/text fields and missing values, suitable for early manual cleaning practice.",
+        note: "Use this exact raw CSV for Assignment 1 unless you intentionally replace it with another small public CSV.",
       },
     ],
   },
@@ -2841,7 +2907,7 @@ const sectionBuilds = {
     unitId: "unit-00",
     phaseId: "phase-0",
     title: "Technical Workflow Setup",
-    status: "Implemented section draft",
+    status: "Implemented course slice",
     duration: "5 focused work sessions",
     outcome:
       "You can create a reproducible learning repository, use Git and GitHub without treating them as magic, work from the terminal, and document every later project in a consistent way.",
@@ -3347,6 +3413,602 @@ const sectionBuilds = {
       },
     ],
   },
+  "unit-01": {
+    id: "section-1",
+    unitId: "unit-01",
+    phaseId: "phase-1",
+    title: "Python Foundations",
+    status: "Implemented course slice",
+    duration: "6 focused work sessions",
+    outcome:
+      "You can write small Python programs, decompose a data-cleaning task into functions, read and write CSV files, handle missing values explicitly, and run a documented script from the terminal.",
+    gate:
+      "`clean_csv.py` runs from the terminal, accepts input/output/report paths, reads the Palmer Penguins CSV, writes a cleaned CSV, writes a text summary, and documents every cleaning assumption.",
+    sourceAudit: [
+      {
+        resourceId: "r-mit-6100l",
+        verified: "2026-06-16",
+        role: "Primary course backbone for learning Python through computational problem solving.",
+        useWhen: "Use during Lessons 1 and 2 for variables, branching, iteration, functions, strings, lists, dictionaries, decomposition, and debugging.",
+        focus: ["Python 3", "functions", "branching", "iteration", "strings", "lists", "dictionaries", "debugging"],
+        skip: "Skip deep recursion and advanced object-oriented programming for now. Return later only if a project needs it.",
+        note: "MIT OCW describes 6.100L as aimed at learners with little to no programming experience and using Python 3.",
+      },
+      {
+        resourceId: "r-kaggle-python",
+        verified: "2026-06-16",
+        role: "Short syntax drill set after the in-app lesson and MIT material.",
+        useWhen: "Use after Lesson 1 to drill syntax for functions, loops, lists, dictionaries, and conditionals.",
+        focus: ["syntax practice", "functions", "loops", "lists", "dictionaries"],
+        skip: "Do not rely on Kaggle notebooks as the final artifact. The assignment must be a local script in your repo.",
+        note: "Kaggle may require sign-in and may block scripted page checks, so the LMS treats it as optional reinforcement rather than a hard dependency.",
+      },
+      {
+        resourceId: "r-python-tutorial",
+        verified: "2026-06-16",
+        role: "Official Python syntax and standard-library reference.",
+        useWhen: "Use throughout Section 1 when you need precise clarification on syntax, data structures, files, errors, modules, or virtual environments.",
+        focus: ["syntax", "data structures", "functions", "files", "errors", "modules", "virtual environments"],
+        skip: "Do not try to read the entire tutorial linearly before writing code.",
+        note: "The Python docs state the tutorial introduces Python concepts and features and points to the standard library for module details.",
+      },
+      {
+        resourceId: "r-python-csv",
+        verified: "2026-06-16",
+        role: "Official reference for reading and writing CSV files with the standard library.",
+        useWhen: "Use during Lesson 2 and the assignment implementation.",
+        focus: ["csv.DictReader", "csv.DictWriter", "headers", "rows", "dialects", "file handles"],
+        skip: "Do not use Pandas yet. This section intentionally exposes the mechanics before a higher-level library hides them.",
+        note: "The Python `csv` docs cover CSV reading, writing, reader objects, writer objects, dialects, and examples.",
+      },
+      {
+        resourceId: "r-python-argparse",
+        verified: "2026-06-16",
+        role: "Official reference for command-line script arguments.",
+        useWhen: "Use during Lesson 3 when adding `--input`, `--output`, and `--report` flags.",
+        focus: ["ArgumentParser", "add_argument", "parse_args", "help text", "required paths"],
+        skip: "Do not build subcommands or complex CLI frameworks in this section.",
+        note: "The Python `argparse` docs describe it as the standard-library module for user-friendly command-line interfaces.",
+      },
+      {
+        resourceId: "r-python-pathlib",
+        verified: "2026-06-16",
+        role: "Official reference for filesystem paths.",
+        useWhen: "Use during Lesson 3 to make input/output/report paths less brittle.",
+        focus: ["Path", "exists", "parent directories", "read/write paths"],
+        skip: "Do not over-engineer packaging or configuration.",
+        note: "Use `pathlib` as a small improvement over string-only paths when writing reusable scripts.",
+      },
+      {
+        resourceId: "r-python-unittest",
+        verified: "2026-06-16",
+        role: "Official lightweight testing reference.",
+        useWhen: "Use only for a few helper-function checks if you want a stronger project review artifact.",
+        focus: ["assertEqual", "assertIsNone", "small function tests"],
+        skip: "Do not turn this into a full testing-framework course.",
+        note: "A few tests for `clean_header`, `convert_numeric`, and `count_missing` are enough for Section 1.",
+      },
+      {
+        resourceId: "r-palmer-penguins-csv",
+        verified: "2026-06-16",
+        role: "Default small public CSV for manual cleaning.",
+        useWhen: "Use during Lesson 2 and Assignment 1.",
+        focus: ["headers", "missing values", "numeric conversion", "categorical fields", "summary statistics"],
+        skip: "Do not switch datasets unless the replacement is public, small, and documented.",
+        note: "The raw CSV URL is used directly so the assignment does not depend on a notebook environment.",
+      },
+      {
+        resourceId: "r-roadmap-data-analyst",
+        verified: "2026-06-16",
+        role: "Planning reference for why Python cleaning matters in analyst work.",
+        useWhen: "Use as a role-alignment check after completing the CSV script.",
+        focus: ["data cleaning", "analysis preparation", "structured data", "decision support"],
+        skip: "Do not add Excel, Power BI, or dashboard work to this section.",
+        note: "The roadmap.sh Data Analyst page emphasizes transforming data into insights and cleaning data before analysis.",
+      },
+      {
+        resourceId: "r-roadmap-ai-ds",
+        verified: "2026-06-16",
+        role: "Planning reference for Python as the programming foundation under data science.",
+        useWhen: "Use as a scope check: this section should prepare you for data practice, not advanced ML yet.",
+        focus: ["programming", "data practice", "portfolio foundation"],
+        skip: "Do not jump to model training before you can write and run a basic data script.",
+        note: "The roadmap.sh AI and Data Scientist page frames programming and data practice as early parts of the path.",
+      },
+    ],
+    roadmap: {
+      whyFirst:
+        "Python comes before Pandas-heavy data science because you need to understand functions, rows, types, files, and errors before a library abstracts them away.",
+      prerequisites: [
+        "Section 0 repository and folder structure exist.",
+        "You can navigate to `01_python/` from the terminal.",
+        "Python 3 is installed and documented in `00_setup/environment_checklist.md`.",
+        "You can run `python --version` or `python3 --version` and explain which command works locally.",
+      ],
+      unlocks: [
+        "Manual CSV cleaning before Pandas.",
+        "Reusable scripts for later data engineering and analysis work.",
+        "A concrete input/output/report pattern that will repeat in future projects.",
+        "Enough programming fluency to start SQL/statistics without treating every code cell as magic.",
+      ],
+      competencyGates: [
+        ["s1-c1", "Write a function from a plain-English requirement without copying a complete solution."],
+        ["s1-c2", "Explain the difference between a string value, numeric value, empty string, and missing value in a CSV row."],
+        ["s1-c3", "Read rows from a CSV, transform selected fields, and write a new CSV."],
+        ["s1-c4", "Run a Python script from the terminal with documented input, output, and report paths."],
+        ["s1-c5", "Document cleaning rules before claiming the data is clean."],
+      ],
+      handoff:
+        "When this section is complete, Section 2 can use your cleaned CSV and your function/script discipline to build SQL query artifacts without relying on notebook state.",
+    },
+    lessons: [
+      {
+        id: "s1-lesson-python-core",
+        progressId: "u01-l01",
+        type: "Learn",
+        title: "Python core: values, control flow, functions, and decomposition",
+        objective: "Build the minimum programming vocabulary needed to express a data-cleaning process as small functions.",
+        explanation: [
+          {
+            heading: "Python is a way to make decisions explicit",
+            body:
+              "At this stage, Python is not about cleverness. It is a way to write down repeatable decisions: if this value is blank, treat it as missing; if this column should be numeric, convert it carefully; if a row is invalid, count it and explain why. Your goal is to turn vague cleaning intentions into small, readable operations.",
+          },
+          {
+            heading: "Values, variables, and types",
+            body:
+              "A variable is a name attached to a value. The type of the value controls what operations make sense. `'42'` is text, `42` is an integer, `42.0` is a float, `''` is an empty string, and `None` is the usual Python marker for no value. CSV files arrive as text, so a script must decide when text should remain text and when it should become a number or a missing value.",
+          },
+          {
+            heading: "Functions are named decisions",
+            body:
+              "A function should do one clear job. `clean_header(name)` should normalize one header. `convert_numeric(value)` should convert one value or return missing. `count_missing(rows)` should count missingness. Small functions make the final script easier to test, reuse, and explain in the README.",
+          },
+        ],
+        terms: [
+          ["Expression", "Code that produces a value."],
+          ["Variable", "A name that refers to a value."],
+          ["Type", "The category of a value, such as string, int, float, list, dict, or None."],
+          ["Conditional", "An `if` / `elif` / `else` decision."],
+          ["Loop", "A repeated operation over items or while a condition remains true."],
+          ["Function", "A named block of reusable logic with inputs and an output."],
+          ["Return value", "The value a function sends back to its caller."],
+        ],
+        workedExample: {
+          title: "Turn a cleaning rule into a function",
+          steps: [
+            "Plain-English rule: column names should be lowercase, stripped, and use underscores instead of spaces.",
+            "Input example: `Body Mass (g)`.",
+            "Function name: `clean_header`.",
+            "Core operations: strip whitespace, lowercase, replace spaces with underscores, remove parentheses.",
+            "Expected output: `body_mass_g`.",
+          ],
+        },
+        commonMistakes: [
+          "Writing the whole script before proving the small functions work.",
+          "Confusing empty strings with `None`.",
+          "Returning printed text instead of returning a value from a function.",
+          "Using one-letter variable names when the code is not mathematical.",
+          "Catching every error without understanding what failed.",
+        ],
+        references: [
+          {
+            resourceId: "r-mit-6100l",
+            instruction:
+              "Use early lectures and finger exercises for values, branching, iteration, functions, strings, lists, dictionaries, testing, and debugging.",
+          },
+          {
+            resourceId: "r-python-tutorial",
+            instruction:
+              "Use the tutorial sections on informal Python, control flow, functions, data structures, input/output, and errors as the official syntax reference.",
+          },
+          {
+            resourceId: "r-kaggle-python",
+            instruction:
+              "Use only after writing your own notes. Complete short drills for functions, loops, lists, and dictionaries.",
+          },
+        ],
+        practice: [
+          "Create `01_python/notes/python_core_notes.md`.",
+          "Write definitions for string, int, float, list, dict, boolean, and None in your own words.",
+          "Create `01_python/scripts/python_function_practice.py`.",
+          "Write and call `clean_header`, `is_missing`, `convert_numeric`, `summarize_numbers`, and `format_report_line`.",
+        ],
+        checks: [
+          ["Why does a CSV value usually start as text?", "CSV files are plain text, so the script must decide how to interpret each field."],
+          ["What should a small function make easier?", "Testing, reuse, naming, debugging, and explaining a decision."],
+          ["Why is printing not the same as returning?", "Printing displays text; returning passes a value back so the rest of the program can use it."],
+        ],
+        lab: {
+          title: "Build the helper-function practice file",
+          steps: [
+            "Create `01_python/scripts/python_function_practice.py`.",
+            "Write five helper functions used later by the CSV cleaner.",
+            "Add a `main()` function that calls each helper with at least two examples.",
+            "Run the file from the terminal and save sample output in `01_python/outputs/function_practice_output.txt`.",
+          ],
+          evidence: [
+            "`01_python/notes/python_core_notes.md`",
+            "`01_python/scripts/python_function_practice.py`",
+            "`01_python/outputs/function_practice_output.txt`",
+          ],
+          doneWhen: ["Each helper has a narrow purpose and the output file proves the script ran from the terminal."],
+        },
+      },
+      {
+        id: "s1-lesson-csv-records",
+        progressId: "u01-l02",
+        type: "Practice",
+        title: "Rows, records, files, and manual CSV cleaning",
+        objective: "Read CSV rows as records, inspect missingness, normalize headers, and write a simple summary without Pandas.",
+        explanation: [
+          {
+            heading: "A CSV is not clean just because it opens",
+            body:
+              "A spreadsheet-looking file can hide inconsistent headers, blank cells, values stored as text, and fields with unclear meaning. The first job is not to transform everything immediately. The first job is to inspect what you have: headers, row count, missing values, fields that should be numeric, and values that need explanation.",
+          },
+          {
+            heading: "Rows as dictionaries",
+            body:
+              "For this assignment, treating each row as a dictionary is the clearest mental model. The keys are column names and the values are cell contents. `csv.DictReader` gives you one dictionary per row. That lets a function talk about `row['species']` or `row['body_mass_g']` instead of remembering numeric column positions.",
+          },
+          {
+            heading: "Cleaning decisions must be auditable",
+            body:
+              "Every cleaning rule should be named and documented. Normalizing headers is usually safe. Converting numeric fields is safe only when failures are handled. Dropping rows or filling missing values is not automatically safe. In Section 1, prefer counting and reporting missing values over silently changing them.",
+          },
+        ],
+        terms: [
+          ["CSV", "A text format where rows are lines and fields are separated by delimiters, usually commas."],
+          ["Header", "The first row that names the fields."],
+          ["Record", "One row treated as a unit of data."],
+          ["Dictionary row", "A row represented as key/value pairs."],
+          ["Missing value", "A blank or invalid value that should not be treated as ordinary text or zero without explanation."],
+          ["Type conversion", "Changing a value from one type to another, such as string to float."],
+        ],
+        workedExample: {
+          title: "Manual missingness summary",
+          steps: [
+            "Read rows with `csv.DictReader`.",
+            "Normalize field names once.",
+            "Initialize a counter for every field.",
+            "For each row, strip each value and count blanks.",
+            "Write a report line such as `body_mass_g: 2 missing of 344 rows`.",
+          ],
+        },
+        commonMistakes: [
+          "Treating blank strings as real values.",
+          "Converting blank numeric fields to zero.",
+          "Changing data before counting missingness.",
+          "Hard-coding absolute paths that only work on your machine.",
+          "Writing a cleaned file without explaining the cleaning rules.",
+        ],
+        references: [
+          {
+            resourceId: "r-palmer-penguins-csv",
+            instruction:
+              "Download this exact CSV into `01_python/data/raw/penguins.csv` and use it as the assignment input.",
+          },
+          {
+            resourceId: "r-python-csv",
+            instruction:
+              "Use `DictReader` and `DictWriter` examples as your reference for reading rows and writing cleaned output.",
+          },
+          {
+            resourceId: "r-python-pathlib",
+            instruction:
+              "Use `Path` for input and output paths if string paths start becoming brittle.",
+          },
+        ],
+        practice: [
+          "Create `01_python/scripts/inspect_penguins.py`.",
+          "Read `penguins.csv` with `csv.DictReader`.",
+          "Print row count, original headers, normalized headers, and missing-value counts.",
+          "Write the same information to `01_python/outputs/penguins_profile.txt`.",
+        ],
+        checks: [
+          ["Why should missingness be counted before cleaning?", "So the report preserves what was observed before rules changed the data."],
+          ["Why use dictionary rows instead of positional indexes?", "Column names make the code easier to read and less fragile if column order changes."],
+          ["Why is zero not a neutral replacement for a missing numeric value?", "Zero is a real value and can distort summaries if it was not observed."],
+        ],
+        lab: {
+          title: "Profile the Palmer Penguins CSV",
+          steps: [
+            "Download the CSV into `01_python/data/raw/penguins.csv`.",
+            "Create `01_python/scripts/inspect_penguins.py`.",
+            "Write row count, header list, normalized header list, and missing counts.",
+            "Run the script from the terminal.",
+            "Save the report to `01_python/outputs/penguins_profile.txt`.",
+          ],
+          evidence: [
+            "`01_python/data/raw/penguins.csv`",
+            "`01_python/scripts/inspect_penguins.py`",
+            "`01_python/outputs/penguins_profile.txt`",
+          ],
+          doneWhen: ["The report states what is missing without silently dropping, filling, or overwriting values."],
+        },
+      },
+      {
+        id: "s1-lesson-clean-script",
+        progressId: "u01-l03",
+        type: "Build",
+        title: "Reusable command-line cleaning script",
+        objective: "Turn helper functions and CSV inspection into one reusable script with documented inputs, outputs, and assumptions.",
+        explanation: [
+          {
+            heading: "A script is a reproducible workflow",
+            body:
+              "A script is different from a notebook cell because it starts from files, takes explicit inputs, writes explicit outputs, and can be run again later. The final Section 1 artifact should not depend on hidden notebook state. It should work from the terminal using documented paths.",
+          },
+          {
+            heading: "Command-line arguments make work reusable",
+            body:
+              "Hard-coded paths are acceptable while exploring, but the final script should accept at least an input CSV path, an output CSV path, and a report path. `argparse` lets the script tell the user what arguments are required and produces help text automatically. This makes the script easier to review and easier to adapt later.",
+          },
+          {
+            heading: "Quality does not require complexity",
+            body:
+              "For Section 1, quality means the script is readable, narrow functions are named well, paths are documented, missing-value rules are explicit, output files are written, and a reviewer can reproduce the result. A few simple tests are useful, but do not turn the assignment into a full software-engineering project.",
+          },
+        ],
+        terms: [
+          ["Script", "A Python file intended to run as a complete program."],
+          ["CLI", "Command-line interface: how a user runs the program with arguments."],
+          ["Argument", "A value passed to the script from the terminal."],
+          ["Input path", "The file the script reads."],
+          ["Output path", "The file the script writes."],
+          ["Report", "A human-readable summary of what happened."],
+          ["Idempotent run", "A run that can be repeated without depending on hidden state."],
+        ],
+        workedExample: {
+          title: "Expected command shape",
+          steps: [
+            "`python 01_python/scripts/clean_csv.py --input 01_python/data/raw/penguins.csv --output 01_python/data/processed/penguins_clean.csv --report 01_python/outputs/summary_statistics.txt`",
+            "The script reads the raw file.",
+            "The script writes a cleaned CSV with normalized headers.",
+            "The script writes a text report with row count, missing counts, numeric summaries, and cleaning rules.",
+            "The README explains the command and expected files.",
+          ],
+        },
+        commonMistakes: [
+          "Leaving paths hard-coded with no explanation.",
+          "Writing output only to the terminal instead of saving files.",
+          "Using Pandas before understanding the CSV mechanics.",
+          "Dropping missing values without reporting how many were affected.",
+          "Marking the assignment complete when it only works from the editor, not the terminal.",
+        ],
+        references: [
+          {
+            resourceId: "r-python-argparse",
+            instruction:
+              "Use this for `--input`, `--output`, and `--report` arguments plus useful help text.",
+          },
+          {
+            resourceId: "r-python-csv",
+            instruction:
+              "Use this for final `DictReader` and `DictWriter` behavior.",
+          },
+          {
+            resourceId: "r-python-unittest",
+            instruction:
+              "Optional: add a few tests for helper functions after the script works.",
+          },
+          {
+            resourceId: "r-python-tutorial",
+            instruction:
+              "Use errors/exceptions, modules, and input/output sections when debugging script behavior.",
+          },
+        ],
+        practice: [
+          "Create `01_python/scripts/clean_csv.py`.",
+          "Move reusable helpers from practice into the script.",
+          "Add command-line arguments for input, output, and report paths.",
+          "Write cleaned CSV and summary report.",
+          "Document the run command and cleaning rules in `01_python/README.md`.",
+        ],
+        checks: [
+          ["What should happen if the input file path is wrong?", "The script should fail clearly instead of pretending it succeeded."],
+          ["Why write both a cleaned CSV and a text report?", "The CSV is machine-readable output; the report explains what changed and what was observed."],
+          ["What makes a script reviewable?", "Clear functions, documented arguments, reproducible outputs, and README instructions."],
+        ],
+        lab: {
+          title: "Build `clean_csv.py`",
+          steps: [
+            "Create the script with a `main()` function.",
+            "Add `argparse` arguments for input, output, and report.",
+            "Read rows with `csv.DictReader`.",
+            "Normalize headers and preserve row count.",
+            "Convert selected numeric fields while preserving/documenting missingness.",
+            "Write `penguins_clean.csv` and `summary_statistics.txt`.",
+            "Run the command from the terminal and paste the command into `01_python/README.md`.",
+          ],
+          evidence: [
+            "`01_python/scripts/clean_csv.py`",
+            "`01_python/data/processed/penguins_clean.csv`",
+            "`01_python/outputs/summary_statistics.txt`",
+            "`01_python/README.md`",
+          ],
+          doneWhen: ["One documented terminal command regenerates the cleaned file and report from the raw CSV."],
+        },
+      },
+    ],
+    project: {
+      progressId: "u01-a1",
+      title: "Assignment 1: CSV Cleaning Script",
+      brief:
+        "Build a command-line Python script that cleans the Palmer Penguins CSV, writes cleaned output, writes a summary report, and documents the cleaning assumptions.",
+      repoStructure: [
+        "01_python/",
+        "  README.md",
+        "  notes/",
+        "    python_core_notes.md",
+        "  scripts/",
+        "    python_function_practice.py",
+        "    inspect_penguins.py",
+        "    clean_csv.py",
+        "  data/",
+        "    raw/",
+        "      penguins.csv",
+        "    processed/",
+        "      penguins_clean.csv",
+        "  outputs/",
+        "    function_practice_output.txt",
+        "    penguins_profile.txt",
+        "    summary_statistics.txt",
+        "  tests/",
+        "    test_cleaning_helpers.py",
+      ],
+      requiredFiles: [
+        ["01_python/README.md", "Dataset source, run command, file map, cleaning rules, outputs, and limitations."],
+        ["01_python/notes/python_core_notes.md", "Plain-language notes for core Python concepts used in the project."],
+        ["01_python/scripts/python_function_practice.py", "Small helper-function practice script."],
+        ["01_python/scripts/inspect_penguins.py", "CSV profiling script used before cleaning."],
+        ["01_python/scripts/clean_csv.py", "Final command-line CSV cleaning script."],
+        ["01_python/data/raw/penguins.csv", "Unmodified raw input file."],
+        ["01_python/data/processed/penguins_clean.csv", "Cleaned CSV produced by the script."],
+        ["01_python/outputs/summary_statistics.txt", "Human-readable report produced by the script."],
+      ],
+      requirements: [
+        "Script runs from the terminal without notebook state.",
+        "Script accepts input, output, and report paths or clearly documented constants if argparse is not used yet.",
+        "Raw data is not overwritten.",
+        "Headers are normalized to stable snake_case names.",
+        "Missing values are counted and reported before any cleaning rule changes the data.",
+        "Numeric conversions are explicit and failures are handled.",
+        "README includes data source, run command, cleaning rules, expected outputs, and limitations.",
+      ],
+      reviewChecklist: [
+        "Run the documented command from the repo root.",
+        "Delete the processed output and report, rerun the command, and confirm both are regenerated.",
+        "Read the summary report and confirm it states row count, missingness, numeric summaries, and rules.",
+        "Read `git diff` before committing to confirm raw data was not edited.",
+        "Open `README.md` and confirm a reviewer can reproduce the assignment without asking you what to run.",
+      ],
+      rubric: [
+        "Pass: script is reproducible, documented, and preserves raw data while producing cleaned output and a clear report.",
+        "Revise: code runs but paths, missing-value rules, or README instructions are unclear.",
+        "Fail: assignment only works in notebook/editor state, overwrites raw data, hides missingness, or has no documented run command.",
+      ],
+    },
+    planner: [
+      {
+        id: "s1-plan-1",
+        title: "Session 1: Core Python notes and helpers",
+        duration: "90-120 minutes",
+        focus: "Values, types, conditionals, loops, functions, and decomposition.",
+        tasks: [
+          "Read Lesson 1 in the Course tab.",
+          "Use MIT 6.100L and the Python tutorial for targeted support.",
+          "Write `python_core_notes.md`.",
+          "Create and run `python_function_practice.py`.",
+        ],
+        evidence: "Core notes plus helper practice output.",
+        gate: "You can explain and call each helper function.",
+      },
+      {
+        id: "s1-plan-2",
+        title: "Session 2: CSV profiling",
+        duration: "90-120 minutes",
+        focus: "Read raw CSV rows, inspect headers, and count missingness.",
+        tasks: [
+          "Read Lesson 2 in the Course tab.",
+          "Download the Palmer Penguins CSV.",
+          "Create `inspect_penguins.py`.",
+          "Write `penguins_profile.txt`.",
+        ],
+        evidence: "Raw CSV, profiling script, profiling report.",
+        gate: "You know what is missing before cleaning anything.",
+      },
+      {
+        id: "s1-plan-3",
+        title: "Session 3: Cleaning rules",
+        duration: "90-120 minutes",
+        focus: "Define and implement the cleaning behavior.",
+        tasks: [
+          "List every cleaning rule in the README draft.",
+          "Normalize headers.",
+          "Decide numeric fields and conversion behavior.",
+          "Keep raw data unchanged.",
+        ],
+        evidence: "README cleaning-rules draft and partial script.",
+        gate: "Rules are written before the final output is produced.",
+      },
+      {
+        id: "s1-plan-4",
+        title: "Session 4: Command-line script",
+        duration: "90-150 minutes",
+        focus: "Build and run `clean_csv.py` as a reusable script.",
+        tasks: [
+          "Read Lesson 3 in the Course tab.",
+          "Add input, output, and report path handling.",
+          "Write cleaned CSV.",
+          "Write summary report.",
+          "Run the documented command from the terminal.",
+        ],
+        evidence: "Final script, cleaned CSV, summary report.",
+        gate: "One command regenerates output from raw data.",
+      },
+      {
+        id: "s1-plan-5",
+        title: "Session 5: Review and optional tests",
+        duration: "60-90 minutes",
+        focus: "Review reproducibility and add small helper tests if useful.",
+        tasks: [
+          "Use the Projects tab review checklist.",
+          "Optionally create `tests/test_cleaning_helpers.py`.",
+          "Rerun the script after deleting generated outputs.",
+          "Inspect `git diff` before committing.",
+        ],
+        evidence: "Review notes, optional helper tests, final commit.",
+        gate: "Assignment reaches Pass or revision notes are specific.",
+      },
+      {
+        id: "s1-plan-6",
+        title: "Session 6: Move-on gate",
+        duration: "30-45 minutes",
+        focus: "Prepare cleaned output for SQL and statistics sections.",
+        tasks: [
+          "Mark Section 1 lesson and project gates complete only if evidence exists.",
+          "Write remaining blockers in Evidence Notes.",
+          "Add a note explaining how `penguins_clean.csv` can be used later.",
+        ],
+        evidence: "Completed Section 1 checklist and handoff note.",
+        gate: "Section 2 can start without rewriting the Python project.",
+      },
+    ],
+    accuracy: [
+      {
+        title: "MIT 6.100L scope",
+        body:
+          "Verified 2026-06-16 from MIT OpenCourseWare. The course is a Fall 2022 undergraduate Python 3 course for learners with little to no programming experience and includes lecture notes, videos, code, finger exercises, and problem sets. Section 1 uses it selectively for programming foundations.",
+      },
+      {
+        title: "Python documentation version",
+        body:
+          "Verified 2026-06-16 from docs.python.org. The live docs currently show Python 3.14.6 documentation. The Section 1 concepts are stable across modern Python 3 versions, but local commands and minor argparse behavior can vary by installed Python version.",
+      },
+      {
+        title: "Kaggle availability",
+        body:
+          "Kaggle Learn Python is useful as short syntax reinforcement, but it can require browser access or sign-in and may block scripted checks. The LMS does not make Kaggle completion the only way to pass Section 1.",
+      },
+      {
+        title: "Manual CSV before Pandas",
+        body:
+          "Section 1 intentionally uses the Python standard library before Pandas. This is a learning-design choice so rows, types, headers, missing values, and file output are visible before higher-level data tools hide them.",
+      },
+      {
+        title: "Dataset scope",
+        body:
+          "The Palmer Penguins CSV is small public practice data used for mechanics, not scientific inference. Do not overinterpret relationships in this section; statistics and modeling come later.",
+      },
+      {
+        title: "roadmap.sh planning role",
+        body:
+          "roadmap.sh Data Analyst and AI/Data Scientist pages are used here only to validate that Python data-cleaning skill is role-relevant. They do not replace the in-app lesson sequence, MIT material, or official Python docs.",
+      },
+    ],
+  },
 };
 
 const monthlyPlan = [
@@ -3521,7 +4183,7 @@ function loadState() {
     };
     if (saved?.appVersion !== APP_VERSION) {
       merged.view = "course";
-      merged.selectedCourseUnitId = "unit-00";
+      merged.selectedCourseUnitId = courseUnitById(merged.selectedCourseUnitId).id;
     }
     return merged;
   } catch {
@@ -3557,6 +4219,14 @@ function courseUnitById(id) {
   return courseUnits.find((unit) => unit.id === id) || courseUnits[0];
 }
 
+function courseUnitIndex(id) {
+  return courseUnits.findIndex((unit) => unit.id === id);
+}
+
+function courseUnitLabel(unit) {
+  return unit.id.replace("unit-", "Unit ");
+}
+
 function activeSectionBuild() {
   return sectionBuilds[state.selectedCourseUnitId] || null;
 }
@@ -3578,6 +4248,12 @@ function sectionProgress(section) {
     total: ids.length,
     pct: ids.length ? Math.round((done / ids.length) * 100) : 0,
   };
+}
+
+function sectionLabel(section) {
+  const raw = section.id?.replace("section-", "");
+  const number = Number.parseInt(raw, 10);
+  return Number.isNaN(number) ? "Section" : `Section ${number}`;
 }
 
 function courseTaskIds(unit) {
@@ -3832,7 +4508,7 @@ function renderSectionMetrics(section) {
       <article class="metric-card">
         <div class="metric-head"><h3>Section</h3><span class="stat-icon"><i data-lucide="route"></i></span></div>
         <p class="metric-value">${progress.pct}%</p>
-        <p>${progress.done} of ${progress.total} Section 0 gates complete</p>
+        <p>${progress.done} of ${progress.total} ${sectionLabel(section)} gates complete</p>
       </article>
       <article class="metric-card">
         <div class="metric-head"><h3>Lessons</h3><span class="stat-icon"><i data-lucide="book-open-check"></i></span></div>
@@ -3909,7 +4585,7 @@ function renderSectionCourseView(section) {
     <section class="course-panel section-workspace">
       <div class="view-title">
         <h2><i data-lucide="graduation-cap"></i> Section Course</h2>
-        <p>${progress.done} of ${progress.total} Section 0 gates complete</p>
+        <p>${progress.done} of ${progress.total} ${sectionLabel(section)} gates complete</p>
       </div>
       <article class="course-unit-detail">
         <header class="course-unit-header">
@@ -4151,11 +4827,15 @@ function renderSectionAssignment(section) {
 
 function renderSectionRoadmapView(section) {
   const phase = phaseById(section.phaseId);
+  const unit = courseUnitById(section.unitId);
+  const unitIndex = courseUnitIndex(unit.id);
+  const previousUnit = unitIndex > 0 ? courseUnits[unitIndex - 1] : null;
+  const nextUnit = unitIndex >= 0 ? courseUnits[unitIndex + 1] : null;
   return `
     <section class="phase-panel section-workspace">
       <div class="view-title">
         <h2><i data-lucide="map"></i> Section Roadmap</h2>
-        <p>${escapeHtml(section.title)} is the setup gate for every later section.</p>
+        <p>Prerequisites, unlocks, and handoff for ${escapeHtml(section.title)}.</p>
       </div>
       <article class="phase-card">
         <div class="phase-banner">
@@ -4177,8 +4857,8 @@ function renderSectionRoadmapView(section) {
             <section class="flow-card">
               <div class="flow-node is-muted">
                 <span class="flow-label">Before</span>
-                <strong>Start here</strong>
-                <p>No data science work should start until the workspace exists.</p>
+                <strong>${previousUnit ? `${escapeHtml(courseUnitLabel(previousUnit))}: ${escapeHtml(previousUnit.title)}` : "Start here"}</strong>
+                <p>${escapeHtml(previousUnit ? previousUnit.gate : "Build the workflow baseline before content work begins.")}</p>
               </div>
               <div class="flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
               <div class="flow-node is-current">
@@ -4189,7 +4869,11 @@ function renderSectionRoadmapView(section) {
               <div class="flow-arrow" aria-hidden="true"><i data-lucide="arrow-right"></i></div>
               <div class="flow-node">
                 <span class="flow-label">Unlocks</span>
-                <button type="button" data-action="select-course-unit" data-unit-id="unit-01">Unit 01: Python Foundations</button>
+                ${
+                  nextUnit
+                    ? `<button type="button" data-action="select-course-unit" data-unit-id="${nextUnit.id}">${escapeHtml(courseUnitLabel(nextUnit))}: ${escapeHtml(nextUnit.title)}</button>`
+                    : `<strong>Portfolio packaging</strong>`
+                }
                 <p>${escapeHtml(section.roadmap.handoff)}</p>
               </div>
             </section>
@@ -4357,7 +5041,7 @@ function renderSectionPlanner(section) {
     <section class="planner-panel section-workspace">
       <div class="view-title">
         <h2><i data-lucide="calendar-days"></i> Section Planner</h2>
-        <p>${escapeHtml(section.duration)} to complete the setup gate without turning setup into a detour.</p>
+        <p>${escapeHtml(section.duration)} to complete this section gate with usable evidence.</p>
       </div>
       <div class="section-plan-list">
         ${section.planner
