@@ -1,4 +1,5 @@
 const STORAGE_KEY = "dsRoadmapLmsProgress.v1";
+const APP_VERSION = "course-rebuild-v1";
 
 const roadmap = [
   {
@@ -1965,6 +1966,831 @@ roadmap.forEach((phase) => {
   Object.assign(phase, phaseGuides[phase.id], phaseSpecs[phase.id]);
 });
 
+const courseUnits = [
+  {
+    id: "unit-00",
+    phaseIds: ["phase-0"],
+    title: "Course Setup: Build Your Learning Workspace",
+    duration: "Week 0-1",
+    outcome: "You have one reproducible repo, a command-line workflow, and a documentation standard for every later assignment.",
+    gate: "A clean roadmap repo exists with the required folder structure, README template, environment checklist, and first commit history.",
+    lessons: [
+      {
+        id: "u00-l01",
+        type: "Learn",
+        title: "GitHub workflow basics",
+        objective: "Learn the minimum GitHub flow you will use for every assignment: branch, edit, commit, pull request, merge.",
+        resources: [
+          {
+            resourceId: "r-github-skills",
+            instruction: "Complete the full Introduction to GitHub exercise. Stop when you have merged the pull request.",
+          },
+        ],
+        lab: [
+          "Create a new branch named setup/readme-template.",
+          "Add a root README with target identity, weekly schedule, and the rule that every phase must produce a real artifact.",
+          "Open and merge a pull request for the README change.",
+        ],
+        evidence: ["Merged pull request URL or screenshot", "Root README committed to main"],
+        doneWhen: ["You can explain branch, commit, pull request, merge, and remote in your own words."],
+      },
+      {
+        id: "u00-l02",
+        type: "Practice",
+        title: "Terminal and editor workflow",
+        objective: "Get enough shell fluency to create files, run scripts, inspect folders, and recover from simple mistakes.",
+        resources: [
+          {
+            resourceId: "r-missing-semester",
+            instruction: "Use the Shell, Shell Tools and Scripting, Editors, Version Control, and Debugging lectures. Do not study unrelated advanced lectures yet.",
+          },
+        ],
+        lab: [
+          "Create folders 00_setup through 10_portfolio from the terminal.",
+          "Create 00_setup/terminal_git_notes.md.",
+          "Record commands you actually used: pwd, ls, cd, mkdir, touch, mv, cp, rm with caution, git status, git diff, git log.",
+        ],
+        evidence: ["terminal_git_notes.md with commands and short explanations"],
+        doneWhen: ["You can navigate the repo and inspect a diff without using a GUI."],
+      },
+      {
+        id: "u00-l03",
+        type: "Build",
+        title: "Repo structure and documentation standard",
+        objective: "Define the folder and README standards that every future project must follow.",
+        resources: [
+          {
+            resourceId: "r-cookiecutter",
+            instruction: "Use it as a structure reference. Do not install a template unless you understand the folder purposes.",
+          },
+        ],
+        lab: [
+          "Create 00_setup/project_readme_template.md.",
+          "Create 00_setup/environment_checklist.md.",
+          "Add a short README in each phase folder describing what evidence belongs there.",
+        ],
+        evidence: ["project_readme_template.md", "environment_checklist.md", "phase folder READMEs"],
+        doneWhen: ["A future project has an obvious place for data, notebooks, source code, reports, and docs."],
+      },
+    ],
+    assignment: {
+      id: "u00-a1",
+      title: "Assignment 0: Learning Trail Repository",
+      brief: "Create the permanent repo that will hold your learning evidence and project outputs.",
+      files: [
+        "README.md",
+        "00_setup/environment_checklist.md",
+        "00_setup/project_readme_template.md",
+        "00_setup/terminal_git_notes.md",
+        "01_python/README.md through 10_portfolio/README.md",
+      ],
+      requirements: [
+        "Root README states role target, roadmap sequence, weekly cadence, and output rule.",
+        "Repo includes folders 00_setup through 10_portfolio.",
+        "README template includes problem, data, method, how to run, results, limitations, and next steps.",
+        "Environment checklist includes Python version, editor, package manager, virtual environment command, and git identity.",
+      ],
+      rubric: [
+        "Pass: another person can open the repo and understand how the year is organized in under two minutes.",
+        "Revise: folders exist but no README explains what belongs in them.",
+        "Fail: private data, credentials, or unclear local-only paths are committed.",
+      ],
+    },
+  },
+  {
+    id: "unit-01",
+    phaseIds: ["phase-1"],
+    title: "Python Foundations: Build a Real Cleaning Script",
+    duration: "Weeks 1-6",
+    outcome: "You can write small Python programs, decompose a data task into functions, and run a CSV cleaning script from the terminal.",
+    gate: "clean_csv.py runs from the terminal and writes a cleaned CSV plus summary statistics.",
+    lessons: [
+      {
+        id: "u01-l01",
+        type: "Learn",
+        title: "Python control flow and functions",
+        objective: "Build fluency with functions, conditionals, loops, lists, dictionaries, strings, and file paths.",
+        resources: [
+          {
+            resourceId: "r-mit-6100l",
+            instruction: "Use the early lectures and problem sets that cover Python basics, functions, branching, iteration, strings, lists, dictionaries, and testing/debugging.",
+          },
+          {
+            resourceId: "r-kaggle-python",
+            instruction: "Use only as syntax drills after MIT material. Complete exercises for functions, loops, lists, and dictionaries.",
+          },
+        ],
+        lab: [
+          "Create 01_python/notes/python_basics.md.",
+          "Write five small functions: clean_header, count_missing, convert_numeric, summarize_column, write_text_report.",
+          "Call the functions from a small script and print example outputs.",
+        ],
+        evidence: ["python_basics.md", "scripts/python_function_practice.py"],
+        doneWhen: ["You can write a simple function from a plain-English requirement without copying a full answer."],
+      },
+      {
+        id: "u01-l02",
+        type: "Practice",
+        title: "Manual CSV cleaning before Pandas",
+        objective: "Understand data cleaning mechanics before hiding them behind a library.",
+        resources: [
+          {
+            label: "Palmer Penguins CSV",
+            url: "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv",
+            instruction: "Download this exact CSV into 01_python/data/raw/penguins.csv.",
+          },
+        ],
+        lab: [
+          "Read penguins.csv using the Python csv module.",
+          "Normalize headers to snake_case.",
+          "Count missing values by column.",
+          "Write 01_python/outputs/penguins_summary.txt.",
+        ],
+        evidence: ["data/raw/penguins.csv", "outputs/penguins_summary.txt"],
+        doneWhen: ["You can explain how the script reads rows, transforms values, and writes output."],
+      },
+      {
+        id: "u01-l03",
+        type: "Build",
+        title: "Build the reusable cleaning script",
+        objective: "Turn the practice code into a reusable terminal script with documented assumptions.",
+        resources: [
+          {
+            resourceId: "r-mit-6100l",
+            instruction: "Return only to debugging and decomposition topics as needed.",
+          },
+        ],
+        lab: [
+          "Create 01_python/scripts/clean_csv.py.",
+          "Use argparse or clearly documented constants for input and output paths.",
+          "Write cleaned data to 01_python/data/processed/penguins_clean.csv.",
+          "Write summary statistics to 01_python/outputs/summary_statistics.txt.",
+          "Document every missing-value rule in README.md.",
+        ],
+        evidence: ["scripts/clean_csv.py", "data/processed/penguins_clean.csv", "outputs/summary_statistics.txt", "README.md"],
+        doneWhen: ["One terminal command produces the cleaned file and summary report."],
+      },
+    ],
+    assignment: {
+      id: "u01-a1",
+      title: "Assignment 1: CSV Cleaning Script",
+      brief: "Create a command-line Python script that cleans the Palmer Penguins CSV and documents the cleaning logic.",
+      files: [
+        "01_python/scripts/clean_csv.py",
+        "01_python/data/raw/penguins.csv",
+        "01_python/data/processed/penguins_clean.csv",
+        "01_python/outputs/summary_statistics.txt",
+        "01_python/README.md",
+      ],
+      requirements: [
+        "Script normalizes headers to snake_case.",
+        "Script reports missing values before cleaning.",
+        "Script applies explicit rules for missing values and documents them.",
+        "Script writes cleaned CSV and text summary output.",
+        "README includes dataset source, run command, cleaning assumptions, and expected files.",
+      ],
+      rubric: [
+        "Pass: script runs from terminal and outputs match README.",
+        "Revise: code works only from notebook state or undocumented paths.",
+        "Fail: missing rows are dropped or imputed without explanation.",
+      ],
+    },
+  },
+  {
+    id: "unit-02",
+    phaseIds: ["phase-2"],
+    title: "SQL for Analytics: Build a Metric Query Pack",
+    duration: "Weeks 3-8",
+    outcome: "You can write analytics SQL for joins, cohorts, windows, date logic, and metric definitions.",
+    gate: "SQL query pack contains auditable business questions, grains, assumptions, and sample outputs.",
+    lessons: [
+      {
+        id: "u02-l01",
+        type: "Learn",
+        title: "Relational foundations and schema discipline",
+        objective: "Understand keys, constraints, normalization, joins, and why table shape controls analysis quality.",
+        resources: [
+          {
+            resourceId: "r-cs50-sql",
+            instruction: "Work through the sections on tables, types, CRUD, primary keys, foreign keys, joins, constraints, and normalization.",
+          },
+        ],
+        lab: [
+          "Create 02_sql/schema/example_schema.sql.",
+          "Define customers, orders, order_items, products, and events tables.",
+          "Write five questions your schema can answer and five it cannot answer.",
+        ],
+        evidence: ["schema/example_schema.sql", "schema/schema_notes.md"],
+        doneWhen: ["You can explain why a join duplicates rows and how table grain prevents it."],
+      },
+      {
+        id: "u02-l02",
+        type: "Practice",
+        title: "Analytics patterns: CTEs, windows, cohorts",
+        objective: "Practice query patterns you will reuse in product, revenue, and workforce analysis.",
+        resources: [
+          {
+            resourceId: "r-kaggle-sql",
+            instruction: "Complete Intro to SQL and Advanced SQL lessons for joins, unions, analytic functions, and nested data.",
+          },
+          {
+            resourceId: "r-postgres-windows",
+            instruction: "Use this as the reference for row_number, rank, lag, lead, running totals, and rolling averages.",
+          },
+        ],
+        lab: [
+          "Create one query template each for cohort retention, rolling trend, rank change, and time between events.",
+          "Each query must include comments for business question, output grain, and assumptions.",
+        ],
+        evidence: ["queries/templates/cohort_retention.sql", "queries/templates/window_patterns.sql"],
+        doneWhen: ["You can adapt a query template to a new metric without rewriting it from scratch."],
+      },
+      {
+        id: "u02-l03",
+        type: "Build",
+        title: "Build the SQL analysis pack",
+        objective: "Produce reusable SQL evidence for analytics interviews and future projects.",
+        resources: [
+          {
+            label: "Synthetic event schema in assignment",
+            url: "#",
+            instruction: "Use your own SQL schema file from this unit. If you do not have real data yet, create seed rows for customers, events, orders, and departments.",
+          },
+        ],
+        lab: [
+          "Write MAU, cohort retention, revenue by segment, attrition by tenure band, average time between events, rolling 3-month trend, and rank change queries.",
+          "Add a README metric dictionary.",
+          "Save sample outputs as CSV or Markdown tables.",
+        ],
+        evidence: ["02_sql/queries/*.sql", "02_sql/outputs/sample_results/", "02_sql/README.md"],
+        doneWhen: ["Each SQL file answers a named business question and states output grain."],
+      },
+    ],
+    assignment: {
+      id: "u02-a1",
+      title: "Assignment 2: SQL Analysis Pack",
+      brief: "Build a set of reusable analytics queries with metric definitions and sample outputs.",
+      files: [
+        "02_sql/schema/example_schema.sql",
+        "02_sql/queries/01_monthly_active_users.sql",
+        "02_sql/queries/02_cohort_retention.sql",
+        "02_sql/queries/03_revenue_by_segment.sql",
+        "02_sql/queries/04_attrition_by_tenure_band.sql",
+        "02_sql/queries/05_time_between_events.sql",
+        "02_sql/queries/06_rolling_trend.sql",
+        "02_sql/queries/07_rank_change_over_time.sql",
+        "02_sql/README.md",
+      ],
+      requirements: [
+        "Every query has comments for question, grain, assumptions, and known limitations.",
+        "At least one query uses a window function.",
+        "At least one query uses date truncation or date difference logic.",
+        "At least one query uses a CTE chain that separates filtering, aggregation, and final output.",
+      ],
+      rubric: [
+        "Pass: query intent and denominator choices are clear.",
+        "Revise: query works but metric grain or assumptions are unclear.",
+        "Fail: query screenshots replace SQL files.",
+      ],
+    },
+  },
+  {
+    id: "unit-03",
+    phaseIds: ["phase-3"],
+    title: "Statistics: Write a Limitations-First Analysis",
+    duration: "Weeks 7-14",
+    outcome: "You can describe uncertainty, run a defensible test, fit a basic model, and avoid overclaiming.",
+    gate: "A notebook explains what a dataset can and cannot prove with evidence, assumptions, and limitations separated.",
+    lessons: [
+      {
+        id: "u03-l01",
+        type: "Learn",
+        title: "Descriptive statistics, sampling, uncertainty",
+        objective: "Build the vocabulary needed to describe data responsibly.",
+        resources: [
+          {
+            resourceId: "r-openintro",
+            instruction: "Study chapters covering data basics, probability, distributions, sampling, confidence intervals, and hypothesis tests.",
+          },
+          {
+            resourceId: "r-statquest",
+            instruction: "Use StatQuest for topics that are unclear after OpenIntro.",
+          },
+        ],
+        lab: [
+          "Use penguins_clean.csv from Unit 1.",
+          "Compute mean, median, standard deviation, missingness, and distributions for bill length, flipper length, and body mass.",
+          "Write notes explaining sample, population, bias, and uncertainty.",
+        ],
+        evidence: ["03_statistics/notes/inference_notes.md"],
+        doneWhen: ["You can explain why a sample statistic is not automatically a population truth."],
+      },
+      {
+        id: "u03-l02",
+        type: "Practice",
+        title: "Regression and model evaluation reasoning",
+        objective: "Connect inference to model assumptions, overfitting, and evaluation.",
+        resources: [
+          {
+            resourceId: "r-islp",
+            instruction: "Use the Python edition for regression, classification, resampling, and model evaluation chapters.",
+          },
+          {
+            resourceId: "r-3b1b-linear-algebra",
+            instruction: "Watch only enough to understand vectors, matrix transformations, and linear model intuition.",
+          },
+        ],
+        lab: [
+          "Fit one regression model predicting body mass from flipper length and species.",
+          "Create train/test split and report test error.",
+          "Write a short explanation of residuals, overfitting, and why prediction is not causation.",
+        ],
+        evidence: ["03_statistics/notebooks/model_reasoning_practice.ipynb"],
+        doneWhen: ["You can explain why a good prediction model may still not identify a cause."],
+      },
+      {
+        id: "u03-l03",
+        type: "Build",
+        title: "Build the limitations-first notebook",
+        objective: "Practice writing the analysis as a professional argument with uncertainty and limits.",
+        resources: [
+          {
+            resourceId: "r-openintro",
+            instruction: "Use test assumptions and confidence interval sections as references while writing.",
+          },
+          {
+            resourceId: "r-islp",
+            instruction: "Use model interpretation and validation sections as references.",
+          },
+        ],
+        lab: [
+          "Notebook sections must be: question, data audit, summary statistics, visualizations, statistical test, regression model, limitations, conclusion.",
+          "Write the limitations section before writing the conclusion.",
+          "Include at least three concrete limitations tied to dataset design.",
+        ],
+        evidence: ["03_statistics/notebooks/what_this_data_can_and_cannot_prove.ipynb", "03_statistics/reports/limitations_summary.md"],
+        doneWhen: ["The conclusion is weaker than the evidence only when the data requires it."],
+      },
+    ],
+    assignment: {
+      id: "u03-a1",
+      title: "Assignment 3: What This Data Can and Cannot Prove",
+      brief: "Write a notebook using the penguins dataset that separates evidence, assumptions, uncertainty, and conclusions.",
+      files: [
+        "03_statistics/notebooks/what_this_data_can_and_cannot_prove.ipynb",
+        "03_statistics/reports/limitations_summary.md",
+        "03_statistics/README.md",
+      ],
+      requirements: [
+        "Notebook starts with a clear, bounded question.",
+        "Notebook states unit of analysis, sample, missingness, and likely bias.",
+        "Includes summary statistics and at least three visualizations.",
+        "Includes one statistical test with assumptions stated.",
+        "Includes one regression model with validation and interpretation.",
+        "Limitations section has at least three concrete limitations.",
+      ],
+      rubric: [
+        "Pass: conclusion does not imply causation without support.",
+        "Revise: charts and models exist but uncertainty is not explained.",
+        "Fail: notebook makes claims the dataset design cannot support.",
+      ],
+    },
+  },
+  {
+    id: "unit-04",
+    phaseIds: ["phase-4", "phase-5"],
+    title: "Flagship Project 1A: People Analytics Analysis and Dashboard",
+    duration: "Weeks 13-24",
+    outcome: "You can turn a public HR-style dataset into an ethical analysis, baseline model, and stakeholder dashboard.",
+    gate: "Project 1A has a data dictionary, cleaning notebook, EDA notebook, baseline model, dashboard, limitations, and ethical-use statement.",
+    lessons: [
+      {
+        id: "u04-l01",
+        type: "Learn",
+        title: "Applied data science workflow",
+        objective: "Learn the Pandas, visualization, and baseline modeling workflow needed for Project 1A.",
+        resources: [
+          {
+            resourceId: "r-harvardx-ds-python",
+            instruction: "Use as the main course spine. If audit access is limited, use it for available videos/material and reinforce with Kaggle and ISLP.",
+          },
+          {
+            resourceId: "r-kaggle-learn",
+            instruction: "Complete Pandas, Data Visualization, Intro ML, and Intermediate ML modules selectively as practice.",
+          },
+          {
+            resourceId: "r-google-mlcc",
+            instruction: "Use model evaluation and responsible AI topics before writing model conclusions.",
+          },
+        ],
+        lab: [
+          "Create 04_data_science/project_1a_people_analytics/.",
+          "Download the IBM HR dataset file WA_Fn-UseC_-HR-Employee-Attrition.csv from Kaggle.",
+          "Create 01_data_dictionary_and_audit.ipynb and identify type, missingness, target, potential leakage, and ethical concerns for each field.",
+        ],
+        evidence: ["data dictionary notebook", "field audit table", "target leakage notes"],
+        doneWhen: ["You know which columns are safe for exploratory modeling and which need caution."],
+      },
+      {
+        id: "u04-l02",
+        type: "Practice",
+        title: "EDA and baseline model",
+        objective: "Analyze aggregate workforce patterns and build a baseline model without overclaiming.",
+        resources: [
+          {
+            resourceId: "r-ibm-hr-kaggle",
+            instruction: "Use this exact dataset for Project 1A unless you intentionally replace it with another public/synthetic HR-style dataset.",
+          },
+          {
+            resourceId: "r-islp",
+            instruction: "Use regression/classification and evaluation chapters to interpret the baseline.",
+          },
+        ],
+        lab: [
+          "Create 02_cleaning.ipynb, 03_eda.ipynb, and 04_baseline_model.ipynb.",
+          "EDA must cover attrition distribution, department/job role, tenure, compensation, overtime, job satisfaction, age bands, and business travel if available.",
+          "Baseline model must compare against a simple non-ML baseline.",
+          "Report confusion matrix, precision, recall, ROC-AUC or PR-AUC as appropriate.",
+        ],
+        evidence: ["cleaning notebook", "EDA notebook", "baseline model notebook", "evaluation summary"],
+        doneWhen: ["The model section explains metric tradeoffs and does not claim individual resignation prediction."],
+      },
+      {
+        id: "u04-l03",
+        type: "Build",
+        title: "Stakeholder dashboard and ethical framing",
+        objective: "Translate the analysis into a dashboard and written limitations that a stakeholder can understand.",
+        resources: [
+          {
+            resourceId: "r-streamlit",
+            instruction: "Use Streamlit docs for multipage app structure, widgets, charts, and deployment-ready organization.",
+          },
+          {
+            resourceId: "r-uk-gov-viz",
+            instruction: "Use before final dashboard polish to remove misleading charts and unclear labels.",
+          },
+          {
+            resourceId: "r-nist-ai-rmf",
+            instruction: "Use for risk language in the ethical-use statement.",
+          },
+        ],
+        lab: [
+          "Dashboard pages: Workforce Overview, Attrition Trends, Risk Factor Exploration, Model Results, Limitations and Ethical Use.",
+          "Each page starts with a stakeholder question.",
+          "Model Results page includes threshold caveats and prohibited use.",
+          "Limitations page is in the main navigation, not hidden.",
+        ],
+        evidence: ["Streamlit app", "dashboard screenshots", "limitations.md", "ethical_use_statement.md"],
+        doneWhen: ["A nontechnical stakeholder can understand the insight, caveat, and next responsible action."],
+      },
+    ],
+    assignment: {
+      id: "u04-a1",
+      title: "Assignment 4: People Analytics EDA, Baseline Model, and Dashboard",
+      brief: "Build the flagship People Analytics project using public/synthetic HR-style data and responsible framing.",
+      files: [
+        "04_data_science/project_1a_people_analytics/README.md",
+        "notebooks/01_data_dictionary_and_audit.ipynb",
+        "notebooks/02_cleaning.ipynb",
+        "notebooks/03_eda.ipynb",
+        "notebooks/04_baseline_model.ipynb",
+        "reports/evaluation_summary.md",
+        "reports/limitations.md",
+        "reports/ethical_use_statement.md",
+        "05_visualization/project_1a_dashboard/app.py",
+      ],
+      requirements: [
+        "Use public/synthetic HR-style data only.",
+        "Data dictionary identifies leakage and ethical-risk fields.",
+        "EDA focuses on aggregate workforce patterns.",
+        "Baseline model is compared to a simple non-ML baseline.",
+        "Dashboard includes five required pages.",
+        "README says the model supports aggregate planning and exploratory analysis only.",
+      ],
+      rubric: [
+        "Pass: project is technically inspectable and ethically framed.",
+        "Revise: charts/model exist but stakeholder question or limitations are unclear.",
+        "Fail: project implies automated employment decisions or individual prediction use.",
+      ],
+    },
+  },
+  {
+    id: "unit-05",
+    phaseIds: ["phase-6"],
+    title: "Flagship Project 1B: Workforce Analytics Pipeline",
+    duration: "Weeks 25-34",
+    outcome: "You can convert Project 1A from notebooks into a repeatable analytics pipeline with modeled tables and data quality checks.",
+    gate: "One documented workflow rebuilds raw, staging, marts, quality checks, and dashboard-ready outputs.",
+    lessons: [
+      {
+        id: "u05-l01",
+        type: "Learn",
+        title: "Pipeline architecture and local warehouse workflow",
+        objective: "Understand raw, staging, marts, exports, and where DuckDB/dbt-style transformations fit.",
+        resources: [
+          {
+            resourceId: "r-de-zoomcamp",
+            instruction: "Use modules on Docker, ingestion, orchestration, warehouses, dbt, and analytics engineering. Treat as self-paced unless current cohort timing fits.",
+          },
+          {
+            resourceId: "r-duckdb",
+            instruction: "Use DuckDB Python docs for local SQL over CSV/parquet and pipeline-friendly analytics.",
+          },
+        ],
+        lab: [
+          "Create 06_data_engineering/project_1b_workforce_pipeline/.",
+          "Write reports/architecture.md with raw -> staging -> marts -> dashboard export.",
+          "Create src/ingest.py that reads the HR CSV and writes raw/processed outputs.",
+        ],
+        evidence: ["architecture.md", "src/ingest.py", "data/raw/", "data/processed/"],
+        doneWhen: ["Raw data is not overwritten and processed outputs can be regenerated."],
+      },
+      {
+        id: "u05-l02",
+        type: "Practice",
+        title: "Model workforce tables",
+        objective: "Build fact and dimension tables with documented grain, keys, and tests.",
+        resources: [
+          {
+            resourceId: "r-dbt-fundamentals",
+            instruction: "Use for models, tests, docs, and analytics engineering discipline. Implement locally even if using SQL files instead of a full dbt project.",
+          },
+        ],
+        lab: [
+          "Create dim_employee, dim_department, dim_manager, fact_employee_month, fact_attrition, fact_engagement, fact_compensation_band, fact_manager_span.",
+          "Document table grain and primary/foreign keys.",
+          "Add uniqueness, not-null, accepted-values, and relationship checks.",
+        ],
+        evidence: ["warehouse/staging/", "warehouse/marts/", "reports/data_quality_report.md"],
+        doneWhen: ["Every fact table has a stated grain and every key has a quality check."],
+      },
+      {
+        id: "u05-l03",
+        type: "Build",
+        title: "Dashboard-ready pipeline output",
+        objective: "Connect the pipeline to the Project 1A dashboard and prove repeatability.",
+        resources: [
+          {
+            resourceId: "r-bigquery-public",
+            instruction: "Optional: use public datasets for warehouse practice only. Monitor query size and do not make cloud setup a blocker.",
+          },
+        ],
+        lab: [
+          "Create a dashboard-ready export table or parquet/CSV output.",
+          "Update Project 1A dashboard to read the modeled output.",
+          "Document one command or workflow that rebuilds outputs from raw data.",
+        ],
+        evidence: ["dashboard-ready export", "pipeline README", "updated dashboard data path"],
+        doneWhen: ["A reviewer can rebuild the output without editing notebooks."],
+      },
+    ],
+    assignment: {
+      id: "u05-a1",
+      title: "Assignment 5: End-to-End Workforce Analytics Pipeline",
+      brief: "Upgrade the People Analytics project into a reproducible analytics pipeline.",
+      files: [
+        "06_data_engineering/project_1b_workforce_pipeline/README.md",
+        "src/ingest.py",
+        "src/validate.py",
+        "warehouse/staging/",
+        "warehouse/marts/",
+        "reports/architecture.md",
+        "reports/data_quality_report.md",
+      ],
+      requirements: [
+        "Pipeline separates raw, processed, staging, marts, and exports.",
+        "Required dimension and fact tables are present.",
+        "Every fact table documents grain.",
+        "Data quality checks fail loudly and are documented.",
+        "Dashboard-ready output is produced.",
+      ],
+      rubric: [
+        "Pass: one documented workflow rebuilds outputs from raw data.",
+        "Revise: tables exist but grain/tests are missing.",
+        "Fail: pipeline depends on manual notebook execution.",
+      ],
+    },
+  },
+  {
+    id: "unit-06",
+    phaseIds: ["phase-7", "phase-8"],
+    title: "Flagship Project 1C: Model Service and MLOps Layer",
+    duration: "Weeks 35-44",
+    outcome: "You can package a responsible baseline model as a service and document tracking, monitoring, and risk controls.",
+    gate: "FastAPI service, Dockerfile, model card, experiment log, monitoring plan, and risk assessment are present.",
+    lessons: [
+      {
+        id: "u06-l01",
+        type: "Learn",
+        title: "Training scripts and model packaging",
+        objective: "Move modeling from notebook exploration to repeatable scripts and artifacts.",
+        resources: [
+          {
+            resourceId: "r-ml-zoomcamp",
+            instruction: "Use validation, model selection, FastAPI, Docker, and deployment sections selectively. This is a large course; do not try to complete every module before packaging your baseline.",
+          },
+          {
+            resourceId: "r-google-mlcc-p7",
+            instruction: "Use for evaluation and responsible ML refreshers.",
+          },
+        ],
+        lab: [
+          "Create 07_ml_engineering/project_1c_model_service/.",
+          "Write src/train.py that reads modeled data and saves model artifact, metrics, and feature list.",
+          "Write src/predict.py with a clean prediction function.",
+        ],
+        evidence: ["src/train.py", "src/predict.py", "models/model.pkl", "metrics.json"],
+        doneWhen: ["Training can run without opening a notebook."],
+      },
+      {
+        id: "u06-l02",
+        type: "Practice",
+        title: "FastAPI service and Docker",
+        objective: "Expose the model behind a documented API with validation and example requests.",
+        resources: [
+          {
+            resourceId: "r-ml-zoomcamp",
+            instruction: "Use FastAPI and Docker sections as the direct implementation reference.",
+          },
+        ],
+        lab: [
+          "Create src/app.py with /health and /predict endpoints.",
+          "Create schemas.py for request and response validation.",
+          "Add examples/request.json and examples/response.json.",
+          "Create Dockerfile and document curl command.",
+        ],
+        evidence: ["src/app.py", "src/schemas.py", "Dockerfile", "examples/request.json", "examples/response.json"],
+        doneWhen: ["A documented curl request returns a valid prediction response."],
+      },
+      {
+        id: "u06-l03",
+        type: "Build",
+        title: "MLOps documentation and risk controls",
+        objective: "Document experiment tracking, monitoring, model card, retraining, and responsible AI risks.",
+        resources: [
+          {
+            resourceId: "r-mlops-zoomcamp",
+            instruction: "Use self-paced experiment tracking, deployment, and monitoring topics. Do not depend on a live cohort.",
+          },
+          {
+            resourceId: "r-made-with-ml",
+            instruction: "Use for production ML engineering discipline and documentation patterns.",
+          },
+          {
+            resourceId: "r-nist-ai-rmf",
+            instruction: "Use for risk management language in model card and risk assessment.",
+          },
+        ],
+        lab: [
+          "Track at least three model runs with parameters and metrics.",
+          "Write docs/model_card.md, reports/monitoring_plan.md, reports/risk_assessment.md, and reports/retraining_plan.md.",
+          "State implemented controls vs proposed production controls.",
+        ],
+        evidence: ["experiment_log.md", "model_card.md", "monitoring_plan.md", "risk_assessment.md", "retraining_plan.md"],
+        doneWhen: ["Every monitoring signal maps to a review action."],
+      },
+    ],
+    assignment: {
+      id: "u06-a1",
+      title: "Assignment 6: Responsible Model Service and MLOps Layer",
+      brief: "Package the workforce-risk model as a service and document lifecycle controls.",
+      files: [
+        "07_ml_engineering/project_1c_model_service/src/train.py",
+        "src/app.py",
+        "Dockerfile",
+        "docs/model_card.md",
+        "08_mlops/project_1c_mlops_layer/reports/monitoring_plan.md",
+        "reports/risk_assessment.md",
+        "reports/retraining_plan.md",
+      ],
+      requirements: [
+        "No notebook is required to train or serve.",
+        "API includes request and response schema validation.",
+        "Model card states intended use and prohibited use.",
+        "Monitoring plan includes signals, cadence, triggers, and actions.",
+        "Risk assessment includes people, organizational, and technical risks.",
+      ],
+      rubric: [
+        "Pass: service and docs make responsible use constraints impossible to miss.",
+        "Revise: service works but monitoring/risk docs are generic.",
+        "Fail: model is framed as an automated employment decision tool.",
+      ],
+    },
+  },
+  {
+    id: "unit-07",
+    phaseIds: ["phase-9", "phase-10"],
+    title: "Transferability Project and Portfolio Packaging",
+    duration: "Weeks 45-52",
+    outcome: "You prove the skills transfer outside People Analytics and package the portfolio for review.",
+    gate: "Two serious projects are polished with READMEs, diagrams, demos or screenshots, limitations, and career-facing summaries.",
+    lessons: [
+      {
+        id: "u07-l01",
+        type: "Learn",
+        title: "Choose the transferability project",
+        objective: "Pick a second domain with clean data access and a concrete business question.",
+        resources: [
+          {
+            resourceId: "r-nyc-taxi",
+            instruction: "Default choice: use NYC TLC trip data for operations forecasting or demand analysis.",
+          },
+          {
+            resourceId: "r-spotify-api-warning",
+            instruction: "Read before considering a music project. Do not build around restricted audio-analysis endpoints unless access is confirmed.",
+          },
+        ],
+        lab: [
+          "Create 09_transferability_project/project_brief.md.",
+          "Default brief: NYC Taxi demand forecasting and operations dashboard.",
+          "Define user, question, dataset, target output, and why this proves transferability.",
+        ],
+        evidence: ["project_brief.md", "dataset_note.md"],
+        doneWhen: ["The project can be completed with clean public data and does not depend on a fragile API."],
+      },
+      {
+        id: "u07-l02",
+        type: "Build",
+        title: "Build the second project MVP",
+        objective: "Apply SQL, statistics, dashboarding, and optional modeling to a non-HR dataset.",
+        resources: [
+          {
+            label: "NYC Yellow Taxi January 2024 Parquet",
+            url: "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet",
+            instruction: "Use this exact file for the default operations project unless you intentionally choose another TLC file.",
+          },
+          {
+            resourceId: "r-fastai",
+            instruction: "Optional only if your second project truly needs deep learning.",
+          },
+          {
+            resourceId: "r-hf-llm",
+            instruction: "Optional only if your second project truly needs NLP or LLM workflows.",
+          },
+        ],
+        lab: [
+          "Load taxi data with DuckDB or Python.",
+          "Create hourly or daily demand features.",
+          "Analyze demand by time, zone if available, fare, trip distance, and payment type.",
+          "Build a simple baseline forecast or classification model only if it supports the question.",
+          "Produce a dashboard or written operations report.",
+        ],
+        evidence: ["notebooks/01_data_audit.ipynb", "notebooks/02_analysis.ipynb", "dashboard_or_report/", "README.md"],
+        doneWhen: ["The project shows a different domain and data shape than the workforce project."],
+      },
+      {
+        id: "u07-l03",
+        type: "Review",
+        title: "Package the portfolio",
+        objective: "Make the best work easy to inspect and describe professionally.",
+        resources: [
+          {
+            resourceId: "r-cookiecutter-p10",
+            instruction: "Use for final structure and naming cleanup.",
+          },
+          {
+            resourceId: "r-streamlit-p10",
+            instruction: "Use for demo polish if your demos are Streamlit apps.",
+          },
+        ],
+        lab: [
+          "Create 10_portfolio/README.md linking the flagship and transferability projects.",
+          "Write flagship_project_summary.md and transferability_project_summary.md.",
+          "Create resume_bullets.md with action, method, output, and business value.",
+          "Add architecture diagrams or screenshots for both serious projects.",
+        ],
+        evidence: ["portfolio README", "project summaries", "resume bullets", "diagrams/screenshots"],
+        doneWhen: ["A reviewer can find and understand the two strongest projects without hunting through folders."],
+      },
+    ],
+    assignment: {
+      id: "u07-a1",
+      title: "Assignment 7: Transferability Project and Portfolio Index",
+      brief: "Build one serious non-HR project and package both serious projects for review.",
+      files: [
+        "09_transferability_project/README.md",
+        "09_transferability_project/project_brief.md",
+        "09_transferability_project/notebooks/",
+        "09_transferability_project/dashboard_or_report/",
+        "10_portfolio/README.md",
+        "10_portfolio/resume_bullets.md",
+        "10_portfolio/linkedin_summaries.md",
+      ],
+      requirements: [
+        "Second project uses clean public data.",
+        "Second project states user, question, data, method, output, and limitations.",
+        "Portfolio index links to flagship and transferability projects.",
+        "Resume bullets explain impact and technical method without overclaiming.",
+      ],
+      rubric: [
+        "Pass: portfolio shows depth in flagship and transferability in second project.",
+        "Revise: second project exists but business question or data access is weak.",
+        "Fail: portfolio is a list of tutorials rather than inspectable project evidence.",
+      ],
+    },
+  },
+];
+
 const monthlyPlan = [
   {
     id: "m1",
@@ -2106,11 +2932,14 @@ const app = document.querySelector("#app");
 const importFile = document.querySelector("#importFile");
 
 const defaultState = {
-  view: "roadmap",
+  appVersion: APP_VERSION,
+  view: "course",
+  selectedCourseUnitId: "unit-00",
   selectedPhaseId: "phase-0",
   selectedProjectId: "project-1a",
   done: {},
   notes: {},
+  evidence: {},
   customLinks: [],
   query: "",
   typeFilter: "All",
@@ -2122,7 +2951,20 @@ let state = loadState();
 function loadState() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    return { ...defaultState, ...saved, done: saved?.done || {}, notes: saved?.notes || {}, customLinks: saved?.customLinks || [] };
+    const merged = {
+      ...defaultState,
+      ...saved,
+      appVersion: APP_VERSION,
+      done: saved?.done || {},
+      notes: saved?.notes || {},
+      evidence: saved?.evidence || {},
+      customLinks: saved?.customLinks || [],
+    };
+    if (saved?.appVersion !== APP_VERSION) {
+      merged.view = "course";
+      merged.selectedCourseUnitId = "unit-00";
+    }
+    return merged;
   } catch {
     return structuredClone(defaultState);
   }
@@ -2146,6 +2988,44 @@ function projectById(id) {
 
 function phasesForProject(project) {
   return project.phaseIds.map(phaseById);
+}
+
+function courseUnitById(id) {
+  return courseUnits.find((unit) => unit.id === id) || courseUnits[0];
+}
+
+function courseTaskIds(unit) {
+  return [...unit.lessons.map((lesson) => lesson.id), unit.assignment.id];
+}
+
+function courseUnitProgress(unit) {
+  const ids = courseTaskIds(unit);
+  const done = ids.filter((id) => state.done[id]).length;
+  return {
+    done,
+    total: ids.length,
+    pct: ids.length ? Math.round((done / ids.length) * 100) : 0,
+  };
+}
+
+function courseProgress() {
+  const ids = courseUnits.flatMap(courseTaskIds);
+  const done = ids.filter((id) => state.done[id]).length;
+  return {
+    done,
+    total: ids.length,
+    pct: ids.length ? Math.round((done / ids.length) * 100) : 0,
+  };
+}
+
+function assignmentProgress() {
+  const ids = courseUnits.map((unit) => unit.assignment.id);
+  const done = ids.filter((id) => state.done[id]).length;
+  return {
+    done,
+    total: ids.length,
+    pct: ids.length ? Math.round((done / ids.length) * 100) : 0,
+  };
 }
 
 function checkableIdsForPhase(phase) {
@@ -2231,14 +3111,29 @@ function renderSidebar() {
   return `
     <div class="sidebar-head">
       <div>
-        <p class="eyebrow">Roadmap</p>
-        <h2>Phases</h2>
+        <p class="eyebrow">Course</p>
+        <h2>Units</h2>
       </div>
       <span class="saved-badge">Saved locally</span>
     </div>
-    <nav class="phase-nav" aria-label="Roadmap phases">
-      ${roadmap.map(renderPhaseNavButton).join("")}
+    <nav class="phase-nav course-nav" aria-label="Course units">
+      ${courseUnits.map(renderCourseNavButton).join("")}
     </nav>
+  `;
+}
+
+function renderCourseNavButton(unit) {
+  const progress = courseUnitProgress(unit);
+  const activeClass = unit.id === state.selectedCourseUnitId ? " is-active" : "";
+  return `
+    <button class="phase-nav-button course-nav-button${activeClass}" type="button" data-action="select-course-unit" data-unit-id="${unit.id}">
+      <span class="phase-index">${escapeHtml(unit.id.replace("unit-", ""))}</span>
+      <span class="phase-nav-copy">
+        <strong>${escapeHtml(unit.title)}</strong>
+        <span>${escapeHtml(unit.duration)} · ${progress.pct}%</span>
+        <span class="mini-progress" aria-hidden="true"><span style="width:${progress.pct}%"></span></span>
+      </span>
+    </button>
   `;
 }
 
@@ -2258,16 +3153,18 @@ function renderPhaseNavButton(phase) {
 }
 
 function renderHero() {
-  const active = phaseById(state.selectedPhaseId);
+  const activeUnit = courseUnitById(state.selectedCourseUnitId);
+  const active = phaseById(activeUnit.phaseIds[0] || state.selectedPhaseId);
   return `
     <section class="workspace-header">
       <div>
-        <p class="eyebrow">Dashboard</p>
-        <h2>Roadmap Tracker</h2>
+        <p class="eyebrow">Course</p>
+        <h2>Course Workspace</h2>
       </div>
-      <div class="workspace-summary" aria-label="Current roadmap status">
-        <span class="pill">Active: Phase ${active.number}</span>
-        <span class="pill">${escapeHtml(active.title)}</span>
+      <div class="workspace-summary" aria-label="Current course status">
+        <span class="pill">Unit: ${escapeHtml(activeUnit.id.replace("unit-", ""))}</span>
+        <span class="pill">${escapeHtml(activeUnit.title)}</span>
+        <span class="pill">Phase ${active.number}: ${escapeHtml(active.title)}</span>
         <span class="pill">Saved locally</span>
       </div>
     </section>
@@ -2276,6 +3173,7 @@ function renderHero() {
 
 function renderTabs() {
   const tabs = [
+    ["course", "graduation-cap", "Course"],
     ["roadmap", "map", "Roadmap"],
     ["resources", "library", "Resources"],
     ["projects", "folder-kanban", "Projects"],
@@ -2284,7 +3182,7 @@ function renderTabs() {
   ];
 
   return `
-    <div class="view-tabs" role="tablist" aria-label="Roadmap views">
+    <div class="view-tabs" role="tablist" aria-label="Course workspace views">
       ${tabs
         .map(
           ([id, icon, label]) => `
@@ -2300,6 +3198,8 @@ function renderTabs() {
 }
 
 function renderMetrics() {
+  if (state.view === "course") return renderCourseMetrics();
+
   const overall = overallProgress();
   const phase = phaseById(state.selectedPhaseId);
   const phaseStats = phaseProgress(phase);
@@ -2332,12 +3232,249 @@ function renderMetrics() {
   `;
 }
 
+function renderCourseMetrics() {
+  const progress = courseProgress();
+  const activeUnit = courseUnitById(state.selectedCourseUnitId);
+  const activeProgress = courseUnitProgress(activeUnit);
+  const assignments = assignmentProgress();
+  const nextLesson = activeUnit.lessons.find((lesson) => !state.done[lesson.id]);
+
+  return `
+    <section class="metric-grid" aria-label="Course progress metrics">
+      <article class="metric-card">
+        <div class="metric-head"><h3>Course</h3><span class="stat-icon"><i data-lucide="graduation-cap"></i></span></div>
+        <p class="metric-value">${progress.pct}%</p>
+        <p>${progress.done} of ${progress.total} lessons and assignment gates complete</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><h3>Active Unit</h3><span class="stat-icon"><i data-lucide="crosshair"></i></span></div>
+        <p class="metric-value">${activeProgress.pct}%</p>
+        <p>${escapeHtml(activeUnit.title)}</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><h3>Assignments</h3><span class="stat-icon"><i data-lucide="clipboard-check"></i></span></div>
+        <p class="metric-value">${assignments.done}/${assignments.total}</p>
+        <p>Course gates completed</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><h3>Next</h3><span class="stat-icon"><i data-lucide="arrow-right-circle"></i></span></div>
+        <p class="metric-value">${nextLesson ? nextLesson.type : "Gate"}</p>
+        <p>${escapeHtml(nextLesson ? nextLesson.title : activeUnit.assignment.title)}</p>
+      </article>
+    </section>
+  `;
+}
+
 function renderActiveView(selectedPhase) {
+  if (state.view === "course") return renderCourseView();
   if (state.view === "resources") return renderResourceLibrary();
   if (state.view === "projects") return renderProjects();
   if (state.view === "planner") return renderPlanner();
   if (state.view === "accuracy") return renderAccuracy();
   return renderRoadmapView(selectedPhase);
+}
+
+function renderCourseView() {
+  const unit = courseUnitById(state.selectedCourseUnitId);
+  const progress = courseUnitProgress(unit);
+  const relatedPhases = unit.phaseIds.map(phaseById);
+
+  return `
+    <section class="course-panel">
+      <div class="view-title">
+        <h2><i data-lucide="graduation-cap"></i> Course</h2>
+        <p>${progress.done} of ${progress.total} unit gates complete</p>
+      </div>
+      <article class="course-unit-detail">
+        <header class="course-unit-header">
+          <div>
+            <p class="eyebrow">${escapeHtml(unit.duration)} · ${escapeHtml(relatedPhases.map((phase) => `Phase ${phase.number}`).join(" + "))}</p>
+            <h2>${escapeHtml(unit.title)}</h2>
+            <p>${escapeHtml(unit.outcome)}</p>
+          </div>
+          <span class="status-pill ${progress.pct === 100 ? "done" : progress.done > 0 ? "active" : "waiting"}">${progress.pct}%</span>
+        </header>
+        <section class="course-gate">
+          <strong>Unit Gate</strong>
+          <p>${escapeHtml(unit.gate)}</p>
+        </section>
+        ${renderCourseSequence(unit)}
+        <section class="course-lessons">
+          ${unit.lessons.map((lesson, index) => renderCourseLesson(lesson, index, unit)).join("")}
+        </section>
+        ${renderCourseAssignment(unit)}
+        <section class="section-card course-evidence">
+          <div class="section-title">
+            <h3>Evidence Notes</h3>
+            <span class="pill">localStorage</span>
+          </div>
+          <textarea class="note-box" data-action="save-evidence" data-unit-id="${unit.id}" placeholder="Paste repo links, commit hashes, blockers, review notes, or questions for this unit.">${escapeHtml(
+            state.evidence[unit.id] || "",
+          )}</textarea>
+        </section>
+      </article>
+    </section>
+  `;
+}
+
+function renderCourseSequence(unit) {
+  const items = [
+    ...unit.lessons.map((lesson) => ({
+      id: lesson.id,
+      label: lesson.type,
+      title: lesson.title,
+      done: Boolean(state.done[lesson.id]),
+    })),
+    {
+      id: unit.assignment.id,
+      label: "Gate",
+      title: unit.assignment.title,
+      done: Boolean(state.done[unit.assignment.id]),
+    },
+  ];
+
+  return `
+    <nav class="course-sequence" aria-label="Unit sequence">
+      ${items
+        .map(
+          (item) => `
+            <a class="${item.done ? "is-done" : ""}" href="#${escapeHtml(item.id)}">
+              <span>${escapeHtml(item.label)}</span>
+              <strong>${escapeHtml(item.title)}</strong>
+            </a>
+          `,
+        )
+        .join("")}
+    </nav>
+  `;
+}
+
+function renderCourseLesson(lesson, index, unit) {
+  return `
+    <article class="course-lesson" id="${escapeHtml(lesson.id)}">
+      <div class="course-lesson-head">
+        <div>
+          <p class="eyebrow">${escapeHtml(lesson.type)}</p>
+          <h3>${escapeHtml(lesson.title)}</h3>
+        </div>
+        <label class="step-toggle">
+          <input type="checkbox" data-action="toggle-done" data-id="${lesson.id}" ${state.done[lesson.id] ? "checked" : ""} />
+          Done
+        </label>
+      </div>
+      <p>${escapeHtml(lesson.objective)}</p>
+      <div class="course-resource-directives">
+        <strong>Use These Resources Exactly Here</strong>
+        ${lesson.resources.map(renderCourseResourceDirective).join("")}
+      </div>
+      <div class="course-work-grid">
+        <div>
+          <strong>Lab</strong>
+          ${renderOrderedList(lesson.lab)}
+        </div>
+        <div>
+          <strong>Evidence To Produce</strong>
+          ${renderBulletList(lesson.evidence)}
+          <strong>Done When</strong>
+          ${renderBulletList(lesson.doneWhen)}
+        </div>
+      </div>
+      ${renderCourseNextStep(unit, index)}
+    </article>
+  `;
+}
+
+function renderCourseResourceDirective(resourceDirective) {
+  const resource = resourceDirective.resourceId ? getResource(resourceDirective.resourceId) : null;
+  const label = resourceDirective.label || resource?.name || "Resource";
+  const url = resourceDirective.url || resource?.url || "#";
+  const linkMarkup =
+    url === "#"
+      ? `<strong>${escapeHtml(label)}</strong>`
+      : `<a href="${escapeHtml(url)}" target="_blank" rel="noreferrer">
+          <span>${escapeHtml(label)}</span>
+          <i data-lucide="external-link"></i>
+        </a>`;
+  return `
+    <div class="course-resource-directive">
+      ${linkMarkup}
+      <p>${escapeHtml(resourceDirective.instruction)}</p>
+    </div>
+  `;
+}
+
+function renderCourseAssignment(unit) {
+  const assignment = unit.assignment;
+  return `
+    <section class="course-assignment" id="${escapeHtml(assignment.id)}">
+      <div class="course-assignment-head">
+        <div>
+          <p class="eyebrow">Assignment Gate</p>
+          <h3>${escapeHtml(assignment.title)}</h3>
+        </div>
+        <label class="step-toggle">
+          <input type="checkbox" data-action="toggle-done" data-id="${assignment.id}" ${state.done[assignment.id] ? "checked" : ""} />
+          Complete
+        </label>
+      </div>
+      <p>${escapeHtml(assignment.brief)}</p>
+      <div class="course-work-grid">
+        <div>
+          <strong>Files Required</strong>
+          ${renderFileList(assignment.files)}
+        </div>
+        <div>
+          <strong>Requirements</strong>
+          ${renderBulletList(assignment.requirements)}
+          <strong>Rubric</strong>
+          ${renderBulletList(assignment.rubric)}
+        </div>
+      </div>
+      ${renderNextUnitLink(unit)}
+    </section>
+  `;
+}
+
+function renderCourseNextStep(unit, index) {
+  const nextLesson = unit.lessons[index + 1];
+  const target = nextLesson || unit.assignment;
+  const label = nextLesson ? nextLesson.type : "Assignment Gate";
+  return `
+    <div class="course-next">
+      <span>Next</span>
+      <a href="#${escapeHtml(target.id)}">${escapeHtml(label)}: ${escapeHtml(target.title)}</a>
+    </div>
+  `;
+}
+
+function renderNextUnitLink(unit) {
+  const index = courseUnits.findIndex((item) => item.id === unit.id);
+  const nextUnit = courseUnits[index + 1];
+  if (!nextUnit) {
+    return `
+      <div class="course-next">
+        <span>After this gate</span>
+        <strong>Portfolio packaging is complete when the projects are review-ready.</strong>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="course-next">
+      <span>After this gate</span>
+      <button type="button" data-action="select-course-unit" data-unit-id="${nextUnit.id}">
+        Open ${escapeHtml(nextUnit.id.replace("unit-", "Unit "))}: ${escapeHtml(nextUnit.title)}
+      </button>
+    </div>
+  `;
+}
+
+function renderOrderedList(items) {
+  return `<ol>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>`;
+}
+
+function renderFileList(items) {
+  return `<ul class="file-list">${items.map((item) => `<li><code>${escapeHtml(item)}</code></li>`).join("")}</ul>`;
 }
 
 function renderRoadmapView(phase) {
@@ -3146,6 +4283,15 @@ app.addEventListener("click", (event) => {
     render();
   }
 
+  if (action === "select-course-unit") {
+    state.selectedCourseUnitId = button.dataset.unitId;
+    const unit = courseUnitById(state.selectedCourseUnitId);
+    state.selectedPhaseId = unit.phaseIds[0] || state.selectedPhaseId;
+    state.view = "course";
+    saveState();
+    render();
+  }
+
   if (action === "set-view") {
     state.view = button.dataset.view;
     saveState();
@@ -3224,6 +4370,11 @@ app.addEventListener("input", (event) => {
     saveState();
   }
 
+  if (control.dataset.action === "save-evidence") {
+    state.evidence[control.dataset.unitId] = control.value;
+    saveState();
+  }
+
   if (control.dataset.action === "search") {
     state.query = control.value;
     saveState();
@@ -3266,8 +4417,10 @@ importFile.addEventListener("change", async (event) => {
     state = {
       ...defaultState,
       ...incoming,
+      appVersion: APP_VERSION,
       done: incoming.done || {},
       notes: incoming.notes || {},
+      evidence: incoming.evidence || {},
       customLinks: Array.isArray(incoming.customLinks) ? incoming.customLinks : [],
     };
     saveState();

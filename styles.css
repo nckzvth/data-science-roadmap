@@ -286,6 +286,10 @@ h1 {
   font-size: 0.76rem;
 }
 
+.course-nav-button .phase-nav-copy strong {
+  white-space: normal;
+}
+
 .mini-progress {
   height: 6px;
   overflow: hidden;
@@ -435,6 +439,7 @@ h1 {
 }
 
 .phase-panel,
+.course-panel,
 .library-panel,
 .projects-panel,
 .planner-panel,
@@ -445,6 +450,10 @@ h1 {
 
 .phase-card,
 .section-card,
+.course-lesson,
+.course-assignment,
+.course-gate,
+.course-unit-header,
 .resource-card,
 .project-card,
 .month-card,
@@ -456,6 +465,266 @@ h1 {
 
 .phase-card {
   overflow: hidden;
+}
+
+.course-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.34fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.course-unit-detail {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.course-unit-detail > *,
+.course-lessons,
+.course-lesson,
+.course-assignment,
+.course-gate,
+.course-unit-header {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.course-unit-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+  background:
+    linear-gradient(135deg, rgba(34, 109, 104, 0.1), rgba(138, 90, 18, 0.08)),
+    var(--surface);
+}
+
+.course-unit-header h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 2.1rem);
+  line-height: 1.1;
+}
+
+.course-unit-header p,
+.course-gate p,
+.course-lesson > p,
+.course-assignment > p,
+.course-resource-directive p {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.course-gate {
+  padding: 14px 16px;
+  border-color: rgba(34, 109, 104, 0.28);
+  background: var(--accent-soft);
+}
+
+.course-sequence {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.course-sequence a {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.course-sequence a:hover,
+.course-sequence a.is-done {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.course-sequence span,
+.course-next span {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.course-sequence strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.86rem;
+  line-height: 1.25;
+}
+
+.course-gate > strong,
+.course-resource-directives > strong,
+.course-work-grid strong {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.course-lessons {
+  display: grid;
+  gap: 14px;
+}
+
+.course-lesson,
+.course-assignment {
+  display: grid;
+  gap: 13px;
+  padding: 16px;
+}
+
+.course-lesson-head,
+.course-assignment-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.course-lesson-head h3,
+.course-assignment-head h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.course-resource-directives {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.course-resource-directive {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.course-resource-directive a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--accent-2);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.course-resource-directive a span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.course-resource-directive > strong {
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.course-resource-directive a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.course-resource-directive svg {
+  width: 15px;
+  height: 15px;
+}
+
+.course-work-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.86fr);
+  gap: 18px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.course-work-grid > div {
+  min-width: 0;
+}
+
+.course-work-grid ol,
+.course-work-grid ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.course-work-grid li + li {
+  margin-top: 6px;
+}
+
+.course-next {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.course-next a,
+.course-next button,
+.course-next strong {
+  min-width: 0;
+  color: var(--accent-2);
+  font-size: 0.9rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.course-next button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: right;
+}
+
+.course-next a:hover,
+.course-next button:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.file-list code {
+  color: var(--ink);
+  font-size: 0.84rem;
+  overflow-wrap: anywhere;
+}
+
+.course-evidence {
+  display: grid;
+  gap: 0;
 }
 
 .phase-banner {
@@ -1514,6 +1783,10 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .course-layout {
+    grid-template-columns: 1fr;
+  }
+
   .project-workspace {
     grid-template-columns: 1fr;
   }
@@ -1566,6 +1839,20 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .course-sequence {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .course-work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .course-unit-header,
+  .course-lesson-head,
+  .course-assignment-head {
+    flex-direction: column;
+  }
+
   .briefing-grid,
   .spec-grid {
     grid-template-columns: 1fr;
@@ -1606,6 +1893,19 @@ h1 {
 
   .phase-nav-button {
     min-width: 0;
+  }
+
+  .course-sequence {
+    grid-template-columns: 1fr;
+  }
+
+  .course-next {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .course-next button {
+    text-align: left;
   }
 
   .phase-banner {

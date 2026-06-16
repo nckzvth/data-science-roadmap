@@ -1,18 +1,19 @@
-# Data Science Roadmap LMS
+# Data Science Course Workspace
 
-Static personal LMS for tracking a one-year data science, analytics engineering, data engineering, ML engineering, and MLOps roadmap.
+Static personal LMS for working through a one-year data science, analytics engineering, data engineering, ML engineering, and MLOps course path.
 
 ## What It Does
 
-- Tracks phase outcomes, resources, and deliverables in `localStorage`
-- Keeps roadmap materials in one searchable resource library
-- Adds per-phase notes and custom saved links
+- Organizes the path as course units with lessons, labs, assignment gates, required files, rubrics, and evidence notes
+- Tracks course, phase, resource, and deliverable progress in `localStorage`
+- Keeps materials in one searchable resource library
+- Adds per-unit evidence notes, per-phase notes, and custom saved links
 - Exports/imports progress as JSON
 - Runs as a static site, so it can be hosted on GitHub Pages without a local dev server
 
-## Roadmap Positioning
+## Course Positioning
 
-The roadmap is built around this sequence:
+The course is built around this sequence:
 
 1. Technical workflow setup
 2. Python and CS foundation
@@ -30,7 +31,7 @@ The app treats People Analytics as the anchor project, then adds a non-HR transf
 
 ## Accuracy Notes
 
-Resource availability and cohort timing can change. The roadmap includes notes verified against official sources on 2026-06-16 for the major time-sensitive items:
+Resource availability and cohort timing can change. The course includes notes verified against official sources on 2026-06-16 for the major time-sensitive items:
 
 - HarvardX data science audit access may have free-audit limitations.
 - DataTalks.Club courses are usable self-paced, while live cohorts and certificates depend on current course timing.
@@ -56,4 +57,3 @@ This project is static. To host it:
 1. Push the repository to GitHub.
 2. Enable GitHub Pages from the repository settings.
 3. Use the main branch and root folder as the Pages source.
-
